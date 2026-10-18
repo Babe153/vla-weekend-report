@@ -1,0 +1,22 @@
+[
+  {
+    "file": "rt2-method.png",
+    "url": "https://arxiv.org/html/2307.15818v1/rt2_teaser.png",
+    "credit": "RT-2, Figure 1"
+  },
+  {
+    "file": "openvla-method.png",
+    "url": "https://arxiv.org/html/2406.09246v3/openvla_model.png",
+    "credit": "OpenVLA, Figure 2"
+  },
+  {
+    "file": "pi0-method.png",
+    "url": "https://arxiv.org/html/2410.24164v4/overview.png",
+    "credit": "pi0, Figure 3"
+  },
+  {
+    "file": "pi0-tasks.jpg",
+    "url": "https://arxiv.org/html/2410.24164v4/figures/fig2_final.jpeg",
+    "credit": "pi0, Figure 2"
+  }
+]
