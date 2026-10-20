@@ -4,6 +4,9 @@
 
 ## 查看
 
+- 新增 **[14篇论文中文速读手册](https://babe153.github.io/vla-weekend-report/reading/)**：五行笔记、中文对比、论文关系与易混点。支持手机逐项对比、关键词搜索、角色筛选、折叠阅读及浏览器本地已读进度。
+- `reading/notes.md` 是速读手册的内容来源；构建时生成静态 HTML，无需浏览器请求 Markdown 或第三方脚本。
+
 - 桌面默认逐页演示，方向键翻页。支持全屏、目录、讲稿与连续阅读切换。
 - 手机自动使用连续阅读，表格改为逐项展示。点击原论文方法图可以放大。
 - `?notes=1` 打开纯讲稿阅读版，可通过浏览器打印为讲稿 PDF。
@@ -12,6 +15,11 @@
 - 浏览器“打印”可导出演示 PDF。交互图像放大、导航不进入打印内容。
 
 ## 编辑
+
+- `reading/notes.md`：14篇论文的五行笔记、证据图表页码与版本来源。
+- `scripts/build-reading.mjs`：将 Markdown 构建为 `reading/index.html`，并发布到 `dist/reading/`。
+- `reading/reading.css`、`reading/reading.js`：速读手册的手机布局和本地阅读交互。
+- `scripts/vendor/marked.mjs`：固定版本 Marked 17.0.5；许可证见同目录 `marked-LICENSE.md`。
 
 - `content.js`：幻灯片正文、讲稿和书目信息。
 - `styles.css`：桌面、手机及打印样式。

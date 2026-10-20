@@ -18,4 +18,5 @@ const dist=path.join(root,'dist');await mkdir(dist,{recursive:true});
 for(const file of ['index.html','styles.css','app.js','content.js','speaker-notes.md'])await copyFile(path.join(root,file),path.join(dist,file));
 await cp(path.join(root,'assets'),path.join(dist,'assets'),{recursive:true});
 await writeFile(path.join(dist,'.nojekyll'),'');
+await import('./build-reading.mjs');
 console.log(`Prepared ${report.slides.length} slides, speaker notes, and dist/.`);
