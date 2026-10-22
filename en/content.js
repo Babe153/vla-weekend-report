@@ -1,7 +1,7 @@
-/* English slide content and speaker notes. */
+/* Literature report content and speaker notes. */
 window.REPORT = {
-  "title": "VLA: From the Literature to a Research Question",
-  "subtitle": "22 papers · Six themes · Methods, limitations and topic selection",
+  "title": "VLA Literature: Models, Methods and Evaluation",
+  "subtitle": "22 papers · Six themes · Methods and capability boundaries",
   "date": "22 October 2026",
   "papers": [
     {
@@ -214,8 +214,8 @@ window.REPORT = {
         "openvla",
         "pi0"
       ],
-      "body": "<div class=\"cover-copy\"><p class=\"eyebrow\">ROBOT LEARNING · LITERATURE REPORT</p><h1>VLA<span>Vision-Language-Action Models</span></h1><p class=\"cover-sub\">From foundational models to a testable research question</p><p class=\"cover-focus\">22-paper map · Focus: RT-2, OpenVLA and π₀</p><p class=\"cover-meta\">Updated 22 October 2026<br>About 25 minutes · Speaker notes and thematic index</p></div><figure class=\"cover-figure\"><img src=\"../assets/pi0-tasks.jpg\" alt=\"A bimanual robot folding clothing in the π₀ paper\" width=\"1200\" height=\"700\"><figcaption>π₀, Figure 2 · Image belongs to the original authors</figcaption></figure>",
-      "notes": "This report expands the original eight-paper selection into a map of twenty-two papers. I organize them into models, actions and adaptation, data, evaluation, and the phase-related and robustness work most relevant to topic selection. RT-2, OpenVLA and π₀ remain the main examples. The final section explains how recent related work changes the assessment of phase-directed visual augmentation. The eight additions have been located through their original abstracts; their full methods, ablations and code still require close reading. No new experimental results are presented here."
+      "body": "<div class=\"cover-copy\"><p class=\"eyebrow\">ROBOT LEARNING · LITERATURE REPORT</p><h1>VLA<span>Vision-Language-Action Models</span></h1><p class=\"cover-sub\">A literature map of models, methods and evaluation</p><p class=\"cover-focus\">22-paper map · Focus: RT-2, OpenVLA and π₀</p><p class=\"cover-meta\">Updated 22 October 2026<br>About 22 minutes · Speaker notes and thematic index</p></div><figure class=\"cover-figure\"><img src=\"../assets/pi0-tasks.jpg\" alt=\"A bimanual robot folding clothing in the π₀ paper\" width=\"1200\" height=\"700\"><figcaption>π₀, Figure 2 · Image belongs to the original authors</figcaption></figure>",
+      "notes": "This report organizes twenty-two VLA and related papers into six themes: generalist policies, data foundations, actions and adaptation, evaluation, phases and training resources, and robustness diagnostics. RT-2, OpenVLA and π₀ are the main examples. OpenVLA-OFT and the related phase and robustness papers provide additional context. The emphasis is on what each paper addresses, its method, supporting evidence and limitations. The eight additions are based on original abstracts; detailed methods and experiments remain to be checked against the full texts. No new experimental results are presented."
     },
     {
       "section": "Background",
@@ -240,7 +240,7 @@ window.REPORT = {
         "strong"
       ],
       "body": "<div class=\"table-wrap\"><table><thead><tr><th>Theme</th><th>Papers</th><th>Question</th></tr></thead><tbody><tr><td>A · Generalist policies · 6</td><td>RT-2, OpenVLA, π₀, Octo, π₀.₅, SmolVLA</td><td>How does visual-language knowledge inform actions?</td></tr><tr><td>B · Data foundations · 1</td><td>Open X-Embodiment / RT-X</td><td>Where does experience come from, and can it transfer?</td></tr><tr><td>C · Actions and adaptation · 5</td><td>ACT, Diffusion Policy, FAST, OpenVLA-OFT, LoRA</td><td>How are actions generated and parameters adapted?</td></tr><tr><td>D · Evaluation · 2</td><td>LIBERO, LIBERO-Plus</td><td>What counts as success and robustness?</td></tr><tr><td>E · Phases and training resources · 4</td><td>Long-VLA, EGR, FrameSkip, PHASER</td><td>Which moments or sensors deserve which intervention?</td></tr><tr><td>F · Robustness and diagnostics · 4</td><td>STRONG-VLA, MAIL-Bench / MINT, View Collapse, CARE</td><td>Why do policies fail, and what explains apparent gains?</td></tr></tbody></table></div><p class=\"small\">These are reading categories, not mutually exclusive model families. Groups E/F are abstract-level additions; full-text and code details remain to be checked.</p>",
-      "notes": "The first four groups contain the fourteen papers in the original reading package. They establish the distinction between policies, data, action generation and evaluation. The final two groups contain eight additions that help assess whether the proposed topic overlaps with existing work. EGR is not explicitly organized around task phases; I place it in the training-resource group because it also conditions an intervention on task relevance. These categories are a reading index, not a claim that the methods are equivalent. The companion handbook provides five-line notes and source links for every paper.",
+      "notes": "The first four groups establish the distinction between policies, data, action generation and evaluation. The last two groups introduce phase-related training methods and robustness diagnostics. EGR uses per-frame, per-sensor task evidence rather than the same explicit phase labels as Long-VLA. These categories are a reading index, not a claim that the methods are equivalent. The companion handbook provides five-line notes, fixed source versions and original links for each paper. Comparisons distinguish the methods’ objectives and evaluation settings.",
       "time": "1:00"
     },
     {
@@ -301,7 +301,7 @@ window.REPORT = {
       ],
       "source": "§5.1; §6",
       "body": "<div class=\"highlight\"><strong>+16.5 percentage points</strong><p>Absolute success-rate gain over RT-2-X (55B) in the authors’ 29-task evaluation.</p></div><div class=\"columns\"><div><h3>What this result suggests</h3><p>Under that protocol, data and training design can help a smaller model perform better.</p></div><div><h3>Limits of the original version</h3><ul><li>Single-image input; no explicit observation history or proprioception.</li><li>Sequential token decoding limits high-frequency tasks.</li><li>Reliability remains insufficient for universal control.</li></ul></div></div><p class=\"small\">The comparator is RT-2-X. This does not establish superiority over every RT-2 system in every setting.</p>",
-      "notes": "The headline comparison is an absolute success-rate gain of 16.5 percentage points over RT-2-X across twenty-nine tasks. Models, data and components differ, so the entire gain cannot be attributed to a single architectural choice. Nor does it imply that smaller models are always better. The original version supports a single image and remains constrained on high-frequency and dexterous control. These statements concern the original paper, not every later extension. Later work may already address part of the limitation; topic selection requires checking those extensions."
+      "notes": "The headline comparison is an absolute success-rate gain of 16.5 percentage points over RT-2-X across twenty-nine tasks. Models, data and components differ, so the entire gain cannot be attributed to a single architectural choice. Nor does it imply that smaller models are always better. The original version supports a single image and remains constrained on high-frequency and dexterous control. These statements concern the original paper, not every later extension. Later work may already address part of the limitation, so the original model and its extensions must be distinguished."
     },
     {
       "section": "π₀",
@@ -359,8 +359,8 @@ window.REPORT = {
         "oxe",
         "octo"
       ],
-      "body": "<div class=\"columns\"><div><p class=\"eyebrow\">OPEN X-EMBODIMENT</p><h3>Organize experience across robots</h3><p>Standardized data and RT-X experiments demonstrate positive transfer.</p><p class=\"question\">Question: how do action semantics and mixture weights affect transfer?</p></div><div><p class=\"eyebrow\">OCTO</p><h3>Keep room for adaptation</h3><p>Pretrain on about 800k trajectories; use a diffusion policy with flexible task and observation interfaces.</p><p class=\"question\">Question: how much data is needed for a new interface?</p></div></div><p class=\"takeaway\">Matching file formats does not resolve differences in control semantics or task distributions.</p>",
-      "notes": "OXE supports shared experience across institutions and robots, rather than simply collecting files. RT-X provides evidence for positive cross-robot transfer. Octo builds a generalist policy with flexible observation and action interfaces and a diffusion decoder. It also shows that language conditioning does not necessarily imply a large generative VLM backbone. For research, standardized data is only a starting point: coordinate systems, sampling frequencies, action meanings and mixture weights can still change transfer outcomes."
+      "body": "<div class=\"columns\"><div><p class=\"eyebrow\">OPEN X-EMBODIMENT</p><h3>Organize experience across robots</h3><p>Standardized data and RT-X experiments demonstrate positive transfer.</p><p class=\"question\">Focus: how do action semantics and mixture weights affect transfer?</p></div><div><p class=\"eyebrow\">OCTO</p><h3>Keep room for adaptation</h3><p>Pretrain on about 800k trajectories; use a diffusion policy with flexible task and observation interfaces.</p><p class=\"question\">Focus: how much data is needed for a new interface?</p></div></div><p class=\"takeaway\">Matching file formats does not resolve differences in control semantics or task distributions.</p>",
+      "notes": "OXE supports shared experience across institutions and robots, rather than simply collecting files. RT-X provides evidence for positive cross-robot transfer. Octo builds a generalist policy with flexible observation and action interfaces and a diffusion decoder. It also shows that language conditioning does not necessarily imply a large generative VLM backbone. Standardized data is only a starting point: coordinate systems, sampling frequencies, action meanings and mixture weights can still change transfer outcomes."
     },
     {
       "section": "Efficiency",
@@ -404,7 +404,7 @@ window.REPORT = {
         "lora"
       ],
       "body": "<p class=\"lead\">Adapt OpenVLA using continuous actions, parallel decoding and action chunks.</p><dl class=\"terms\"><div><dt>Output</dt><dd>A continuous future chunk; a typical LIBERO configuration uses 8 steps.</dd></div><div><dt>Objective</dt><dd>L1 regression, rather than original action-token cross-entropy.</dd></div><div><dt>Inputs and adaptation</dt><dd>Configurations can include multiple cameras and proprioception; LoRA supports adaptation.</dd></div><div><dt>Trade-off</dt><dd>Direct regression is simpler, but complex multimodal behavior still needs investigation.</dd></div></dl><p class=\"small\">Read Tables I/II (p.6) and IV (p.17). Interpret speed and success within the same protocol.</p>",
-      "notes": "OFT is a study of how to adapt OpenVLA effectively, not a new giant model trained from scratch. Its recipe combines continuous action representation, parallel prediction, chunking and an L1 objective. Unlike π₀’s flow generator, it can directly regress the action chunk. It is a practical candidate baseline because the implementation and interfaces are public. Reported success rates still depend on data and evaluation settings. A reproducible run must restore the action head, proprioception modules, processor and statistics along with the adapted model; loading only LoRA weights is insufficient.",
+      "notes": "OFT is a study of how to adapt OpenVLA effectively, not a new giant model trained from scratch. Its recipe combines continuous action representation, parallel prediction, chunking and an L1 objective. Unlike π₀’s flow generator, it can directly regress the action chunk. Its public implementation makes the adaptation recipe inspectable. Reported success rates still depend on data and evaluation settings. A reproducible run must restore the action head, proprioception modules, processor and statistics along with the adapted model; loading only LoRA weights is insufficient.",
       "time": "1:00"
     },
     {
@@ -416,99 +416,55 @@ window.REPORT = {
         "oft"
       ],
       "body": "<div class=\"table-wrap\"><table><thead><tr><th>Layer</th><th>Hold fixed</th><th>Report</th></tr></thead><tbody><tr><td>Task success</td><td>Tasks, initial states and termination</td><td>Successes / trials per task</td></tr><tr><td>Robustness</td><td>Camera, corruption, strength and timing</td><td>Clean and perturbed results</td></tr><tr><td>Execution</td><td>Replanning, chunk size and executed prefix</td><td>Latency and control/observation failures</td></tr><tr><td>Statistics</td><td>Paired initial states and training seeds</td><td>Task/seed variation and uncertainty</td></tr></tbody></table></div><p class=\"takeaway\">Distinguish lifelong-learning metrics, later closed-loop success rates and partial-progress scores.</p>",
-      "notes": "LIBERO supplies tasks, demonstrations and evaluation tools, and the original paper studies lifelong learning and knowledge transfer. Later VLA work often uses closed-loop success rates from the same environment, so the exact protocol must be stated. LIBERO-Plus extends diagnosis to distribution shifts. A first experiment need not reproduce every shift, but it must keep execution settings fixed and report both clean and perturbed performance. Continuing from an OFT checkpoint already adapted to LIBERO studies robust re-adaptation, not automatically few-shot learning on unseen tasks.",
+      "notes": "LIBERO supplies tasks, demonstrations and evaluation tools, and the original paper studies lifelong learning and knowledge transfer. Later VLA work often reports closed-loop success rates using the same environment; that protocol differs from lifelong-learning metrics. LIBERO-Plus extends diagnosis to distribution shifts. Task identities, initial states, camera configuration, corruption and executed action prefixes are all part of interpreting a result. A checkpoint already adapted to LIBERO also differs from few-shot adaptation to unseen tasks.",
       "time": "1:00"
     },
     {
-      "section": "Closest related work",
-      "title": "Four close neighbors: where is the overlap?",
+      "section": "Phases and training resources",
+      "title": "Four papers on phases and training resources",
       "refs": [
         "longvla",
         "egr",
         "frameskip",
         "phaser"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Work</th><th>Intervention</th><th>Overlap with the candidate</th></tr></thead><tbody><tr><td>Long-VLA</td><td>Phase-aware input masking</td><td>Phase determines relevant sensory cues</td></tr><tr><td>EGR</td><td>Evidence-gated regularization</td><td>Diagnose relevance, then condition training</td></tr><tr><td>FrameSkip</td><td>Important-frame selection</td><td>Gripper transitions, critical moments and budget</td></tr><tr><td>PHASER</td><td>Phase-based replay in continual learning</td><td>Allocate limited resources across phases</td></tr></tbody></table></div><p class=\"takeaway\">Phase-dependent importance already has precedents. Exact algorithmic overlap still requires full-text comparison.</p>",
-      "notes": "This is the key slide for topic selection. Long-VLA directly applies phase-aware input masking and is the closest input-intervention neighbor. EGR gates consistency objectives using task evidence for each frame and sensor. FrameSkip emphasizes important moments and gripper transitions. PHASER reallocates replay resources across phases during continual learning. Therefore, phase awareness alone cannot be claimed as the innovation. These abstracts do not establish that the exact blur-augmentation proposal has already been implemented. We still need to compare full methods, settings and costs before deciding whether a meaningful distinction exists.",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Paper</th><th>Intervention</th><th>Main problem</th></tr></thead><tbody><tr><td>Long-VLA</td><td>Phase-aware input masking</td><td>Sensory relevance and long-horizon skill chaining</td></tr><tr><td>EGR</td><td>Evidence-gated regularization</td><td>Spurious multi-sensor correlations and robustness</td></tr><tr><td>FrameSkip</td><td>Important-frame selection</td><td>Imbalanced supervision in dense trajectories</td></tr><tr><td>PHASER</td><td>Phase-based continual-learning replay</td><td>Forgetting of brief critical phases</td></tr></tbody></table></div><p class=\"takeaway\">Inputs, objectives, sample selection and replay are distinct intervention points.</p>",
+      "notes": "These papers select information or allocate training resources at different points. Long-VLA masks inputs according to phases in long-horizon tasks. EGR gates consistency objectives using relevance evidence for each frame and sensor. FrameSkip selects informative frames in the data loader. PHASER allocates historical replay across phases during continual learning. The comparison therefore distinguishes input intervention, objective design, sampling and replay, as well as their different problem settings: long-horizon control, multimodal robustness and forgetting.",
       "time": "1:20"
     },
     {
-      "section": "Closest related work",
-      "title": "Read Long-VLA and EGR first",
+      "section": "Phases and training resources",
+      "title": "Long-VLA and EGR: inputs versus objectives",
       "refs": [
         "longvla",
         "egr"
       ],
-      "body": "<div class=\"columns\"><div><h3>Long-VLA · phase-aware inputs</h3><p>Moving / interaction phases → input masking → long-horizon skill chaining.</p><p class=\"question\">Check phase labels, masked inputs and inference-time requirements.</p></div><div><h3>EGR · evidence-gated training</h3><p>Sensor relevance → invariance / single-sensor sufficiency objectives.</p><p class=\"question\">Check evidence estimation, training cost and multi-view mechanisms.</p></div></div><p class=\"small\">Long-VLA’s arXiv page states CoRL 2025 acceptance. EGR is listed as a preprint. This is abstract-level positioning.</p>",
-      "notes": "I would read these two papers before renting a GPU for a training matrix. For Long-VLA, I need the precise phase definition, where masking is applied and what is required during inference. For EGR, I need to know whether estimating relevance requires additional models or forward passes and how the two regularizers are computed. Only after understanding the real costs and limitations can we propose a useful simplification. If an existing method already addresses the same issue at low cost, replacing masking with blur is not a convincing new contribution.",
+      "body": "<div class=\"columns\"><div><h3>Long-VLA · phase-aware masking</h3><p>Moving / interaction phases → relevant sensory cues → long-horizon skill chaining.</p><p class=\"small\">Key dimensions: phase definition, input selection and subtask compatibility.</p></div><div><h3>EGR · evidence-gated regularization</h3><p>Sensor relevance → invariance / single-sensor sufficiency objectives.</p><p class=\"small\">Key dimensions: relevance estimates, sensor conditions and consistency objectives.</p></div></div><p class=\"small\">Long-VLA’s arXiv page states CoRL 2025 acceptance; EGR is listed as a preprint. This is abstract-level positioning.</p>",
+      "notes": "Both methods address which sensory information is useful, but they intervene differently. Long-VLA uses moving and interaction phases to organize input masking for long-horizon skill chaining. EGR gates training objectives using sensor evidence: invariance for low-evidence sensors and single-sensor sufficiency for high-evidence sensors. These are not interchangeable phase algorithms. The slide summarizes only the method positioning supported by the original abstracts. Equations, implementation details and ablations should be interpreted through the full papers.",
       "time": "1:00"
     },
     {
-      "section": "Closest related work",
-      "title": "FrameSkip and PHASER: resource allocation is established",
+      "section": "Phases and training resources",
+      "title": "FrameSkip and PHASER: sampling versus replay",
       "refs": [
         "frameskip",
         "phaser"
       ],
-      "body": "<div class=\"columns\"><div><h3>FrameSkip · which frames to train on</h3><ul><li>Action variation and visual-action coherence.</li><li>Progress priors and gripper-transition preservation.</li><li>Selection in the data loader.</li></ul></div><div><h3>PHASER · which phases to replay</h3><ul><li>Support brief critical phases.</li><li>Prioritize phases at risk of forgetting.</li><li>Action change points with VLM verification.</li></ul></div></div><p class=\"takeaway\">Matching examples, augmentation events and update steps is a fairness condition, not a standalone innovation.</p>",
-      "notes": "These methods intervene differently, but both redistribute limited training resources in time. FrameSkip selects informative frames; PHASER manages replay during continual learning. Forgetting in the latter setting is not equivalent to robustness adaptation in one training stage. Nevertheless, the papers show that critical events and phase-aware resource allocation are established ideas. Our comparison would need a simple event-based rule as well as uniform augmentation. Matching total training and augmentation budgets makes the experiment interpretable, but does not itself create an algorithmic contribution.",
+      "body": "<div class=\"columns\"><div><h3>FrameSkip · which frames to train on</h3><ul><li>Action variation and visual-action coherence.</li><li>Progress priors and gripper-transition preservation.</li><li>Selection in the data loader.</li></ul></div><div><h3>PHASER · which phases to replay</h3><ul><li>Support brief critical phases.</li><li>Prioritize phases at risk of forgetting.</li><li>Action change points with VLM verification.</li></ul></div></div><p class=\"takeaway\">FrameSkip changes training-frame selection; PHASER changes replay allocation in continual learning.</p>",
+      "notes": "FrameSkip and PHASER both address uneven information across trajectories, but their learning settings differ. FrameSkip scores and selects frames using action variation, visual-action coherence, progress priors and gripper transitions. It operates in the data loader. PHASER addresses continual learning, distributing replay support across phases and prioritizing forgetting risk. Frame retention and sampled-example counts matter for interpreting FrameSkip, while replay capacity and task sequence matter for PHASER. Their results should therefore be read within their respective settings.",
       "time": "1:00"
     },
     {
       "section": "Robustness and diagnostics",
-      "title": "Four checks on apparent robustness gains",
+      "title": "Four papers on robustness and diagnostics",
       "refs": [
         "strong",
         "mail",
         "viewcollapse",
         "care"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Work</th><th>Focus</th><th>Implication</th></tr></thead><tbody><tr><td>STRONG-VLA</td><td>Perturbation curriculum, then clean realignment</td><td>Compare with existing robust fine-tuning recipes</td></tr><tr><td>MAIL-Bench / MINT</td><td>Stage-dependent camera loss and view completion</td><td>Missing streams differ from brief blur</td></tr><tr><td>View Collapse</td><td>Controlled view interventions and View Swap</td><td>A policy may abandon the corrupted camera</td></tr><tr><td>CARE</td><td>Chunk-consistency-based execution length</td><td>Execution prefixes can confound augmentation gains</td></tr></tbody></table></div><p class=\"small\">Listed as 2026 preprints. Original abstracts checked; precise configurations and ablations require full-text reading.</p>",
-      "notes": "STRONG-VLA already studies robustness acquisition followed by recovery of clean-task fidelity. MAIL-Bench interrupts cameras at different stages and MINT combines missing-view training with selective view completion. View Collapse warns that apparent robustness may come from relying on the wrist camera instead of improving perception in the corrupted view. CARE shows that executed chunk length itself changes the consequences of transient corruption. If a new augmentation method improves success, controlled view interventions and fixed execution settings are needed to distinguish these mechanisms.",
-      "time": "1:00"
-    },
-    {
-      "section": "Topic assessment",
-      "title": "Phase-directed augmentation: novelty remains unconfirmed",
-      "refs": [
-        "longvla",
-        "egr",
-        "frameskip",
-        "phaser",
-        "strong"
-      ],
-      "body": "<p class=\"lead\">Current status: a candidate for practice and diagnosis; publication novelty is not established.</p><dl class=\"terms\"><div><dt>Insufficient distinctions</dt><dd>Replace masking with blur; switch to OFT; test only on LIBERO.</dd></div><div><dt>Questions worth checking</dt><dd>Cost or miscalibration of importance estimates; dependence on phase labels.</dd></div><div><dt>Continue if</dt><dd>A concrete prior limitation and a testable improvement can be identified.</dd></div><div><dt>Stop or change topic if</dt><dd>The gain is only module recombination, extra training or a view-reliance shortcut.</dd></div></dl><p class=\"small\">These are questions to investigate, not confirmed research gaps or completed findings.</p>",
-      "notes": "After the related-work check, I would downgrade phase-directed visual augmentation from the preferred publication topic to an unverified candidate. It can still teach the training and evaluation workflow, but novelty should not be promised. The next step is to identify a precise limitation of a prior method, such as estimation cost or label dependence, and test a well-defined remedy. These are only candidate questions. If close reading reveals no substantive distinction, changing topic is more sensible than keeping the same claim under a different backbone, perturbation name or dataset.",
-      "time": "1:00"
-    },
-    {
-      "section": "Minimum experiment",
-      "title": "Only after a clear distinction: a small closed-loop pilot",
-      "refs": [
-        "oft",
-        "libero",
-        "longvla",
-        "egr",
-        "viewcollapse",
-        "care"
-      ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Step</th><th>Minimum scope</th><th>Decision</th></tr></thead><tbody><tr><td>Restore baseline</td><td>One OFT checkpoint; 2 development tasks</td><td>Complete restoration and repeatable evaluation</td></tr><tr><td>Diagnose failures</td><td>Clean / blur; fixed cameras and execution prefix</td><td>A stable, interpretable failure pattern?</td></tr><tr><td>Pilot comparisons</td><td>No added blur, uniform, fixed event rule, candidate</td><td>Does it beat the simple rule?</td></tr><tr><td>Expand reporting</td><td>Separate development/report tasks; add training seeds</td><td>Clean performance, cost and closed-loop benefit</td></tr></tbody></table></div><p class=\"small\">A development pilot is a feasibility check. Small-sample gains are not confirmatory evidence.</p>",
-      "notes": "If the full-text comparison reveals a meaningful distinction, begin with a small pilot. Restore OFT correctly on two development tasks, including the action head, state inputs and evaluation configuration. Diagnose clean and blurred failures with fixed cameras and execution prefixes. Compare no extra augmentation, uniform augmentation, a fixed event rule and the candidate. Only expand tasks and training seeds if the candidate consistently improves over the simple rule without a substantial clean-performance loss. Development results are for deciding whether to invest; they are not sufficient proof of effectiveness.",
-      "time": "1:00"
-    },
-    {
-      "section": "Next steps",
-      "title": "Four weeks: verify the gap before scaling training",
-      "refs": [
-        "longvla",
-        "egr",
-        "frameskip",
-        "phaser",
-        "oft",
-        "libero"
-      ],
-      "body": "<ol class=\"numbered\"><li><strong>Week 1 · Closest work</strong><span>Read Long-VLA and EGR; record phases/evidence, interventions, labels and cost.</span></li><li><strong>Week 2 · Boundaries</strong><span>Read FrameSkip, PHASER and robustness diagnostics; make a one-page difference matrix.</span></li><li><strong>Week 3 · Baseline</strong><span>If a clear distinction exists, run OFT and two development tasks on cloud GPUs.</span></li><li><strong>Week 4 · Pilot</strong><span>Run minimum controls; stop expansion if there is no stable signal.</span></li></ol><p class=\"takeaway\">Discuss the problem and distinction with the advisor before fixing compute, submission scope and the final title.</p>",
-      "notes": "The first two weeks are intended to reduce the risk of repeating existing work. Week one focuses on the two closest methods. Week two completes the resource-allocation and diagnostic comparison and produces a one-page difference matrix. If there is no substantive distinction, change topic at that point. Only then use cloud compute in week three to establish the OFT baseline, followed by a small controlled pilot in week four. There are no new rollout results yet and no promise of acceptance. The advisor discussion should first settle whether the question is worth testing.",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Paper</th><th>Focus</th><th>Key distinction</th></tr></thead><tbody><tr><td>STRONG-VLA</td><td>Perturbation curriculum and clean realignment</td><td>Robustness acquisition versus clean execution</td></tr><tr><td>MAIL-Bench / MINT</td><td>Stage-wise camera loss and missing-view completion</td><td>Persistent missing streams versus transient corruption</td></tr><tr><td>View Collapse</td><td>View interventions and View Swap</td><td>Robust perception versus changed view reliance</td></tr><tr><td>CARE</td><td>Chunk-consistency-based execution length</td><td>Action generation versus execution</td></tr></tbody></table></div><p class=\"small\">Listed as 2026 preprints. Original abstracts checked; full texts define precise settings and ablations.</p>",
+      "notes": "These papers address robustness at different points. STRONG-VLA separates perturbation learning from clean-task realignment. MAIL-Bench evaluates camera interruptions at different task stages, and MINT combines missing-view training with selective completion. View Collapse explains that apparent robustness can reflect reliance on another camera rather than stronger perception. CARE studies executed action length under transient observation corruption. Together, the papers show why robustness results must be interpreted with their fault type, sensor dependencies, training setup and execution mechanism.",
       "time": "1:00"
     },
     {

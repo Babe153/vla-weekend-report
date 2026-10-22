@@ -1,8 +1,8 @@
-# VLA 中文文献汇报与选题核查
+# VLA 双语文献汇报与阅读手册
 
-更新于2026-10-22：22篇论文，按六类问题组织。25页主讲约25分钟，附6页参考文献，每页有中文讲稿。新增8篇为原始摘要级定位，全文及代码细节待核。
+更新于2026-10-22：22篇论文，按六类问题组织。22页主讲约22分钟，附6页参考文献，每页有中文讲稿。新增8篇为原始摘要级定位，全文及代码细节待核。
 
-- [导师汇报](https://babe153.github.io/vla-weekend-report/)：RT-2、OpenVLA、π₀主线，补充OFT、评测、最近邻及选题判断。
+- [导师汇报](https://babe153.github.io/vla-weekend-report/)：RT-2、OpenVLA、π₀主线，补充OFT、评测、阶段与鲁棒性相关工作。
 - [22篇分组速读](https://babe153.github.io/vla-weekend-report/reading/)：110条五行笔记、中文对比表、六类筛选、搜索及本地已读进度。
 - [逐页讲稿](https://babe153.github.io/vla-weekend-report/?notes=1)；也可下载 `speaker-notes.md`。
 - [English report](https://babe153.github.io/vla-weekend-report/en/) · [English reading handbook](https://babe153.github.io/vla-weekend-report/en/reading/) · [English speaker notes](https://babe153.github.io/vla-weekend-report/en/?notes=1)。两种语言顶部均有切换入口，保留当前幻灯片／论文锚点及讲稿模式；速读进度共用当前浏览器存储。
@@ -13,7 +13,7 @@ A 通用策略6篇；B 数据基础1篇；C 动作与适配5篇；D 评测2篇�
 
 保留原01–14编号和已读进度，15–22为新增论文。新增Long-VLA、EGR、FrameSkip、PHASER、STRONG-VLA、MAIL-Bench / MINT、View Collapse、CARE。
 
-当前判断：阶段定向视觉增强与前人存在明显交集，创新性未确认。文献事实、阅读判断和拟议实验分开说明，未声称复现或取得新结果。新增文献身份与阅读深度见笔记来源说明。
+本材料仅介绍论文、方法对比、能力边界及文献之间的联系。新增文献身份与阅读深度见笔记来源说明，未包含新的实验结果。
 
 ## 使用与手机布局
 

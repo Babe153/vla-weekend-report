@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f4f2ed"><meta name="description" content="22 VLA papers in English: problems, inputs and outputs, methods, evidence and limitations. A mobile-friendly reading guide and research assessment."><title>22 VLA Papers · English Reading Handbook</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../../reading/reading.css"><script src="../../reading/reading.js" defer></script><script src="../../language.js" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f4f2ed"><meta name="description" content="22 VLA papers in English: problems, inputs and outputs, methods, evidence and limitations. A mobile-friendly reading guide and method comparison."><title>22 VLA Papers · English Reading Handbook</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../../reading/reading.css"><script src="../../reading/reading.js" defer></script><script src="../../language.js" defer></script></head>
 <body><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="#top">VLA<span>Reading handbook</span></a><nav aria-label="Reading navigation"><a href="#map">Map</a><a href="#comparison">Compare</a><a href="#notes">Notes</a><a href="#pitfalls">Pitfalls</a><a href="../">Report</a><a class="reading-language" href="../../reading/" data-language-switch="../../reading/" lang="zh-CN" hreflang="zh-CN">中文</a></nav></header>
-<main id="main"><section class="hero" id="top"><p class="eyebrow">ROBOT LEARNING / READING NOTES</p><h1>22 papers.<br>From models to research.</h1><p class="hero-lead">Five questions for each paper: the problem, inputs and outputs, core change, evidence, and limits.</p><div class="hero-links"><a class="primary-link" href="#notes">Read the five-line notes <span aria-hidden="true">↗</span></a><a href="#comparison">Compare the papers</a></div><div class="hero-meta"><span>22 original papers</span><span>110 reading notes</span><span>Updated 22 Oct 2026</span></div></section>
-<aside class="reading-note"><strong>Locate, then read closely.</strong> Six themes separate models, tools, benchmarks and closest related work. The original 14 retain figure/page references; the 8 additions are abstract-level checks. Success rates across different tasks and scoring protocols are not ranked together. Page references use the fixed PDF versions listed below.</aside>
+<main id="main"><section class="hero" id="top"><p class="eyebrow">ROBOT LEARNING / READING NOTES</p><h1>22 papers.<br>Understand models and methods.</h1><p class="hero-lead">Five questions for each paper: the problem, inputs and outputs, core change, evidence, and limits.</p><div class="hero-links"><a class="primary-link" href="#notes">Read the five-line notes <span aria-hidden="true">↗</span></a><a href="#comparison">Compare the papers</a></div><div class="hero-meta"><span>22 original papers</span><span>110 reading notes</span><span>Updated 22 Oct 2026</span></div></section>
+<aside class="reading-note"><strong>Locate, then read closely.</strong> Six themes separate models, tools, benchmarks and related methods. The original 14 retain figure/page references; the 8 additions are abstract-level checks. Success rates across different tasks and scoring protocols are not ranked together. Page references use the fixed PDF versions listed below.</aside>
 <section class="chapter" id="map"><h2>1. Six themes and a reading route</h2><div class="table-wrap"><table>
 <thead>
 <tr>
@@ -43,8 +43,8 @@
 <td data-label="Core question">What causes failures and apparent gains?</td>
 </tr>
 </tbody></table></div>
-<p><strong>Advisor-report route:</strong> RT-2 → OpenVLA → π₀ → OFT → evaluation → closest work and revised topic assessment. Entries 01–14 cover foundations; 15–22 address the candidate topic. Explain mechanisms and distinctions rather than reciting every detail.</p>
-<p><strong>Read next:</strong> Long-VLA (15) → EGR (16) → FrameSkip (17) → PHASER (18) → View Collapse (21) → STRONG-VLA (19). MAIL-Bench / MINT (20) and CARE (22) add fault and execution perspectives.</p>
+<p><strong>Advisor-report route:</strong> RT-2 → OpenVLA → π₀ → OFT → evaluation → phase-related methods and robustness diagnostics. Entries 01–14 cover foundations; 15–22 cover phases and robustness. Explain mechanisms and distinctions rather than reciting every detail.</p>
+<p><strong>Phase and robustness reading route:</strong> Long-VLA (15) → EGR (16) → FrameSkip (17) → PHASER (18) → View Collapse (21) → STRONG-VLA (19). MAIL-Bench / MINT (20) and CARE (22) add fault and execution perspectives.</p>
 <p><strong>Category boundaries:</strong> EGR gates sensor evidence, FrameSkip selects frames, and PHASER addresses continual learning. Grouping them supports comparison of relevance and resource allocation; it does not imply shared phase labels. MAIL-Bench includes both a benchmark and a method and is indexed under robustness diagnostics.</p>
 </section>
 <section class="chapter" id="comparison"><h2>2. Cross-paper comparison</h2><div class="table-wrap"><table>
@@ -160,60 +160,60 @@
 <td data-label="Main role / question">Phases and training resources</td>
 <td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
 <td data-label="Action representation / output">Phase-aware input masking; L-CALVIN evaluation</td>
-<td data-label="Relationship">Closest input-intervention neighbor; replacing masking with blur is not enough.</td>
+<td data-label="Relationship">Phase-based inputs differ from EGR objective gating and FrameSkip selection.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-16">16 EGR</a></td>
 <td data-label="Main role / question">Phases and training resources</td>
 <td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
 <td data-label="Action representation / output">Evidence-gated invariance and sufficiency objectives</td>
-<td data-label="Relationship">Check whether relevance-conditioned training already supplies a stronger solution.</td>
+<td data-label="Relationship">Sensor-evidence-gated objectives differ from explicit moving/interaction masking.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-17">17 FrameSkip</a></td>
 <td data-label="Main role / question">Phases and training resources</td>
 <td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
 <td data-label="Action representation / output">Data-loader frame selection and remapping</td>
-<td data-label="Relationship">A necessary comparison for critical events and training-budget allocation.</td>
+<td data-label="Relationship">Data-loader selection differs from PHASER’s continual-learning replay.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-18">18 PHASER</a></td>
 <td data-label="Main role / question">Phases and training resources</td>
 <td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
 <td data-label="Action representation / output">Phase-balanced replay and forgetting-risk routing</td>
-<td data-label="Relationship">Phase-aware resource allocation has precedents; distinguish the learning problem.</td>
+<td data-label="Relationship">Phase replay addresses continual forgetting rather than one-stage frame selection.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-19">19 STRONG-VLA</a></td>
 <td data-label="Main role / question">Robustness and diagnostics</td>
 <td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
 <td data-label="Action representation / output">Perturbation curriculum followed by clean realignment</td>
-<td data-label="Relationship">A robust fine-tuning recipe to compare against augmentation.</td>
+<td data-label="Relationship">Training curricula and clean realignment differ from inference-time interventions.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-20">20 MAIL-Bench / MINT</a></td>
 <td data-label="Main role / question">Robustness and diagnostics</td>
 <td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
 <td data-label="Action representation / output">Stage-wise camera-loss evaluation; missing-view training and completion</td>
-<td data-label="Relationship">Reference for phase-dependent faults; keep failure mechanisms distinct.</td>
+<td data-label="Relationship">Combines camera-loss evaluation and missing-view handling; distinct from transient corruption.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-21">21 View Collapse</a></td>
 <td data-label="Main role / question">Robustness and diagnostics</td>
 <td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
 <td data-label="Action representation / output">Controlled view interventions and View Swap</td>
-<td data-label="Relationship">Detect whether gains merely reflect reliance on another camera.</td>
+<td data-label="Relationship">Separates robust perception from changed multi-view reliance through controlled interventions.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-22">22 CARE</a></td>
 <td data-label="Main role / question">Robustness and diagnostics</td>
 <td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
 <td data-label="Action representation / output">Consistency-based dynamic action execution prefix</td>
-<td data-label="Relationship">Fix execution length when attributing gains to augmentation.</td>
+<td data-label="Relationship">Adjusts action execution prefixes; distinct from training augmentation.</td>
 </tr>
 </tbody></table></div>
 </section>
-<section class="chapter" id="relationships"><h2>3. From foundational models to a candidate topic</h2><ol>
+<section class="chapter" id="relationships"><h2>3. Connections between foundational models and related methods</h2><ol>
 <li><strong>Semantics and actions: RT-2 → OpenVLA.</strong> Both use discrete action tokens. This is a methodological link, not direct inheritance of RT-2 weights.</li>
 <li><strong>Continuous generation: Diffusion Policy, Octo and π₀.</strong> The first two use diffusion; π₀ uses flow matching. Their inputs, datasets and objectives differ.</li>
 <li><strong>Open adaptation: OpenVLA → OFT, with LoRA.</strong> OFT changes representation, decoding and objectives; LoRA changes parameter updates.</li>
@@ -388,7 +388,7 @@
 <li><strong>Input → output:</strong> Multimodal observations and task conditions → phase-masked policy inputs → manipulation actions.</li>
 <li><strong>Core change:</strong> Split subtasks into moving and interaction phases, mask inputs accordingly, and introduce L-CALVIN.</li>
 <li><strong>Evidence:</strong> The abstract reports simulation and robot experiments. Read phase definitions, masking rules and ablations next; figure numbers have not been checked here.</li>
-<li><strong>Limits:</strong> Strong overlap with phase-dependent visual input intervention. Masking and blur are different, but the substantive distinction needs full-text comparison.</li>
+<li><strong>Limits:</strong> The focus is long-horizon manipulation and skill chaining; measured gains do not establish robustness to every visual fault.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-16" data-category="phase">
@@ -399,7 +399,7 @@
 <li><strong>Input → output:</strong> Per-frame, per-sensor relevance → gated consistency objectives → a robust multimodal policy.</li>
 <li><strong>Core change:</strong> Encourage invariance for low-evidence sensors and single-sensor sufficiency for high-evidence sensors, with no inference-time overhead.</li>
 <li><strong>Evidence:</strong> The abstract describes BEHAVIOR-1K diagnostics, 47 rollout skills and two robot setups. Read evidence estimation and regularization details.</li>
-<li><strong>Limits:</strong> Close to diagnosing importance before conditioning training. Sensor-evidence gating is not identical to the proposed two-phase augmentation rule.</li>
+<li><strong>Limits:</strong> The setting concerns sensor relevance and multimodal robustness, rather than explicit task-phase masking.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-17" data-category="phase">
@@ -410,7 +410,7 @@
 <li><strong>Input → output:</strong> Demonstration trajectories → frame-importance scores and selection → otherwise unchanged VLA training.</li>
 <li><strong>Core change:</strong> Combine action variation, visual-action coherence, progress priors and gripper-transition preservation in the data loader.</li>
 <li><strong>Evidence:</strong> The abstract reports RoboCasa-GR1, SimplerEnv and LIBERO. Check retained-frame ratios, total sampled examples and simple selection baselines.</li>
-<li><strong>Limits:</strong> Critical frames and gripper events are established topics. Selection differs from augmentation, but both redistribute training resources.</li>
+<li><strong>Limits:</strong> It selects training frames without changing the action head or inference. Retention ratios and sampled-example counts affect interpretation.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-18" data-category="phase">
@@ -432,7 +432,7 @@
 <li><strong>Input → output:</strong> Perturbed and clean demonstrations → two-stage fine-tuning → a robust policy.</li>
 <li><strong>Core change:</strong> First learn under increasingly difficult multimodal perturbations; then realign with clean task data. Evaluate 28 perturbation types.</li>
 <li><strong>Evidence:</strong> The abstract reports several VLA backbones on LIBERO and AIRBOT robot tests. Read the two-stage recipe and clean-performance recovery.</li>
-<li><strong>Limits:</strong> Generic perturbation augmentation is already studied. Check total updates and the extra cost of clean-task realignment.</li>
+<li><strong>Limits:</strong> Interpret total updates, perturbation distributions and clean-realignment cost through the specific two-stage configuration.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-20" data-category="robust">
@@ -443,7 +443,7 @@
 <li><strong>Input → output:</strong> Camera interruptions at different stages → closed-loop evaluation; MINT trains and selectively supplements missing views.</li>
 <li><strong>Core change:</strong> MAIL-Bench interrupts views along successful reference trajectories. MINT combines missing-view training with optical-flow/world-model completion.</li>
 <li><strong>Evidence:</strong> The abstract reports π₀.₅, GR00T N1.5 and AgiBot G2. Check interruption timing, duration and when predicted views are withdrawn.</li>
-<li><strong>Limits:</strong> Losing subsequent camera frames differs from brief blur. Stage-dependent visual interruption is itself already studied.</li>
+<li><strong>Limits:</strong> Losing subsequent camera frames differs from brief blur. Interruption duration and timing are part of the evaluation definition.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-21" data-category="robust">
@@ -508,8 +508,8 @@
 <td data-label="Correct interpretation">Binary completion differs from partial stage scores.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">Phase/relevance conditioning vs confirmed novelty</td>
-<td data-label="Correct interpretation">Related ideas exist; full comparison and experiments must establish the distinction.</td>
+<td data-label="Potential confusion">Phase inputs, evidence gating, selection and replay</td>
+<td data-label="Correct interpretation">Intervention points and learning settings differ; these are not interchangeable algorithms.</td>
 </tr>
 <tr>
 <td data-label="Potential confusion">Robustness vs stronger perception</td>
@@ -517,47 +517,7 @@
 </tr>
 </tbody></table></div>
 </section>
-<section class="chapter" id="research"><h2>6. Candidate topic: verify before committing</h2><p><strong>Do not yet treat phase-directed visual augmentation as an established contribution.</strong> Long-VLA masks phase-dependent inputs, EGR gates training by task evidence, and FrameSkip/PHASER allocate resources to important frames or phases. This does not prove that the exact proposed augmentation algorithm already exists, but neither does it establish sufficient novelty.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Neighbor</th>
-<th>What must be compared</th>
-<th>Insufficient distinction by itself</th>
-</tr>
-</thead>
-<tbody><tr>
-<td data-label="Neighbor">Long-VLA</td>
-<td data-label="What must be compared">Labels, masking location, training/inference requirements</td>
-<td data-label="Insufficient distinction by itself">Replace masking with blur</td>
-</tr>
-<tr>
-<td data-label="Neighbor">EGR</td>
-<td data-label="What must be compared">Evidence estimates, objectives, compute and annotation</td>
-<td data-label="Insufficient distinction by itself">Change the importance score</td>
-</tr>
-<tr>
-<td data-label="Neighbor">FrameSkip / PHASER</td>
-<td data-label="What must be compared">Selection/replay budgets, critical events and learning setting</td>
-<td data-label="Insufficient distinction by itself">Claim the first use of phase importance</td>
-</tr>
-<tr>
-<td data-label="Neighbor">STRONG-VLA</td>
-<td data-label="What must be compared">Curriculum, clean realignment and extra updates</td>
-<td data-label="Insufficient distinction by itself">Say “we use visual augmentation”</td>
-</tr>
-<tr>
-<td data-label="Neighbor">View Collapse / CARE</td>
-<td data-label="What must be compared">View reliance and execution prefixes</td>
-<td data-label="Insufficient distinction by itself">Report only overall perturbed success</td>
-</tr>
-</tbody></table></div>
-<p>Matching samples, augmentation counts and update steps is an experimental control, not an algorithmic contribution. A new backbone or benchmark alone is also insufficient.</p>
-<p><strong>Continue if:</strong> full-text comparison reveals a concrete prior limitation, a specific remedy and a controlled closed-loop test. Cheaper estimation, reduced labeling or a failure mechanism are questions to investigate, not pre-established gaps.</p>
-<p><strong>Minimum investment:</strong> spend one week on Long-VLA/EGR and another on a difference matrix. If a distinction remains, run OFT on two development tasks and compare no extra augmentation, uniform augmentation, a fixed event rule and the candidate. Change topic if novelty or stable benefit is absent; do not begin with the full training matrix.</p>
-</section>
-<section class="chapter" id="checklist"><h2>7. Report and reading self-check</h2><p>For the original fourteen, explain the problem, inputs/outputs, change, supporting figures and limits. For the eight additions, state the abstract-only reading depth and identify what the full text must resolve. Do not invent figure numbers or reproduction results.</p>
-<p>A suitable closing statement is: “I have mapped the foundations. New related work suggests that the original candidate’s novelty remains insufficiently established. I will compare the closest full methods before retaining or revising the topic.”</p>
+<section class="chapter" id="checklist"><h2>6. Report and reading self-check</h2><p>For the original fourteen, explain the problem, inputs/outputs, change, supporting figures and limits. For the eight additions, state the abstract-only reading depth and identify what the full text must resolve. Do not invent figure numbers or reproduction results.</p>
 <p>Source notes: links for the additions are fixed to the checked abstract versions. Long-VLA’s page states CoRL 2025 acceptance; the other additions are listed as preprints without a claim of formal acceptance. π₀ uses v4, Diffusion Policy v5 and LIBERO-Plus v3. Page numbers should not be mixed with a retitled conference version.</p>
 </section>
-<footer><p>Original papers and results belong to their authors. This English reading guide does not claim reproduction results or confirmed new contributions.</p><div class="footer-links"><a href="notes.md" download="VLA22_English_Reading_Notes.md">Download Markdown</a><a href="https://github.com/Babe153/vla-weekend-report/tree/main/en/reading">GitHub source</a><a href="../">Report and speaker notes</a><button id="print-notes" type="button">Print notes</button></div></footer></main></body></html>
+<footer><p>Original papers and results belong to their authors. This English reading guide does not present new experimental results.</p><div class="footer-links"><a href="notes.md" download="VLA22_English_Reading_Notes.md">Download Markdown</a><a href="https://github.com/Babe153/vla-weekend-report/tree/main/en/reading">GitHub source</a><a href="../">Report and speaker notes</a><button id="print-notes" type="button">Print notes</button></div></footer></main></body></html>

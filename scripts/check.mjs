@@ -8,7 +8,7 @@ const source=await readFile(path.join(root,'content.js'),'utf8');
 vm.runInNewContext(source,context);
 const {papers,slides}=context.window.REPORT;
 assert.equal(papers.length,22,'Complete 22-paper catalog required');
-assert.equal(slides.length,31,'Expected 25 main slides and 6 reference slides');
+assert.equal(slides.length,28,'Expected 22 literature slides and 6 reference slides');
 const ids=new Set(papers.map(p=>p.id));
 for(const [i,s] of slides.entries()){
   assert(s.title&&s.notes.length>70,`Slide ${i+1} needs a title and full speaker notes`);
@@ -61,4 +61,6 @@ for(const file of ['index.html','reading/index.html','en/index.html','en/reading
 }
 for(const file of ['language.js','en/index.html','en/content.js','en/speaker-notes.md','en/reading/index.html','en/reading/notes.md'])await access(path.join(root,'dist',file));
 new vm.Script(await readFile(path.join(root,'language.js'),'utf8'));
-console.log('Checked English parity: 31 slides, 22 papers, 110 reading fields, source links, translations and language navigation.');
+console.log('Checked English parity: 28 slides, 22 papers, 110 reading fields, source links, translations and language navigation.');
+const personalPlans=/候选课题|阶段定向视觉增强|选题判断|选题核查|拟议实验|接下来四周|candidate topic|phase-directed augmentation|topic selection|topic assessment|Week [1-4]/i;
+for(const [name,body] of [['Chinese slides',source],['English slides',JSON.stringify(english)],['Chinese reading',markdown],['English reading',englishMd]])assert(!personalPlans.test(body),`Personal research plans must be absent from ${name}`);

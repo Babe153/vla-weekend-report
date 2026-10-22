@@ -1,8 +1,6 @@
-# 22 VLA Papers: Five-Line Notes, Topic Map and Research Assessment
+# 22 VLA Papers: Five-Line Notes, Topic Map and Method Comparison
 
 Updated 22 October 2026. The original 14 entries retain fixed PDF versions and figure/page references. The 8 additions are based on original abstracts; full texts and code have not yet been checked. Page numbers count from page 1 in a PDF reader.
-
-**Current topic assessment:** phase-directed visual augmentation substantially overlaps with prior work. Novelty is unconfirmed. Read the closest methods before investing in a formal training matrix. No new experimental results are presented.
 
 Start with the theme map, read the five-line notes, then verify the evidence in the paper. Do not rank success rates across different data, models or protocols. IDs 01–14 match the original reading package; 15–22 are additions.
 
@@ -17,9 +15,9 @@ Start with the theme map, read the five-line notes, then verify the evidence in 
 | E · Phases and training resources · 4 | Long-VLA, EGR, FrameSkip, PHASER | When and where should training intervene? |
 | F · Robustness and diagnostics · 4 | STRONG-VLA, MAIL-Bench / MINT, View Collapse, CARE | What causes failures and apparent gains? |
 
-**Advisor-report route:** RT-2 → OpenVLA → π₀ → OFT → evaluation → closest work and revised topic assessment. Entries 01–14 cover foundations; 15–22 address the candidate topic. Explain mechanisms and distinctions rather than reciting every detail.
+**Advisor-report route:** RT-2 → OpenVLA → π₀ → OFT → evaluation → phase-related methods and robustness diagnostics. Entries 01–14 cover foundations; 15–22 cover phases and robustness. Explain mechanisms and distinctions rather than reciting every detail.
 
-**Read next:** Long-VLA (15) → EGR (16) → FrameSkip (17) → PHASER (18) → View Collapse (21) → STRONG-VLA (19). MAIL-Bench / MINT (20) and CARE (22) add fault and execution perspectives.
+**Phase and robustness reading route:** Long-VLA (15) → EGR (16) → FrameSkip (17) → PHASER (18) → View Collapse (21) → STRONG-VLA (19). MAIL-Bench / MINT (20) and CARE (22) add fault and execution perspectives.
 
 **Category boundaries:** EGR gates sensor evidence, FrameSkip selects frames, and PHASER addresses continual learning. Grouping them supports comparison of relevance and resource allocation; it does not imply shared phase labels. MAIL-Bench includes both a benchmark and a method and is indexed under robustness diagnostics.
 
@@ -41,16 +39,16 @@ Start with the theme map, read the five-line notes, then verify the evidence in 
 | [12 ACT](#paper-12) | Imitation-learning policy | Task-specific teleoperated demonstrations | Continuous CVAE chunks; temporal ensembling | A foundation for chunking; compare with Diffusion Policy. |
 | [13 Diffusion Policy](#paper-13) | Imitation-learning policy | Task-specific robot demonstrations | Conditional diffusion sequences; receding-horizon execution | Connects to Octo; contrasts with π₀ flow and OFT direct regression. |
 | [14 LoRA](#paper-14) | Parameter adaptation tool | Pretrained models and target data; original tests mainly NLP | Low-rank weight updates; does not prescribe actions | Can adapt OpenVLA/OFT; separate from tokenizers and action heads. |
-| [15 Long-VLA](#paper-15) | Phases and training resources | Robot demonstrations / task observations; see paper | Phase-aware input masking; L-CALVIN evaluation | Closest input-intervention neighbor; replacing masking with blur is not enough. |
-| [16 EGR](#paper-16) | Phases and training resources | Robot demonstrations / task observations; see paper | Evidence-gated invariance and sufficiency objectives | Check whether relevance-conditioned training already supplies a stronger solution. |
-| [17 FrameSkip](#paper-17) | Phases and training resources | Robot demonstrations / task observations; see paper | Data-loader frame selection and remapping | A necessary comparison for critical events and training-budget allocation. |
-| [18 PHASER](#paper-18) | Phases and training resources | Robot demonstrations / task observations; see paper | Phase-balanced replay and forgetting-risk routing | Phase-aware resource allocation has precedents; distinguish the learning problem. |
-| [19 STRONG-VLA](#paper-19) | Robustness and diagnostics | Robot demonstrations / task observations; see paper | Perturbation curriculum followed by clean realignment | A robust fine-tuning recipe to compare against augmentation. |
-| [20 MAIL-Bench / MINT](#paper-20) | Robustness and diagnostics | Robot demonstrations / task observations; see paper | Stage-wise camera-loss evaluation; missing-view training and completion | Reference for phase-dependent faults; keep failure mechanisms distinct. |
-| [21 View Collapse](#paper-21) | Robustness and diagnostics | Robot demonstrations / task observations; see paper | Controlled view interventions and View Swap | Detect whether gains merely reflect reliance on another camera. |
-| [22 CARE](#paper-22) | Robustness and diagnostics | Robot demonstrations / task observations; see paper | Consistency-based dynamic action execution prefix | Fix execution length when attributing gains to augmentation. |
+| [15 Long-VLA](#paper-15) | Phases and training resources | Robot demonstrations / task observations; see paper | Phase-aware input masking; L-CALVIN evaluation | Phase-based inputs differ from EGR objective gating and FrameSkip selection. |
+| [16 EGR](#paper-16) | Phases and training resources | Robot demonstrations / task observations; see paper | Evidence-gated invariance and sufficiency objectives | Sensor-evidence-gated objectives differ from explicit moving/interaction masking. |
+| [17 FrameSkip](#paper-17) | Phases and training resources | Robot demonstrations / task observations; see paper | Data-loader frame selection and remapping | Data-loader selection differs from PHASER’s continual-learning replay. |
+| [18 PHASER](#paper-18) | Phases and training resources | Robot demonstrations / task observations; see paper | Phase-balanced replay and forgetting-risk routing | Phase replay addresses continual forgetting rather than one-stage frame selection. |
+| [19 STRONG-VLA](#paper-19) | Robustness and diagnostics | Robot demonstrations / task observations; see paper | Perturbation curriculum followed by clean realignment | Training curricula and clean realignment differ from inference-time interventions. |
+| [20 MAIL-Bench / MINT](#paper-20) | Robustness and diagnostics | Robot demonstrations / task observations; see paper | Stage-wise camera-loss evaluation; missing-view training and completion | Combines camera-loss evaluation and missing-view handling; distinct from transient corruption. |
+| [21 View Collapse](#paper-21) | Robustness and diagnostics | Robot demonstrations / task observations; see paper | Controlled view interventions and View Swap | Separates robust perception from changed multi-view reliance through controlled interventions. |
+| [22 CARE](#paper-22) | Robustness and diagnostics | Robot demonstrations / task observations; see paper | Consistency-based dynamic action execution prefix | Adjusts action execution prefixes; distinct from training augmentation. |
 
-## 3. From foundational models to a candidate topic
+## 3. Connections between foundational models and related methods
 
 1. **Semantics and actions: RT-2 → OpenVLA.** Both use discrete action tokens. This is a methodological link, not direct inheritance of RT-2 weights.
 2. **Continuous generation: Diffusion Policy, Octo and π₀.** The first two use diffusion; π₀ uses flow matching. Their inputs, datasets and objectives differ.
@@ -240,7 +238,7 @@ Source: original abstract, arXiv:2508.19958v2; checked 22 October 2026. **Readin
 - **Input → output:** Multimodal observations and task conditions → phase-masked policy inputs → manipulation actions.
 - **Core change:** Split subtasks into moving and interaction phases, mask inputs accordingly, and introduce L-CALVIN.
 - **Evidence:** The abstract reports simulation and robot experiments. Read phase definitions, masking rules and ablations next; figure numbers have not been checked here.
-- **Limits:** Strong overlap with phase-dependent visual input intervention. Masking and blur are different, but the substantive distinction needs full-text comparison.
+- **Limits:** The focus is long-horizon manipulation and skill chaining; measured gains do not establish robustness to every visual fault.
 
 <a id="paper-16"></a>
 
@@ -252,7 +250,7 @@ Source: original abstract, arXiv:2609.03142v1; checked 22 October 2026. **Readin
 - **Input → output:** Per-frame, per-sensor relevance → gated consistency objectives → a robust multimodal policy.
 - **Core change:** Encourage invariance for low-evidence sensors and single-sensor sufficiency for high-evidence sensors, with no inference-time overhead.
 - **Evidence:** The abstract describes BEHAVIOR-1K diagnostics, 47 rollout skills and two robot setups. Read evidence estimation and regularization details.
-- **Limits:** Close to diagnosing importance before conditioning training. Sensor-evidence gating is not identical to the proposed two-phase augmentation rule.
+- **Limits:** The setting concerns sensor relevance and multimodal robustness, rather than explicit task-phase masking.
 
 <a id="paper-17"></a>
 
@@ -264,7 +262,7 @@ Source: original abstract, arXiv:2605.13757v1; checked 22 October 2026. **Readin
 - **Input → output:** Demonstration trajectories → frame-importance scores and selection → otherwise unchanged VLA training.
 - **Core change:** Combine action variation, visual-action coherence, progress priors and gripper-transition preservation in the data loader.
 - **Evidence:** The abstract reports RoboCasa-GR1, SimplerEnv and LIBERO. Check retained-frame ratios, total sampled examples and simple selection baselines.
-- **Limits:** Critical frames and gripper events are established topics. Selection differs from augmentation, but both redistribute training resources.
+- **Limits:** It selects training frames without changing the action head or inference. Retention ratios and sampled-example counts affect interpretation.
 
 <a id="paper-18"></a>
 
@@ -288,7 +286,7 @@ Source: original abstract, arXiv:2604.10055v3; checked 22 October 2026. **Readin
 - **Input → output:** Perturbed and clean demonstrations → two-stage fine-tuning → a robust policy.
 - **Core change:** First learn under increasingly difficult multimodal perturbations; then realign with clean task data. Evaluate 28 perturbation types.
 - **Evidence:** The abstract reports several VLA backbones on LIBERO and AIRBOT robot tests. Read the two-stage recipe and clean-performance recovery.
-- **Limits:** Generic perturbation augmentation is already studied. Check total updates and the extra cost of clean-task realignment.
+- **Limits:** Interpret total updates, perturbation distributions and clean-realignment cost through the specific two-stage configuration.
 
 <a id="paper-20"></a>
 
@@ -300,7 +298,7 @@ Source: original abstract, arXiv:2609.35003v1; checked 22 October 2026. **Readin
 - **Input → output:** Camera interruptions at different stages → closed-loop evaluation; MINT trains and selectively supplements missing views.
 - **Core change:** MAIL-Bench interrupts views along successful reference trajectories. MINT combines missing-view training with optical-flow/world-model completion.
 - **Evidence:** The abstract reports π₀.₅, GR00T N1.5 and AgiBot G2. Check interruption timing, duration and when predicted views are withdrawn.
-- **Limits:** Losing subsequent camera frames differs from brief blur. Stage-dependent visual interruption is itself already studied.
+- **Limits:** Losing subsequent camera frames differs from brief blur. Interruption duration and timing are part of the evaluation definition.
 
 <a id="paper-21"></a>
 
@@ -338,31 +336,11 @@ Source: original abstract, arXiv:2609.32550v1; checked 22 October 2026. **Readin
 | Few trainable parameters vs little memory | Backbone weights, activations, images and action heads still consume memory. |
 | New homes vs new motor skills | Environmental generalization does not automatically imply skill generalization. |
 | Success vs progress | Binary completion differs from partial stage scores. |
-| Phase/relevance conditioning vs confirmed novelty | Related ideas exist; full comparison and experiments must establish the distinction. |
+| Phase inputs, evidence gating, selection and replay | Intervention points and learning settings differ; these are not interchangeable algorithms. |
 | Robustness vs stronger perception | A policy may rely on another camera or shorten its execution prefix. |
 
-## 6. Candidate topic: verify before committing
-
-**Do not yet treat phase-directed visual augmentation as an established contribution.** Long-VLA masks phase-dependent inputs, EGR gates training by task evidence, and FrameSkip/PHASER allocate resources to important frames or phases. This does not prove that the exact proposed augmentation algorithm already exists, but neither does it establish sufficient novelty.
-
-| Neighbor | What must be compared | Insufficient distinction by itself |
-| --- | --- | --- |
-| Long-VLA | Labels, masking location, training/inference requirements | Replace masking with blur |
-| EGR | Evidence estimates, objectives, compute and annotation | Change the importance score |
-| FrameSkip / PHASER | Selection/replay budgets, critical events and learning setting | Claim the first use of phase importance |
-| STRONG-VLA | Curriculum, clean realignment and extra updates | Say “we use visual augmentation” |
-| View Collapse / CARE | View reliance and execution prefixes | Report only overall perturbed success |
-
-Matching samples, augmentation counts and update steps is an experimental control, not an algorithmic contribution. A new backbone or benchmark alone is also insufficient.
-
-**Continue if:** full-text comparison reveals a concrete prior limitation, a specific remedy and a controlled closed-loop test. Cheaper estimation, reduced labeling or a failure mechanism are questions to investigate, not pre-established gaps.
-
-**Minimum investment:** spend one week on Long-VLA/EGR and another on a difference matrix. If a distinction remains, run OFT on two development tasks and compare no extra augmentation, uniform augmentation, a fixed event rule and the candidate. Change topic if novelty or stable benefit is absent; do not begin with the full training matrix.
-
-## 7. Report and reading self-check
+## 6. Report and reading self-check
 
 For the original fourteen, explain the problem, inputs/outputs, change, supporting figures and limits. For the eight additions, state the abstract-only reading depth and identify what the full text must resolve. Do not invent figure numbers or reproduction results.
-
-A suitable closing statement is: “I have mapped the foundations. New related work suggests that the original candidate’s novelty remains insufficiently established. I will compare the closest full methods before retaining or revising the topic.”
 
 Source notes: links for the additions are fixed to the checked abstract versions. Long-VLA’s page states CoRL 2025 acceptance; the other additions are listed as preprints without a claim of formal acceptance. π₀ uses v4, Diffusion Policy v5 and LIBERO-Plus v3. Page numbers should not be mixed with a retitled conference version.

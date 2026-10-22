@@ -1,7 +1,7 @@
-/* Edit slide content and speaker notes here. */
+/* Literature report content and speaker notes. */
 window.REPORT = {
-  "title": "VLA：从文献脉络到研究选题",
-  "subtitle": "22篇论文 · 六类问题 · 方法比较与选题核查",
+  "title": "VLA文献汇报：模型、方法与评测",
+  "subtitle": "22篇论文 · 六类主题 · 方法比较与能力边界",
   "date": "2026 年 10 月 22 日",
   "papers": [
     {
@@ -214,8 +214,8 @@ window.REPORT = {
         "openvla",
         "pi0"
       ],
-      "body": "<div class=\"cover-copy\"><p class=\"eyebrow\">机器人学习 · 文献汇报</p><h1>VLA<span>视觉语言动作模型</span></h1><p class=\"cover-sub\">从基础模型到可验证的研究问题</p><p class=\"cover-focus\">22 篇文献地图 · 重点：RT-2、OpenVLA、π₀</p><p class=\"cover-meta\">2026 年 10 月 22 日更新<br>主讲约 25 分钟 · 附逐页讲稿与主题索引</p></div><figure class=\"cover-figure\"><img src=\"assets/pi0-tasks.jpg\" alt=\"π₀ 原论文中的双臂机器人折叠衣物任务\" width=\"1200\" height=\"700\"><figcaption>π₀ 原论文 Figure 2 · 图片归原作者所有</figcaption></figure>",
-      "notes": "老师好，这次我将文献从原来的八篇扩展到二十二篇，按照基础模型、动作与适配方法、数据、评测，以及与选题直接相关的阶段和鲁棒性研究重新组织。重点仍是RT-2、OpenVLA和π₀，但最后会解释新检索的工作怎样改变了我对阶段定向视觉增强的判断。新增八篇目前完成原始摘要级定位，关键方法和消融还需要全文精读；本次没有新的实验结果。"
+      "body": "<div class=\"cover-copy\"><p class=\"eyebrow\">机器人学习 · 文献汇报</p><h1>VLA<span>视觉语言动作模型</span></h1><p class=\"cover-sub\">模型、方法与评测的文献脉络</p><p class=\"cover-focus\">22 篇文献地图 · 重点：RT-2、OpenVLA、π₀</p><p class=\"cover-meta\">2026 年 10 月 22 日更新<br>主讲约 22 分钟 · 附逐页讲稿与主题索引</p></div><figure class=\"cover-figure\"><img src=\"assets/pi0-tasks.jpg\" alt=\"π₀ 原论文中的双臂机器人折叠衣物任务\" width=\"1200\" height=\"700\"><figcaption>π₀ 原论文 Figure 2 · 图片归原作者所有</figcaption></figure>",
+      "notes": "老师好，本次汇报整理二十二篇VLA及相关领域论文，按照通用策略、数据基础、动作与适配、评测、阶段与训练资源、鲁棒训练与诊断六组组织。重点介绍RT-2、OpenVLA和π₀的任务定义、方法与能力边界，再补充OpenVLA-OFT等方法及阶段、鲁棒性相关文献。新增八篇目前依据原始摘要整理，关键方法和实验细节还需要结合全文核对。本次内容是文献阅读与对比，没有新的实验结果。"
     },
     {
       "section": "背景",
@@ -240,7 +240,7 @@ window.REPORT = {
         "strong"
       ],
       "body": "<div class=\"table-wrap\"><table><thead><tr><th>类别</th><th>论文</th><th>核心问题</th></tr></thead><tbody><tr><td>A · 通用策略 · 6篇</td><td>RT-2、OpenVLA、π₀、Octo、π₀.₅、SmolVLA</td><td>视觉语言知识怎样生成动作？</td></tr><tr><td>B · 数据基础 · 1篇</td><td>Open X-Embodiment / RT-X</td><td>经验来自哪里，能否跨机器人迁移？</td></tr><tr><td>C · 动作与适配 · 5篇</td><td>ACT、Diffusion Policy、FAST、OpenVLA-OFT、LoRA</td><td>动作怎么生成，怎样低成本更新？</td></tr><tr><td>D · 评测 · 2篇</td><td>LIBERO、LIBERO-Plus</td><td>什么算成功，怎样测鲁棒性？</td></tr><tr><td>E · 阶段与训练资源 · 4篇</td><td>Long-VLA、EGR、FrameSkip、PHASER</td><td>哪些时刻／传感器需要何种训练干预？</td></tr><tr><td>F · 鲁棒训练与诊断 · 4篇</td><td>STRONG-VLA、MAIL-Bench / MINT、View Collapse、CARE</td><td>扰动下为何失败，怎样排除假提升？</td></tr></tbody></table></div><p class=\"small\">分类是阅读索引，不代表互斥技术家族。新增 E/F 两组为摘要级定位；全文与代码细节待核。</p>",
-      "notes": "我将二十二篇分成六组。前四组对应原有十四篇，帮助建立模型、数据、动作与评测的基础。后两组是这次新增的八篇，直接用于检查选题是否重复。EGR没有显式以阶段为单位，这里归入阶段与训练资源组，是因为它同样按任务重要性决定训练干预。类别用于索引，不等于方法相同。详细五行笔记和原文链接可在速读页按组筛选。",
+      "notes": "二十二篇论文分为六组。前四组建立策略、数据、动作建模和评测的基础，后两组介绍阶段相关训练方法与鲁棒性诊断。EGR按每帧每传感器的任务相关性门控目标，因此归入训练资源组，并不意味着它使用与Long-VLA相同的阶段划分。各组是阅读索引，不代表技术完全相同。每篇论文的五行笔记和原文链接位于配套速读手册中。",
       "time": "1:00"
     },
     {
@@ -301,7 +301,7 @@ window.REPORT = {
       ],
       "source": "§5.1、§6",
       "body": "<div class=\"highlight\"><strong>+16.5 个百分点</strong><p>在作者的 29 项任务评估中，相比 RT-2-X（55B）的绝对成功率提升。</p></div><div class=\"columns\"><div><h3>这个结果说明</h3><p>在该评测设置下，数据、视觉特征与训练设计可以让较小模型取得更好结果。</p></div><div><h3>原始版本仍受限于</h3><ul><li>单图输入，缺少显式观察历史与本体状态。</li><li>逐 token 解码，高频与灵巧任务受限。</li><li>可靠性不足以视为稳定的通用控制器。</li></ul></div></div><p class=\"small\">比较对象是 RT-2-X。该结论不能外推为所有场景中优于 RT-2 系列。</p>",
-      "notes": "OpenVLA 报告的代表性结果，是在二十九项任务中比 RT-2-X 的绝对成功率高十六点五个百分点。这个比较同时涉及不同的数据与组件，因此不能把提升全部归因于某个单独结构，也不能说模型越小越好。作者指出原始版本只支持单图观察，高频控制和更灵巧的双臂操作仍有困难。这里特意限定为原论文版本，后续改进可能已经补上部分问题。做选题时必须进一步检查这些后续工作。"
+      "notes": "OpenVLA 报告的代表性结果，是在二十九项任务中比 RT-2-X 的绝对成功率高十六点五个百分点。这个比较同时涉及不同的数据与组件，因此不能把提升全部归因于某个单独结构，也不能说模型越小越好。作者指出原始版本只支持单图观察，高频控制和更灵巧的双臂操作仍有困难。这里特意限定为原论文版本，后续改进可能已经补上部分问题。解读时应区分原论文和后续版本的能力。"
     },
     {
       "section": "π₀",
@@ -325,7 +325,7 @@ window.REPORT = {
       ],
       "source": "§IV，公式 1–2",
       "body": "<div class=\"columns\"><div><h3>训练：学习修正方向</h3><div class=\"equation compact\">A<sup>τ</sup> = τA + (1 − τ)ε</div><p>在示范动作与随机噪声之间采样，预测向量场 A − ε。</p></div><div><h3>推理：连续更新整段动作</h3><div class=\"equation compact\">A<sup>τ+δ</sup> = A<sup>τ</sup> + δv<sub>θ</sub></div><p>从噪声出发，论文采用 10 次积分更新，得到动作块。</p></div></div><hr><dl class=\"terms two\"><div><dt>分块的收益</dt><dd>共同建模动作间的时间关系，减少逐个离散 token 解码。</dd></div><div><dt>执行的取舍</dt><dd>执行越长的动作前缀，重新观察和纠错的时机会越少。</dd></div></dl><p class=\"small\">论文报告最高 50 Hz 的动作控制。它不等于每秒进行 50 次完整模型推理。</p>",
-      "notes": "直观地说，flow matching 学习如何把随机动作逐步修正为合理的动作序列。训练时，将真实动作和噪声插值，并学习对应的修正方向。推理时，从噪声开始沿预测向量场积分，论文使用十步。动作分块使模型能够一次考虑未来多个时刻。这里还要区分动作块长度、模型重新规划频率和底层动作执行频率。π₀ 的最高五十赫兹指动作控制能力，不能直接与 RT-2 的完整策略查询频率作同口径比较。执行较长前缀对纠错的影响，是我们可以进一步测量的系统问题。"
+      "notes": "直观地说，flow matching 学习如何把随机动作逐步修正为合理的动作序列。训练时，将真实动作和噪声插值，并学习对应的修正方向。推理时，从噪声开始沿预测向量场积分，论文使用十步。动作分块使模型能够一次考虑未来多个时刻。这里还要区分动作块长度、模型重新规划频率和底层动作执行频率。π₀ 的最高五十赫兹指动作控制能力，不能直接与 RT-2 的完整策略查询频率作同口径比较。执行较长前缀会影响重新观察和纠错的机会，因此需要区分生成机制与执行机制。"
     },
     {
       "section": "π₀",
@@ -359,8 +359,8 @@ window.REPORT = {
         "oxe",
         "octo"
       ],
-      "body": "<div class=\"columns\"><div><p class=\"eyebrow\">Open X-Embodiment</p><h3>把跨机器人经验组织起来</h3><p>标准化数据格式，RT-X 展示不同机器人经验之间的正迁移。</p><p class=\"question\">研究问题：动作语义与采样权重怎样影响迁移？</p></div><div><p class=\"eyebrow\">Octo</p><h3>为新机器人保留适配空间</h3><p>约 800k 轨迹预训练，使用扩散策略，支持语言或目标图像及不同观察配置。</p><p class=\"question\">研究问题：适配新输入和动作空间，需要多少任务数据？</p></div></div><p class=\"takeaway\">数据格式一致只是起点，控制语义与任务分布仍需处理。</p>",
-      "notes": "这两篇补充了核心模型之外的基础。OXE 的贡献不是简单把文件放在一起，而是支持研究跨机器人共享经验，并通过 RT-X 观察到正迁移。Octo 在这种数据基础上，强调策略对不同观察和动作空间的适配，采用扩散动作解码。它也提醒我们，能接受语言并不一定等于使用大型生成式 VLM。对于后续研究，数据格式一致并不保证动作含义一致，采样频率、坐标系和数据混合方式都可能影响迁移结果。"
+      "body": "<div class=\"columns\"><div><p class=\"eyebrow\">Open X-Embodiment</p><h3>把跨机器人经验组织起来</h3><p>标准化数据格式，RT-X 展示不同机器人经验之间的正迁移。</p><p class=\"question\">方法关注：动作语义与采样权重怎样影响迁移？</p></div><div><p class=\"eyebrow\">Octo</p><h3>为新机器人保留适配空间</h3><p>约 800k 轨迹预训练，使用扩散策略，支持语言或目标图像及不同观察配置。</p><p class=\"question\">方法关注：适配新输入和动作空间，需要多少任务数据？</p></div></div><p class=\"takeaway\">数据格式一致只是起点，控制语义与任务分布仍需处理。</p>",
+      "notes": "这两篇补充了核心模型之外的基础。OXE 的贡献不是简单把文件放在一起，而是支持研究跨机器人共享经验，并通过 RT-X 观察到正迁移。Octo 在这种数据基础上，强调策略对不同观察和动作空间的适配，采用扩散动作解码。它也提醒我们，能接受语言并不一定等于使用大型生成式 VLM。在解读跨机器人迁移时，数据格式一致并不保证动作含义一致，采样频率、坐标系和数据混合方式都可能影响迁移结果。"
     },
     {
       "section": "相关工作",
@@ -392,7 +392,7 @@ window.REPORT = {
         "lora"
       ],
       "body": "<div class=\"table-wrap\"><table><thead><tr><th>方法</th><th>改变哪里</th><th>不要混淆</th></tr></thead><tbody><tr><td>ACT</td><td>动作块、CVAE、时间集成</td><td>原版并非自由语言VLA</td></tr><tr><td>Diffusion Policy</td><td>条件去噪建模连续动作序列</td><td>生成长度与执行长度分别设定</td></tr><tr><td>LoRA</td><td>用低秩参数更新适配模型</td><td>不规定动作头；少参数不等于低显存</td></tr></tbody></table></div>",
-      "notes": "这三篇解释底层概念。ACT用动作分块和时间集成减少误差累积，Diffusion Policy用条件扩散建模复杂动作分布。LoRA则处理如何更新大模型参数，并不替代动作生成设计。它们可以组合，也不应该按一个跨论文成功率来排名。研究OpenVLA-OFT时，需要同时确定动作头、执行方式和参数适配位置，不能只写使用LoRA就认为实验配置完整。",
+      "notes": "这三篇说明不同层面的设计。ACT用动作分块和时间集成减少误差累积，Diffusion Policy用条件扩散建模复杂动作分布。LoRA处理预训练模型的参数更新，不替代动作生成机制。它们可以组合，但不能依据不同任务的成功率直接排名。OpenVLA-OFT也涉及这些层面的组合，因此阅读时需要同时区分动作头、执行方式和参数适配位置。",
       "time": "1:00"
     },
     {
@@ -404,7 +404,7 @@ window.REPORT = {
         "lora"
       ],
       "body": "<p class=\"lead\">以 OpenVLA 为底座，结合连续动作、并行解码和动作分块进行适配。</p><dl class=\"terms\"><div><dt>输出</dt><dd>连续的未来动作块，典型 LIBERO 配置为 8 步。</dd></div><div><dt>训练目标</dt><dd>L1 回归；与原版逐 token 交叉熵区分。</dd></div><div><dt>输入与适配</dt><dd>具体配置可加入多相机与本体状态；使用 LoRA 等适配。</dd></div><div><dt>收益与代价</dt><dd>直接回归更简单；复杂多峰行为表达仍需验证。</dd></div></dl><p class=\"small\">重点读原文 Table I/II（p.6）、Table IV（p.17）；只在相同协议内解释成功率与速度。</p>",
-      "notes": "OpenVLA-OFT不是另一个从零预训练的巨型模型，而是研究如何更有效地适配OpenVLA。主要配方包括连续动作表示、并行预测、动作分块和L1训练目标。与π₀的flow不同，这里可以直接回归动作块。它适合用作我们的实验底座，因为实现公开且控制接口较明确。但原论文的成功率依赖具体数据和协议，不能当作所有任务上都可靠的保证。多相机、本体状态和动作头也要随检查点完整恢复，不能只加载LoRA权重。",
+      "notes": "OpenVLA-OFT研究如何更有效地适配OpenVLA，并不是另一个从零预训练的大模型。主要配方包括连续动作表示、并行预测、动作分块和L1训练目标。与π₀的flow matching不同，它可以直接回归动作块。原论文的成功率与速度取决于数据和评测协议。多相机、本体状态和动作头属于具体配置，加载与解释检查点时也要与LoRA参数和统计量区分。",
       "time": "1:00"
     },
     {
@@ -416,99 +416,55 @@ window.REPORT = {
         "oft"
       ],
       "body": "<div class=\"table-wrap\"><table><thead><tr><th>层面</th><th>应当固定</th><th>必须报告</th></tr></thead><tbody><tr><td>任务成功</td><td>任务、初始状态、终止条件</td><td>每任务成功次数／试验数</td></tr><tr><td>鲁棒性</td><td>相机、扰动种类、强度、时机</td><td>干净与受扰表现同时报告</td></tr><tr><td>动作执行</td><td>重规划频率、块长、执行前缀</td><td>耗时、控制失败与观察故障</td></tr><tr><td>统计</td><td>配对初始状态与训练种子</td><td>按任务／种子差异与不确定性</td></tr></tbody></table></div><p class=\"takeaway\">LIBERO 的持续学习指标、后续 VLA 闭环成功率和阶段进度分数，分别解释。</p>",
-      "notes": "LIBERO提供任务、示范和评测环境，原始研究还包括持续学习与知识迁移。后续VLA常使用其闭环成功率，因此要写清采用哪种协议。LIBERO-Plus进一步诊断分布偏移下的鲁棒性。首轮不必复现所有扰动，但必须固定控制参数，报告干净和受扰表现。若以已在LIBERO上适配的OFT检查点继续训练，研究的是鲁棒再适配，不应包装成未见任务少样本学习。",
+      "notes": "LIBERO提供任务、示范和评测环境，原始论文还研究持续学习与知识迁移。后续VLA常使用该环境的闭环成功率，这与原始持续学习指标需要区分。LIBERO-Plus进一步诊断分布偏移下的鲁棒性。解释结果时，任务、初始状态、相机、扰动方式和执行前缀都是协议的一部分。已在LIBERO上适配的检查点，与未见任务上的少样本适配也不是同一设置。",
       "time": "1:00"
     },
     {
-      "section": "阶段相关工作",
-      "title": "最接近候选课题的四篇：重叠在哪里",
+      "section": "阶段与训练资源",
+      "title": "四篇阶段与训练资源相关论文",
       "refs": [
         "longvla",
         "egr",
         "frameskip",
         "phaser"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>工作</th><th>干预位置</th><th>与候选课题的交集</th></tr></thead><tbody><tr><td>Long-VLA</td><td>按阶段遮蔽输入</td><td>阶段决定保留哪些感知线索</td></tr><tr><td>EGR</td><td>按传感器证据门控正则</td><td>先判断任务相关性，再干预训练</td></tr><tr><td>FrameSkip</td><td>数据加载时选择重要帧</td><td>夹爪转换、关键时刻与有限预算</td></tr><tr><td>PHASER</td><td>持续学习的阶段回放</td><td>按阶段分配有限训练资源</td></tr></tbody></table></div><p class=\"takeaway\">“不同阶段重要性不同”已有先例；具体增强算法是否重复，仍需全文核对。</p>",
-      "notes": "这是选题判断最重要的一页。Long-VLA直接采用阶段感知输入遮蔽，是最近的输入干预工作。EGR按每帧每传感器的任务证据门控一致性约束，与先诊断再训练的思路接近。FrameSkip强调关键帧和夹爪转换，PHASER强调持续学习中的阶段资源分配。因此我不能再把阶段意识本身作为创新点。但这些工作也不等于证明我们设想的模糊增强已被完整实现，还需要对照全文、任务和成本，确认真正的差别。",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>论文</th><th>干预位置</th><th>主要问题</th></tr></thead><tbody><tr><td>Long-VLA</td><td>按阶段遮蔽输入</td><td>长程任务中的感知线索与技能衔接</td></tr><tr><td>EGR</td><td>按传感器证据门控正则</td><td>多传感器伪相关与鲁棒性</td></tr><tr><td>FrameSkip</td><td>数据加载时选择重要帧</td><td>密集轨迹中的监督不均衡</td></tr><tr><td>PHASER</td><td>持续学习中的阶段回放</td><td>短暂关键阶段的遗忘</td></tr></tbody></table></div><p class=\"takeaway\">输入、训练目标、样本选择和经验回放，是四种不同的干预位置。</p>",
+      "notes": "这四篇都讨论信息或训练资源的选择，但方法位置不同。Long-VLA在长程任务中使用阶段感知输入遮蔽；EGR根据每帧每传感器的任务相关性门控一致性目标。FrameSkip在数据加载层选择重要帧，PHASER在持续学习中安排阶段回放。比较时应区分输入干预、目标函数、训练采样和历史回放，也要区分长程操作、多模态鲁棒性与遗忘等问题设置。",
       "time": "1:20"
     },
     {
-      "section": "阶段相关工作",
-      "title": "Long-VLA 与 EGR：先精读这两篇",
+      "section": "阶段与训练资源",
+      "title": "Long-VLA 与 EGR：输入与目标函数",
       "refs": [
         "longvla",
         "egr"
       ],
-      "body": "<div class=\"columns\"><div><h3>Long-VLA · 阶段输入干预</h3><p>移动 / 交互阶段 → 输入遮蔽 → 长程技能衔接。</p><p class=\"question\">精读：阶段如何获得？遮蔽哪些输入？推理时需要什么？</p></div><div><h3>EGR · 证据门控训练</h3><p>传感器任务证据 → 不变性 / 单传感器充分性目标。</p><p class=\"question\">精读：证据如何估计？额外训练成本？多相机收益来自哪里？</p></div></div><p class=\"small\">Long-VLA 的 arXiv 页面注明 CoRL 2025；EGR 按预印本列示。这里仅完成摘要级定位。</p>",
-      "notes": "我会先读Long-VLA和EGR，而不是直接租卡训练。前者要核对移动与交互阶段的具体定义、遮蔽位置和推理依赖。后者要核对任务相关性证据是否需要额外模型或多次前向，以及两个正则项如何计算。只有知道它们已有方法的实际成本和局限，才可能提出一个有价值的简化。如果现有方法已经能解决同一个问题，而且成本并不高，就不应只把遮蔽换成模糊后继续原题。",
+      "body": "<div class=\"columns\"><div><h3>Long-VLA · 阶段输入遮蔽</h3><p>移动 / 交互阶段 → 相关感知线索 → 长程技能衔接。</p><p class=\"small\">主要观察：阶段定义、输入选择和子任务之间的连接。</p></div><div><h3>EGR · 证据门控正则</h3><p>传感器任务证据 → 不变性 / 单传感器充分性目标。</p><p class=\"small\">主要观察：相关性估计、传感器条件和一致性目标。</p></div></div><p class=\"small\">Long-VLA的arXiv页面注明CoRL 2025；EGR按预印本列示。本页依据原始摘要定位。</p>",
+      "notes": "Long-VLA和EGR都关注哪些输入信息对任务有用，但干预方式不同。Long-VLA使用移动与交互阶段组织输入遮蔽，主要目标是改善长程操作中的技能衔接。EGR根据传感器证据对训练目标进行门控，低证据传感器强调不变性，高证据传感器强调单传感器充分性。因此两者不能简单视为同一种阶段算法。这里仅整理原始摘要支持的方法定位，具体公式、实现与消融需要参照全文。",
       "time": "1:00"
     },
     {
-      "section": "阶段相关工作",
-      "title": "FrameSkip 与 PHASER：资源分配已有先例",
+      "section": "阶段与训练资源",
+      "title": "FrameSkip 与 PHASER：采样与回放",
       "refs": [
         "frameskip",
         "phaser"
       ],
-      "body": "<div class=\"columns\"><div><h3>FrameSkip · 选哪些帧</h3><ul><li>动作变化与视觉动作一致性。</li><li>进度先验与夹爪转换保护。</li><li>在数据加载层选择训练帧。</li></ul></div><div><h3>PHASER · 回放哪些阶段</h3><ul><li>缓解短阶段监督不足。</li><li>按遗忘风险调整回放。</li><li>动作变点与VLM核验阶段边界。</li></ul></div></div><p class=\"takeaway\">控制样本量、增强次数与训练步数，是公平比较条件；本身不构成创新。</p>",
-      "notes": "这两篇与我们的干预形式不同，但都会改变有限训练资源在时间上的分配。FrameSkip选择重要帧，PHASER针对持续学习回放。后者的遗忘问题不能直接等同于一次鲁棒微调。不过，它们说明夹爪事件、关键阶段与预算分配已经不是空白。我们的对照除了均匀增强，还需要简单事件规则。把训练步数和增强次数匹配，是为了让结论可解释，不能把实验公平性本身写成新的算法贡献。",
+      "body": "<div class=\"columns\"><div><h3>FrameSkip · 选哪些帧</h3><ul><li>动作变化与视觉动作一致性。</li><li>进度先验与夹爪转换保护。</li><li>在数据加载层选择训练帧。</li></ul></div><div><h3>PHASER · 回放哪些阶段</h3><ul><li>缓解短阶段监督不足。</li><li>按遗忘风险调整回放。</li><li>动作变点与VLM核验阶段边界。</li></ul></div></div><p class=\"takeaway\">FrameSkip改变训练帧的选择；PHASER改变持续学习中的回放分配。</p>",
+      "notes": "FrameSkip和PHASER都处理轨迹中信息分布不均的问题，但训练设定不同。FrameSkip依据动作变化、视觉动作一致性、进度先验和夹爪转换选择帧，操作位置在数据加载层。PHASER关注持续学习，把回放支持分配给不同阶段，并根据遗忘风险调整优先级。前者的保留率与训练采样量、后者的回放容量与持续学习任务序列，都是解释其结果的重要条件。",
       "time": "1:00"
     },
     {
       "section": "鲁棒训练与诊断",
-      "title": "四篇补充：排除鲁棒性提升的其他解释",
+      "title": "四篇鲁棒训练与诊断论文",
       "refs": [
         "strong",
         "mail",
         "viewcollapse",
         "care"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>工作</th><th>研究切口</th><th>对本课题的提醒</th></tr></thead><tbody><tr><td>STRONG-VLA</td><td>扰动课程 → 干净分布再对齐</td><td>一般性增强与性能恢复已有方法</td></tr><tr><td>MAIL-Bench / MINT</td><td>分阶段视觉中断、缺视图训练与补视图</td><td>区分持续缺帧与短时模糊</td></tr><tr><td>View Collapse</td><td>单视图干预与 View Swap</td><td>可能只是放弃受扰相机</td></tr><tr><td>CARE</td><td>按动作块一致性调整执行长度</td><td>执行前缀会混淆增强收益</td></tr></tbody></table></div><p class=\"small\">四篇按2026年预印本列示。已核对原始摘要；精确配置和消融待全文核对。</p>",
-      "notes": "除了最接近的四篇，我补充了四项鲁棒性工作。STRONG-VLA已经研究扰动训练和干净性能恢复。MAIL-Bench在任务不同阶段中断相机，说明阶段故障诊断也已有先例。View Collapse提醒我们，某相机受扰后更稳定，可能只是策略改为依赖腕部相机。CARE则表明动作块执行长度本身影响短时扰动后果。因此如果后面看到成功率提升，需要用相机干预和固定执行参数排除这些解释。",
-      "time": "1:00"
-    },
-    {
-      "section": "选题判断",
-      "title": "阶段定向视觉增强：暂缓作为正式创新点",
-      "refs": [
-        "longvla",
-        "egr",
-        "frameskip",
-        "phaser",
-        "strong"
-      ],
-      "body": "<p class=\"lead\">当前定位：可用于练手与诊断的候选方案；发表创新性尚未确认。</p><dl class=\"terms\"><div><dt>不足以作为区别</dt><dd>把遮蔽换成模糊；换成OFT；仅在LIBERO验证。</dd></div><div><dt>可能值得追问</dt><dd>现有重要性估计的成本、失准情形或阶段标注依赖。</dd></div><div><dt>继续条件</dt><dd>能指出具体前人局限，并用受控闭环实验验证改进。</dd></div><div><dt>放弃条件</dt><dd>只有现成模块拼接，或收益来自额外训练量／视角捷径。</dd></div></dl><p class=\"small\">右列是待验证的研究问题，不是已检索确认的空白，也不是已取得的结果。</p>",
-      "notes": "这轮检索后，我会把阶段定向视觉增强从优先发表题目降为待验证候选。它仍可帮助学习数据加载、微调与鲁棒评测，但不该预先承诺创新。下一步应找出前人方法在某个具体条件下的不足，例如证据估计成本或阶段标签依赖，并检验一个更简单的解决办法。这些也只是待验证问题。如果全文核对后没有清楚差异，就换题，而不是靠更换骨干、扰动名字和数据集维持同一个题目。",
-      "time": "1:00"
-    },
-    {
-      "section": "最小验证",
-      "title": "若找到差异，再做小规模闭环验证",
-      "refs": [
-        "oft",
-        "libero",
-        "longvla",
-        "egr",
-        "viewcollapse",
-        "care"
-      ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>步骤</th><th>最小范围</th><th>继续／停止依据</th></tr></thead><tbody><tr><td>跑通底座</td><td>一个OFT检查点，2个开发任务</td><td>恢复完整模块并验证评测可重复</td></tr><tr><td>核对诊断</td><td>干净／模糊，固定相机和执行前缀</td><td>是否有稳定可解释的失败模式</td></tr><tr><td>小试对照</td><td>无额外增强、均匀、固定事件规则、候选法</td><td>候选法是否优于简单规则</td></tr><tr><td>扩展报告</td><td>隔离开发与报告任务，再加训练种子</td><td>同时看干净性能、成本和闭环收益</td></tr></tbody></table></div><p class=\"small\">开发阶段只判断可行性，不凭小样本宣称有效；正式统计和任务规模在通过检查后确定。</p>",
-      "notes": "如果全文比较找到清楚的差异，实验才进入最小验证。先在两个开发任务上跑通OFT，确认检查点、动作头、状态和评测协议完整。然后诊断干净与模糊失败，固定相机和执行长度。对照至少包含无额外增强、均匀增强和固定事件规则。只有候选方法稳定优于简单规则，且没有明显损害干净性能，才增加任务和种子。小样本开发结果只用于决定是否投入，不作为正式有效性证据。",
-      "time": "1:00"
-    },
-    {
-      "section": "下一步安排",
-      "title": "接下来四周：先核查，再决定是否训练",
-      "refs": [
-        "longvla",
-        "egr",
-        "frameskip",
-        "phaser",
-        "oft",
-        "libero"
-      ],
-      "body": "<ol class=\"numbered\"><li><strong>第1周 · 最近邻</strong><span>精读Long-VLA、EGR；记录阶段／证据、干预、标签与成本。</span></li><li><strong>第2周 · 边界</strong><span>读FrameSkip、PHASER和鲁棒诊断；完成一页差异矩阵，决定保留或换题。</span></li><li><strong>第3周 · 基线</strong><span>若有清楚差异，再用云GPU跑通OFT与两个开发任务。</span></li><li><strong>第4周 · 小试</strong><span>完成最小对照；无稳定信号则停止扩展，保留复现记录。</span></li></ol><p class=\"takeaway\">与导师讨论：先认可问题和差异，再确定算力、投稿规模与最终题目。</p>",
-      "notes": "我的计划先花两周减少重复研究风险。第一周精读最近的两篇，第二周补全预算与诊断相关工作，给出一页明确的差异矩阵。如果没有实质差异，就在这里换题。只有通过这一步，第三周才投入云GPU搭建OFT，第四周完成最小对照。目前还没有新的闭环结果，也不承诺某种方法一定能发表。希望老师先帮助判断问题是否值得做，再决定实验投入和投稿目标。",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>论文</th><th>研究内容</th><th>关键区分</th></tr></thead><tbody><tr><td>STRONG-VLA</td><td>扰动课程与干净分布再对齐</td><td>鲁棒性学习与正常执行表现</td></tr><tr><td>MAIL-Bench / MINT</td><td>分阶段相机中断与缺失视图补全</td><td>持续缺帧与短时图像退化</td></tr><tr><td>View Collapse</td><td>视角干预与View Swap</td><td>感知鲁棒性与视角依赖变化</td></tr><tr><td>CARE</td><td>依据动作块一致性选择执行长度</td><td>动作生成与动作执行</td></tr></tbody></table></div><p class=\"small\">四篇按2026年预印本列示。已核对原始摘要，具体配置与消融仍以全文为准。</p>",
+      "notes": "这四篇从不同环节讨论鲁棒性。STRONG-VLA分开处理扰动学习与干净任务再对齐；MAIL-Bench评测任务不同阶段的相机中断，MINT结合缺视图训练与选择性补全。View Collapse说明表面上的鲁棒性可能来自策略对另一视角的依赖，CARE则关注观察短暂受扰时的动作执行长度。它们共同说明，鲁棒性结果需要结合故障类型、传感器依赖、训练方式和执行机制理解。",
       "time": "1:00"
     },
     {
