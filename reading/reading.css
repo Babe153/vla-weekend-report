@@ -7,3 +7,8 @@
 /* Anchor spacing is owned by html scroll-padding, avoiding doubled offsets. */
 .chapter,.paper{scroll-margin-top:0}
 @media(pointer:coarse){.site-header nav a{min-height:44px}}
+
+/* Topic groups keep original paper numbers and reading progress stable. */
+.paper-group{margin-top:32px;scroll-margin-top:0}.group-title{font-size:22px;line-height:1.5;margin:0 0 16px;display:flex;align-items:baseline;flex-wrap:wrap;gap:10px}.group-title>span{font:26px Georgia,serif;color:var(--accent);margin-right:6px}.group-title small{font-size:12px;font-weight:400;color:var(--muted)}.group-jumps{display:flex;flex-wrap:wrap;gap:6px 10px;margin:22px 0}.group-jumps a{display:inline-flex;align-items:center;min-height:44px;font-size:13px;border:1px solid var(--line);padding:6px 12px;border-radius:5px;text-decoration:none;background:var(--paper)}
+@media(max-width:760px){.group-title{font-size:20px;gap:6px}.group-title small{font-size:11px}.group-jumps{display:grid;grid-template-columns:1fr 1fr;gap:8px}.group-jumps a{font-size:12px;padding:6px 10px}.paper-role{max-width:52%}}
+@media print{.group-jumps{display:none}.group-title{break-after:avoid}}

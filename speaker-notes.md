@@ -1,14 +1,14 @@
-# VLA：视觉语言动作模型
+# VLA：从文献脉络到研究选题
 
-八篇代表论文与研究问题
+22篇论文 · 六类问题 · 方法比较与选题核查
 
-共 21 页，主讲约 20 分钟。第 20–21 页为参考资料。
+共 31 页，主讲约 25 分钟。最后6页为参考资料。新增8篇为摘要级定位，全文待核。
 
 ## 01 VLA：视觉语言动作模型
 
 建议用时：0:40 分钟
 
-老师好，这次我围绕视觉语言动作模型整理了八篇代表论文。重点想回答三个问题：视觉语言知识怎样连接到机器人动作，离散动作与连续动作生成各有什么取舍，以及这些模型在实际泛化中还缺少什么。我会重点讲 RT-2、OpenVLA 和 π₀，再用其余五篇补充数据、效率和开放环境泛化。最后提出一个可以先做小规模验证的研究计划。这是代表作的阅读汇报，不代表截至今天的最新性能排名。
+老师好，这次我将文献从原来的八篇扩展到二十二篇，按照基础模型、动作与适配方法、数据、评测，以及与选题直接相关的阶段和鲁棒性研究重新组织。重点仍是RT-2、OpenVLA和π₀，但最后会解释新检索的工作怎样改变了我对阶段定向视觉增强的判断。新增八篇目前完成原始摘要级定位，关键方法和消融还需要全文精读；本次没有新的实验结果。
 
 来源：[RT-2](https://arxiv.org/abs/2307.15818)、[OpenVLA](https://arxiv.org/abs/2406.09246)、[π₀](https://arxiv.org/abs/2410.24164)
 
@@ -20,13 +20,13 @@
 
 来源：[RT-2](https://arxiv.org/abs/2307.15818)、[OpenVLA](https://arxiv.org/abs/2406.09246)、[π₀](https://arxiv.org/abs/2410.24164)
 
-## 03 八篇论文的分工
+## 03 22篇论文：按六类问题重新定位
 
-建议用时：0:55 分钟
+建议用时：1:00 分钟
 
-这八篇可以按问题来组织。RT-2 提供核心范式，Open X-Embodiment 解释机器人数据如何整合，Octo 展示通用策略的另一种设计。OpenVLA 让 VLA 更便于公开研究，π₀ 重点解决连续高频动作。FAST 研究如何编码动作，SmolVLA 关注低成本部署，π₀.₅ 关注陌生家庭环境泛化。年份统一按首次预印本发布计算，避免与正式会议年份混淆。这里的分类是为了阅读，各篇实际贡献有交叉。
+我将二十二篇分成六组。前四组对应原有十四篇，帮助建立模型、数据、动作与评测的基础。后两组是这次新增的八篇，直接用于检查选题是否重复。EGR没有显式以阶段为单位，这里归入阶段与训练资源组，是因为它同样按任务重要性决定训练干预。类别用于索引，不等于方法相同。详细五行笔记和原文链接可在速读页按组筛选。
 
-来源：[RT-2](https://arxiv.org/abs/2307.15818)、[Open X-Embodiment](https://arxiv.org/abs/2310.08864)、[Octo](https://arxiv.org/abs/2405.12213)、[OpenVLA](https://arxiv.org/abs/2406.09246)、[π₀](https://arxiv.org/abs/2410.24164)、[FAST](https://arxiv.org/abs/2501.09747)、[π₀.₅](https://arxiv.org/abs/2504.16054)、[SmolVLA](https://arxiv.org/abs/2506.01844)
+来源：[RT-2](https://arxiv.org/abs/2307.15818)、[OpenVLA-OFT](https://arxiv.org/abs/2502.19645v2)、[LIBERO](https://arxiv.org/abs/2306.03310v2)、[Long-VLA](https://arxiv.org/abs/2508.19958v2)、[STRONG-VLA](https://arxiv.org/abs/2604.10055v3)
 
 ## 04 RT-2：把动作纳入语言模型的输出
 
@@ -124,70 +124,178 @@ FAST 和 SmolVLA 都讨论效率，但切入点不同。FAST 先处理动作序�
 
 来源：[π₀.₅](https://arxiv.org/abs/2504.16054)
 
-## 16 VLA 仍需回答的可靠性问题
+## 16 ACT、Diffusion Policy、LoRA：三个不同层面
 
 建议用时：1:00 分钟
 
-综合这些论文，我认为后续实验首先要把可靠性拆开测。一个模型成功拿起目标，并不足以证明它使用了语言，因为物体位置可能已经泄露答案。动作生成也必须放在真实闭环里评估，离线动作误差无法代替控制效果。泛化实验要尽量只改变一个因素，并记录完整成功、部分完成和失败恢复。这里列的是我根据文献整理的评测建议，不是某篇论文已经证明的统一结论，更不是我已经完成的实验。
+这三篇解释底层概念。ACT用动作分块和时间集成减少误差累积，Diffusion Policy用条件扩散建模复杂动作分布。LoRA则处理如何更新大模型参数，并不替代动作生成设计。它们可以组合，也不应该按一个跨论文成功率来排名。研究OpenVLA-OFT时，需要同时确定动作头、执行方式和参数适配位置，不能只写使用LoRA就认为实验配置完整。
 
-来源：[RT-2](https://arxiv.org/abs/2307.15818)、[OpenVLA](https://arxiv.org/abs/2406.09246)、[π₀](https://arxiv.org/abs/2410.24164)、[π₀.₅](https://arxiv.org/abs/2504.16054)
+来源：[ACT](https://arxiv.org/abs/2304.13705v1)、[Diffusion Policy](https://arxiv.org/abs/2303.04137v5)、[LoRA](https://arxiv.org/abs/2106.09685v2)
 
-## 17 三个候选研究方向
+## 17 OpenVLA-OFT：从开放底座到高效适配
 
-建议用时：1:05 分钟
+建议用时：1:00 分钟
 
-我把后续方向收敛成三个可验证问题。优先考虑语言条件稳健性，因为可以先固定一个公开模型，构建配对评测，再尝试少量数据增强。第二个方向是动作分块与延迟，研究在同样模型下执行多长的动作前缀更合适。第三个方向是数据选择，在相同预算下观察哪些数据最值得补充。这些目前都是候选问题，不能直接宣称创新。特别是距离原始论文已经有后续进展，需要进一步检索近两年的工作，再确定具体差异。
+OpenVLA-OFT不是另一个从零预训练的巨型模型，而是研究如何更有效地适配OpenVLA。主要配方包括连续动作表示、并行预测、动作分块和L1训练目标。与π₀的flow不同，这里可以直接回归动作块。它适合用作我们的实验底座，因为实现公开且控制接口较明确。但原论文的成功率依赖具体数据和协议，不能当作所有任务上都可靠的保证。多相机、本体状态和动作头也要随检查点完整恢复，不能只加载LoRA权重。
 
-来源：[FAST](https://arxiv.org/abs/2501.09747)、[SmolVLA](https://arxiv.org/abs/2506.01844)、[π₀.₅](https://arxiv.org/abs/2504.16054)、[OpenVLA](https://arxiv.org/abs/2406.09246)、[π₀](https://arxiv.org/abs/2410.24164)
+来源：[OpenVLA](https://arxiv.org/abs/2406.09246)、[OpenVLA-OFT](https://arxiv.org/abs/2502.19645v2)、[LoRA](https://arxiv.org/abs/2106.09685v2)
 
-## 18 首轮验证：语言稳健性
+## 18 LIBERO 与 LIBERO-Plus：先统一评测口径
 
-建议用时：1:10 分钟
+建议用时：1:00 分钟
 
-这一页是一个拟议实验，还没有结果。先根据可用显卡和平台选择 OpenVLA 或 SmolVLA 中的一个作为底座，两组训练都使用相同预算，只改变是否加入同义改写。评测采用相同初始状态的配对试验。原指令和同义指令应该要求相同目标，另设改变目标的指令，检查模型是否真的跟随语义，而不是对所有指令都做相同行为。训练与测试的指令模板和任务划分要隔离。先做小样本验证评测是否有效，再增加试验规模并报告不确定性。
+LIBERO提供任务、示范和评测环境，原始研究还包括持续学习与知识迁移。后续VLA常使用其闭环成功率，因此要写清采用哪种协议。LIBERO-Plus进一步诊断分布偏移下的鲁棒性。首轮不必复现所有扰动，但必须固定控制参数，报告干净和受扰表现。若以已在LIBERO上适配的OFT检查点继续训练，研究的是鲁棒再适配，不应包装成未见任务少样本学习。
 
-来源：[OpenVLA](https://arxiv.org/abs/2406.09246)、[SmolVLA](https://arxiv.org/abs/2506.01844)
+来源：[LIBERO](https://arxiv.org/abs/2306.03310v2)、[LIBERO-Plus](https://arxiv.org/abs/2510.13626v3)、[OpenVLA-OFT](https://arxiv.org/abs/2502.19645v2)
 
-## 19 阶段判断与下一步安排
+## 19 最接近候选课题的四篇：重叠在哪里
 
-建议用时：0:55 分钟
+建议用时：1:20 分钟
 
-最后总结我的阶段判断。RT-2 说明语义知识可以用于动作决策，OpenVLA 提供开放适配入口，π₀ 展示连续动作和分阶段训练对复杂操作的价值。接下来我希望先跑通一个公开基线，建立可解释的失败分类，再根据结果选择干预方法。如果语言已经表现稳健，就转向控制延迟或数据选择问题。这里的四周只是建议安排，想与老师确认的是研究优先级和平台条件，这会决定实验规模，以及应该优先看哪些后续工作。
+这是选题判断最重要的一页。Long-VLA直接采用阶段感知输入遮蔽，是最近的输入干预工作。EGR按每帧每传感器的任务证据门控一致性约束，与先诊断再训练的思路接近。FrameSkip强调关键帧和夹爪转换，PHASER强调持续学习中的阶段资源分配。因此我不能再把阶段意识本身作为创新点。但这些工作也不等于证明我们设想的模糊增强已被完整实现，还需要对照全文、任务和成本，确认真正的差别。
 
-来源：[RT-2](https://arxiv.org/abs/2307.15818)、[OpenVLA](https://arxiv.org/abs/2406.09246)、[π₀](https://arxiv.org/abs/2410.24164)
+来源：[Long-VLA](https://arxiv.org/abs/2508.19958v2)、[EGR](https://arxiv.org/abs/2609.03142v1)、[FrameSkip](https://arxiv.org/abs/2605.13757v1)、[PHASER](https://arxiv.org/abs/2606.03598v2)
 
-## 20 参考文献 01–04
+## 20 Long-VLA 与 EGR：先精读这两篇
+
+建议用时：1:00 分钟
+
+我会先读Long-VLA和EGR，而不是直接租卡训练。前者要核对移动与交互阶段的具体定义、遮蔽位置和推理依赖。后者要核对任务相关性证据是否需要额外模型或多次前向，以及两个正则项如何计算。只有知道它们已有方法的实际成本和局限，才可能提出一个有价值的简化。如果现有方法已经能解决同一个问题，而且成本并不高，就不应只把遮蔽换成模糊后继续原题。
+
+来源：[Long-VLA](https://arxiv.org/abs/2508.19958v2)、[EGR](https://arxiv.org/abs/2609.03142v1)
+
+## 21 FrameSkip 与 PHASER：资源分配已有先例
+
+建议用时：1:00 分钟
+
+这两篇与我们的干预形式不同，但都会改变有限训练资源在时间上的分配。FrameSkip选择重要帧，PHASER针对持续学习回放。后者的遗忘问题不能直接等同于一次鲁棒微调。不过，它们说明夹爪事件、关键阶段与预算分配已经不是空白。我们的对照除了均匀增强，还需要简单事件规则。把训练步数和增强次数匹配，是为了让结论可解释，不能把实验公平性本身写成新的算法贡献。
+
+来源：[FrameSkip](https://arxiv.org/abs/2605.13757v1)、[PHASER](https://arxiv.org/abs/2606.03598v2)
+
+## 22 四篇补充：排除鲁棒性提升的其他解释
+
+建议用时：1:00 分钟
+
+除了最接近的四篇，我补充了四项鲁棒性工作。STRONG-VLA已经研究扰动训练和干净性能恢复。MAIL-Bench在任务不同阶段中断相机，说明阶段故障诊断也已有先例。View Collapse提醒我们，某相机受扰后更稳定，可能只是策略改为依赖腕部相机。CARE则表明动作块执行长度本身影响短时扰动后果。因此如果后面看到成功率提升，需要用相机干预和固定执行参数排除这些解释。
+
+来源：[STRONG-VLA](https://arxiv.org/abs/2604.10055v3)、[MAIL-Bench / MINT](https://arxiv.org/abs/2609.35003v1)、[View Collapse](https://arxiv.org/abs/2609.33707v1)、[CARE](https://arxiv.org/abs/2609.32550v1)
+
+## 23 阶段定向视觉增强：暂缓作为正式创新点
+
+建议用时：1:00 分钟
+
+这轮检索后，我会把阶段定向视觉增强从优先发表题目降为待验证候选。它仍可帮助学习数据加载、微调与鲁棒评测，但不该预先承诺创新。下一步应找出前人方法在某个具体条件下的不足，例如证据估计成本或阶段标签依赖，并检验一个更简单的解决办法。这些也只是待验证问题。如果全文核对后没有清楚差异，就换题，而不是靠更换骨干、扰动名字和数据集维持同一个题目。
+
+来源：[Long-VLA](https://arxiv.org/abs/2508.19958v2)、[EGR](https://arxiv.org/abs/2609.03142v1)、[FrameSkip](https://arxiv.org/abs/2605.13757v1)、[PHASER](https://arxiv.org/abs/2606.03598v2)、[STRONG-VLA](https://arxiv.org/abs/2604.10055v3)
+
+## 24 若找到差异，再做小规模闭环验证
+
+建议用时：1:00 分钟
+
+如果全文比较找到清楚的差异，实验才进入最小验证。先在两个开发任务上跑通OFT，确认检查点、动作头、状态和评测协议完整。然后诊断干净与模糊失败，固定相机和执行长度。对照至少包含无额外增强、均匀增强和固定事件规则。只有候选方法稳定优于简单规则，且没有明显损害干净性能，才增加任务和种子。小样本开发结果只用于决定是否投入，不作为正式有效性证据。
+
+来源：[OpenVLA-OFT](https://arxiv.org/abs/2502.19645v2)、[LIBERO](https://arxiv.org/abs/2306.03310v2)、[Long-VLA](https://arxiv.org/abs/2508.19958v2)、[EGR](https://arxiv.org/abs/2609.03142v1)、[View Collapse](https://arxiv.org/abs/2609.33707v1)、[CARE](https://arxiv.org/abs/2609.32550v1)
+
+## 25 接下来四周：先核查，再决定是否训练
+
+建议用时：1:00 分钟
+
+我的计划先花两周减少重复研究风险。第一周精读最近的两篇，第二周补全预算与诊断相关工作，给出一页明确的差异矩阵。如果没有实质差异，就在这里换题。只有通过这一步，第三周才投入云GPU搭建OFT，第四周完成最小对照。目前还没有新的闭环结果，也不承诺某种方法一定能发表。希望老师先帮助判断问题是否值得做，再决定实验投入和投稿目标。
+
+来源：[Long-VLA](https://arxiv.org/abs/2508.19958v2)、[EGR](https://arxiv.org/abs/2609.03142v1)、[FrameSkip](https://arxiv.org/abs/2605.13757v1)、[PHASER](https://arxiv.org/abs/2606.03598v2)、[OpenVLA-OFT](https://arxiv.org/abs/2502.19645v2)、[LIBERO](https://arxiv.org/abs/2306.03310v2)
+
+## 26 参考文献 01–04
 
 建议用时：按需
 
-这一页列出前四篇论文的完整标题、作者、首次发布年份和原文链接。RT-2、OXE、Octo 和 OpenVLA 分别对应核心范式、数据基础、通用策略与开放实现。需要进一步讨论具体实现时，可以直接打开每条后的官方项目页。方法页使用的 RT-2 和 OpenVLA 图均来自原论文，并在页面中保留了图号与来源。
+本页提供论文的完整标题、作者、首次预印本年份和原文链接。十四篇原阅读包的固定版本和图表页码保留在速读手册中，新增八篇标明摘要级核对。请将预印本身份与正式会议接收分开理解；这里没有把所有新增论文都标成已发表会议论文。需要讨论具体方法时，可以从原文链接继续核对。
 
-来源：[RT-2](https://arxiv.org/abs/2307.15818)、[Open X-Embodiment](https://arxiv.org/abs/2310.08864)、[Octo](https://arxiv.org/abs/2405.12213)、[OpenVLA](https://arxiv.org/abs/2406.09246)
+来源：[RT-2](https://arxiv.org/abs/2307.15818)、[OpenVLA](https://arxiv.org/abs/2406.09246)、[π₀](https://arxiv.org/abs/2410.24164)、[Open X-Embodiment](https://arxiv.org/abs/2310.08864)
 
-## 21 参考文献 05–08 与 Workshop
+## 27 参考文献 05–08
 
 建议用时：按需
 
-这一页列出其余四篇，以及两个可以继续跟踪报告和研究问题的 workshop。π₀ 的首次发布年份是二零二四年，但本次具体方法与公式核对使用的是二零二六年一月更新的第四版。FAST、π₀.₅ 和 SmolVLA 分别补充动作压缩、开放环境泛化和部署效率。所有参考链接也会附在讲稿文件里，方便汇报之后继续阅读。
+本页提供论文的完整标题、作者、首次预印本年份和原文链接。十四篇原阅读包的固定版本和图表页码保留在速读手册中，新增八篇标明摘要级核对。请将预印本身份与正式会议接收分开理解；这里没有把所有新增论文都标成已发表会议论文。需要讨论具体方法时，可以从原文链接继续核对。
 
-来源：[π₀](https://arxiv.org/abs/2410.24164)、[FAST](https://arxiv.org/abs/2501.09747)、[π₀.₅](https://arxiv.org/abs/2504.16054)、[SmolVLA](https://arxiv.org/abs/2506.01844)
+来源：[Octo](https://arxiv.org/abs/2405.12213)、[FAST](https://arxiv.org/abs/2501.09747)、[π₀.₅](https://arxiv.org/abs/2504.16054)、[SmolVLA](https://arxiv.org/abs/2506.01844)
 
-## 八篇论文的完整书目
+## 28 参考文献 09–12
+
+建议用时：按需
+
+本页提供论文的完整标题、作者、首次预印本年份和原文链接。十四篇原阅读包的固定版本和图表页码保留在速读手册中，新增八篇标明摘要级核对。请将预印本身份与正式会议接收分开理解；这里没有把所有新增论文都标成已发表会议论文。需要讨论具体方法时，可以从原文链接继续核对。
+
+来源：[OpenVLA-OFT](https://arxiv.org/abs/2502.19645v2)、[LIBERO](https://arxiv.org/abs/2306.03310v2)、[LIBERO-Plus](https://arxiv.org/abs/2510.13626v3)、[ACT](https://arxiv.org/abs/2304.13705v1)
+
+## 29 参考文献 13–16
+
+建议用时：按需
+
+本页提供论文的完整标题、作者、首次预印本年份和原文链接。十四篇原阅读包的固定版本和图表页码保留在速读手册中，新增八篇标明摘要级核对。请将预印本身份与正式会议接收分开理解；这里没有把所有新增论文都标成已发表会议论文。需要讨论具体方法时，可以从原文链接继续核对。
+
+来源：[Diffusion Policy](https://arxiv.org/abs/2303.04137v5)、[LoRA](https://arxiv.org/abs/2106.09685v2)、[Long-VLA](https://arxiv.org/abs/2508.19958v2)、[EGR](https://arxiv.org/abs/2609.03142v1)
+
+## 30 参考文献 17–20
+
+建议用时：按需
+
+本页提供论文的完整标题、作者、首次预印本年份和原文链接。十四篇原阅读包的固定版本和图表页码保留在速读手册中，新增八篇标明摘要级核对。请将预印本身份与正式会议接收分开理解；这里没有把所有新增论文都标成已发表会议论文。需要讨论具体方法时，可以从原文链接继续核对。
+
+来源：[FrameSkip](https://arxiv.org/abs/2605.13757v1)、[PHASER](https://arxiv.org/abs/2606.03598v2)、[STRONG-VLA](https://arxiv.org/abs/2604.10055v3)、[MAIL-Bench / MINT](https://arxiv.org/abs/2609.35003v1)
+
+## 31 参考文献 21–22
+
+建议用时：按需
+
+本页提供论文的完整标题、作者、首次预印本年份和原文链接。十四篇原阅读包的固定版本和图表页码保留在速读手册中，新增八篇标明摘要级核对。请将预印本身份与正式会议接收分开理解；这里没有把所有新增论文都标成已发表会议论文。需要讨论具体方法时，可以从原文链接继续核对。
+
+来源：[View Collapse](https://arxiv.org/abs/2609.33707v1)、[CARE](https://arxiv.org/abs/2609.32550v1)
+
+## 22篇论文的完整书目
 
 1. Anthony Brohan et al. (2023 首发). *RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control*. [原文](https://arxiv.org/abs/2307.15818) · [官方项目](https://robotics-transformer2.github.io/)
 
-2. Open X-Embodiment Collaboration (2023 首发). *Open X-Embodiment: Robotic Learning Datasets and RT-X Models*. [原文](https://arxiv.org/abs/2310.08864) · [官方项目](https://robotics-transformer-x.github.io/)
+2. Moo Jin Kim et al. (2024 首发). *OpenVLA: An Open-Source Vision-Language-Action Model*. [原文](https://arxiv.org/abs/2406.09246) · [官方项目](https://openvla.github.io/)
 
-3. Octo Model Team et al. (2024 首发). *Octo: An Open-Source Generalist Robot Policy*. [原文](https://arxiv.org/abs/2405.12213) · [官方项目](https://octo-models.github.io/)
+3. Kevin Black et al. (2024 首发). *π₀: A Vision-Language-Action Flow Model for General Robot Control*. [原文](https://arxiv.org/abs/2410.24164) · [官方项目](https://www.pi.website/blog/pi0)
 
-4. Moo Jin Kim et al. (2024 首发). *OpenVLA: An Open-Source Vision-Language-Action Model*. [原文](https://arxiv.org/abs/2406.09246) · [官方项目](https://openvla.github.io/)
+4. Open X-Embodiment Collaboration (2023 首发). *Open X-Embodiment: Robotic Learning Datasets and RT-X Models*. [原文](https://arxiv.org/abs/2310.08864) · [官方项目](https://robotics-transformer-x.github.io/)
 
-5. Kevin Black et al. (2024 首发). *π₀: A Vision-Language-Action Flow Model for General Robot Control*. [原文](https://arxiv.org/abs/2410.24164) · [官方项目](https://www.pi.website/blog/pi0)
+5. Octo Model Team et al. (2024 首发). *Octo: An Open-Source Generalist Robot Policy*. [原文](https://arxiv.org/abs/2405.12213) · [官方项目](https://octo-models.github.io/)
 
 6. Karl Pertsch et al. (2025 首发). *FAST: Efficient Action Tokenization for Vision-Language-Action Models*. [原文](https://arxiv.org/abs/2501.09747) · [官方项目](https://www.pi.website/research/fast)
 
 7. Physical Intelligence et al. (2025 首发). *π₀.₅: a Vision-Language-Action Model with Open-World Generalization*. [原文](https://arxiv.org/abs/2504.16054) · [官方项目](https://www.pi.website/blog/pi05)
 
 8. Mustafa Shukor et al. (2025 首发). *SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics*. [原文](https://arxiv.org/abs/2506.01844) · [官方项目](https://huggingface.co/blog/smolvla)
+
+9. Moo Jin Kim et al. (2025 首发). *Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success*. [原文](https://arxiv.org/abs/2502.19645v2)
+
+10. Bo Liu et al. (2023 首发). *LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning*. [原文](https://arxiv.org/abs/2306.03310v2)
+
+11. Senyu Fei et al. (2025 首发). *LIBERO-Plus: In-depth Robustness Analysis of Vision-Language-Action Models*. [原文](https://arxiv.org/abs/2510.13626v3)
+
+12. Tony Z. Zhao et al. (2023 首发). *Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware*. [原文](https://arxiv.org/abs/2304.13705v1)
+
+13. Cheng Chi et al. (2023 首发). *Diffusion Policy: Visuomotor Policy Learning via Action Diffusion*. [原文](https://arxiv.org/abs/2303.04137v5)
+
+14. Edward J. Hu et al. (2021 首发). *LoRA: Low-Rank Adaptation of Large Language Models*. [原文](https://arxiv.org/abs/2106.09685v2)
+
+15. Yiguo Fan et al. (2025 首发). *Long-VLA: Unleashing Long-Horizon Capability of Vision Language Action Model for Robot Manipulation*. [原文](https://arxiv.org/abs/2508.19958v2)
+
+16. Yue Yang et al. (2026 首发). *Sensing Which Modality Matters: Evidence-Gated Regularization for Robust VLA Policies*. [原文](https://arxiv.org/abs/2609.03142v1)
+
+17. Bin Yu et al. (2026 首发). *FrameSkip: Learning from Fewer but More Informative Frames in VLA Training*. [原文](https://arxiv.org/abs/2605.13757v1)
+
+18. Ziyang Chen et al. (2026 首发). *PHASER: Phase-Aware and Semantic Experience Replay for Vision-Language-Action Models*. [原文](https://arxiv.org/abs/2606.03598v2)
+
+19. Yuhan Xie et al. (2026 首发). *STRONG-VLA: Decoupled Robustness Learning for Vision-Language-Action Models under Multimodal Perturbations*. [原文](https://arxiv.org/abs/2604.10055v3)
+
+20. Mingle Jiang et al. (2026 首发). *Learning to Act under Visual Interruptions with Vision-Language-Action Models*. [原文](https://arxiv.org/abs/2609.35003v1)
+
+21. Futa Waseda et al. (2026 首发). *Does Adversarial Training Improve Generalization in Multi-View VLAs? Revealing and Mitigating View Collapse*. [原文](https://arxiv.org/abs/2609.33707v1)
+
+22. Shojiro Yamabe and Jun Sakuma (2026 首发). *Are Vision-Language-Action Models Robust to One-Step Observation Perturbations?*. [原文](https://arxiv.org/abs/2609.32550v1)
 
 图像来源见 assets/sources.json。原图与论文版权归原作者所有。研究方案为讨论建议，未包含新实验结果。

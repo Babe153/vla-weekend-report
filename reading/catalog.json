@@ -1,0 +1,165 @@
+{
+  "updated": "2026-10-22",
+  "groups": [
+    {
+      "id": "policy",
+      "label": "通用策略",
+      "count": 6
+    },
+    {
+      "id": "data",
+      "label": "数据基础",
+      "count": 1
+    },
+    {
+      "id": "method",
+      "label": "动作与适配",
+      "count": 5
+    },
+    {
+      "id": "benchmark",
+      "label": "评测基准",
+      "count": 2
+    },
+    {
+      "id": "phase",
+      "label": "阶段与训练资源",
+      "count": 4
+    },
+    {
+      "id": "robust",
+      "label": "鲁棒训练与诊断",
+      "count": 4
+    }
+  ],
+  "newPapers": [
+    {
+      "id": "longvla",
+      "short": "Long-VLA",
+      "year": "2025",
+      "author": "Yiguo Fan et al.",
+      "title": "Long-VLA: Unleashing Long-Horizon Capability of Vision Language Action Model for Robot Manipulation",
+      "arxiv": "2508.19958v2",
+      "role": "阶段与训练资源",
+      "category": "phase",
+      "question": "长程操作中，如何让策略在移动与交互阶段关注合适的感知线索？",
+      "io": "多模态观察与任务条件 → 经阶段感知输入遮蔽的策略 → 操作动作。",
+      "change": "将子任务划分为移动和交互阶段，采用阶段感知输入遮蔽，并提出L-CALVIN长程评测。",
+      "evidence": "摘要报告仿真及实机验证；优先精读阶段划分、遮蔽规则和消融。未在本页复核具体图号。",
+      "boundary": "与“分阶段干预视觉输入”高度接近；遮蔽与模糊并不完全相同，具体差异需要全文对照。",
+      "relation": "阶段输入干预的首要近邻；不能仅以换成模糊增强主张创新。"
+    },
+    {
+      "id": "egr",
+      "short": "EGR",
+      "year": "2026",
+      "author": "Yue Yang et al.",
+      "title": "Sensing Which Modality Matters: Evidence-Gated Regularization for Robust VLA Policies",
+      "arxiv": "2609.03142v1",
+      "role": "阶段与训练资源",
+      "category": "phase",
+      "question": "有限示范下，多传感器策略如何避免学到无关传感器之间的伪相关？",
+      "io": "每帧、每传感器的任务相关性信号 → 门控一致性目标 → 鲁棒多模态策略。",
+      "change": "对低证据传感器鼓励不变性，对高证据传感器鼓励单传感器充分性；不增加推理开销。",
+      "evidence": "摘要报告BEHAVIOR-1K诊断、47项闭环技能及两种实机平台；需精读证据计算和正则项。",
+      "boundary": "与“先诊断重要性再调整训练干预”接近；按传感器证据门控，并非同一个两阶段增强算法。",
+      "relation": "检验按重要性分配训练干预是否已有更完整解法。"
+    },
+    {
+      "id": "frameskip",
+      "short": "FrameSkip",
+      "year": "2026",
+      "author": "Bin Yu et al.",
+      "title": "FrameSkip: Learning from Fewer but More Informative Frames in VLA Training",
+      "arxiv": "2605.13757v1",
+      "role": "阶段与训练资源",
+      "category": "phase",
+      "question": "密集轨迹里的低变化片段会挤占关键对齐、抓取和释放时刻的训练监督，如何处理？",
+      "io": "示范轨迹 → 帧重要性打分与筛选 → 原有VLA训练流程。",
+      "change": "结合动作变化、视觉动作一致性、进度先验和夹爪转换保护，在数据加载层选帧。",
+      "evidence": "摘要报告RoboCasa-GR1、SimplerEnv和LIBERO；需核对保留帧比例、采样量和简单筛选对照。",
+      "boundary": "夹爪事件与关键帧优先已被研究；选帧不同于增强，但都会重分配训练资源。",
+      "relation": "固定预算与关键事件优先的必要对照。"
+    },
+    {
+      "id": "phaser",
+      "short": "PHASER",
+      "year": "2026",
+      "author": "Ziyang Chen et al.",
+      "title": "PHASER: Phase-Aware and Semantic Experience Replay for Vision-Language-Action Models",
+      "arxiv": "2606.03598v2",
+      "role": "阶段与训练资源",
+      "category": "phase",
+      "question": "连续学习新技能时，如何避免短暂关键阶段因回放不足而被遗忘？",
+      "io": "历史示范与阶段边界 → 阶段回放容量及遗忘风险路由 → 持续学习策略。",
+      "change": "按阶段分配回放支持，优先高遗忘风险阶段；Auto-PC结合动作变点检测与VLM语义核验。",
+      "evidence": "摘要报告三个VLA底座和LIBERO持续学习套件；重点核对匹配回放预算与阶段提取消融。",
+      "boundary": "主要解决持续学习中的遗忘；不能直接当作单次鲁棒微调的同任务性能结论。",
+      "relation": "证明按阶段分配有限资源已有先例，需说明新问题究竟不同在哪。"
+    },
+    {
+      "id": "strong",
+      "short": "STRONG-VLA",
+      "year": "2026",
+      "author": "Yuhan Xie et al.",
+      "title": "STRONG-VLA: Decoupled Robustness Learning for Vision-Language-Action Models under Multimodal Perturbations",
+      "arxiv": "2604.10055v3",
+      "role": "鲁棒训练与诊断",
+      "category": "robust",
+      "question": "多模态扰动训练与正常任务表现之间的冲突如何缓解？",
+      "io": "受扰动和干净示范 → 两阶段微调 → 鲁棒策略。",
+      "change": "先用难度递增的多模态扰动学习鲁棒性，再对齐干净任务分布；建立28类扰动评测。",
+      "evidence": "摘要报告LIBERO多个VLA底座及AIRBOT实机；重点精读两阶段训练和干净性能恢复。",
+      "boundary": "一般性“做扰动增强”已有强相关工作；需要核对总训练量和干净数据额外成本。",
+      "relation": "视觉增强研究需要考虑的训练配方对照。"
+    },
+    {
+      "id": "mail",
+      "short": "MAIL-Bench / MINT",
+      "year": "2026",
+      "author": "Mingle Jiang et al.",
+      "title": "Learning to Act under Visual Interruptions with Vision-Language-Action Models",
+      "arxiv": "2609.35003v1",
+      "role": "鲁棒训练与诊断",
+      "category": "robust",
+      "question": "操作过程中摄像头停止提供后续帧，策略还能完成多少任务？",
+      "io": "不同阶段与相机的视觉中断 → 闭环评测；MINT训练并选择性补充缺失视图。",
+      "change": "MAIL-Bench按参考成功轨迹阶段评测；MINT结合缺视图训练与光流／世界模型补视图。",
+      "evidence": "摘要报告π₀.₅、GR00T N1.5及AgiBot G2实机；优先看中断时机、持续方式和补帧退出规则。",
+      "boundary": "摄像头后续缺帧不等同于短时模糊；按阶段制造视觉故障本身也已有工作。",
+      "relation": "阶段扰动诊断的必要参照，不把不同故障机制混为一谈。"
+    },
+    {
+      "id": "viewcollapse",
+      "short": "View Collapse",
+      "year": "2026",
+      "author": "Futa Waseda et al.",
+      "title": "Does Adversarial Training Improve Generalization in Multi-View VLAs? Revealing and Mitigating View Collapse",
+      "arxiv": "2609.33707v1",
+      "role": "鲁棒训练与诊断",
+      "category": "robust",
+      "question": "多视角VLA的对抗训练收益，是否来自放弃使用被扰动的相机？",
+      "io": "多视角策略与受控视图干预 → 七类LIBERO-Plus偏移评测与依赖诊断。",
+      "change": "揭示腕部视角主导的view collapse，区分感知鲁棒性与融合策略变化，并用View Swap干预。",
+      "evidence": "摘要指出收益依偏移类型而异；需精读单视图干预与View Swap消融。",
+      "boundary": "某视角受扰后不掉点不等于该视角感知变强；不能把对抗训练称为通用泛化解法。",
+      "relation": "用于排查增强方法是否只学会依赖另一相机。"
+    },
+    {
+      "id": "care",
+      "short": "CARE",
+      "year": "2026",
+      "author": "Shojiro Yamabe and Jun Sakuma",
+      "title": "Are Vision-Language-Action Models Robust to One-Step Observation Perturbations?",
+      "arxiv": "2609.32550v1",
+      "role": "鲁棒训练与诊断",
+      "category": "robust",
+      "question": "一次短暂观察污染为何会造成较长的控制失败，动作块执行长度有何影响？",
+      "io": "当前与上一轮预测动作块 → 一致性判断 → 动态执行前缀。",
+      "change": "研究单步扰动，按预测动作块一致性选择执行长度，在异常时缩短开环执行。",
+      "evidence": "摘要报告低额外开销与干净性能保持；需精读扰动插入、长度选择和固定前缀对照。",
+      "boundary": "推理时执行机制与训练增强不同；比较增强收益时也应固定执行长度。",
+      "relation": "排除“只是执行长度不同”导致鲁棒性提升的混淆。"
+    }
+  ]
+}

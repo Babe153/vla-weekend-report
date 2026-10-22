@@ -5,14 +5,14 @@
   const papers = new Map(report.papers.map(p => [p.id,p]));
   const escape = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const refs = ids => ids.map(id => {const p=papers.get(id);return `<a href="${p.url}" target="_blank" rel="noopener noreferrer">[${report.papers.indexOf(p)+1}] ${escape(p.short)}</a>`;}).join('');
-  const refList = ids => `<ol class="references-list">${ids.map(id => {const p=papers.get(id);return `<li><span class="reference-title">[${report.papers.indexOf(p)+1}] ${escape(p.title)}</span><span class="reference-meta">${escape(p.author)} · ${p.year} 首发</span><span class="reference-links"><a href="${p.url}" target="_blank" rel="noopener noreferrer">论文原文</a><a href="${p.project}" target="_blank" rel="noopener noreferrer">官方项目</a></span></li>`;}).join('')}</ol>`;
+  const refList = ids => `<ol class="references-list">${ids.map(id => {const p=papers.get(id);return `<li><span class="reference-title">[${report.papers.indexOf(p)+1}] ${escape(p.title)}</span><span class="reference-meta">${escape(p.author)} · ${p.year} 首发</span><span class="reference-links"><a href="${p.url}" target="_blank" rel="noopener noreferrer">论文原文</a>${p.project!==p.url?`<a href="${p.project}" target="_blank" rel="noopener noreferrer">官方项目</a>`:``}</span></li>`;}).join('')}</ol>`;
   $('#deck').innerHTML = report.slides.map((s,i)=>`<section class="slide ${s.type||''}" id="slide-${i+1}" data-index="${i}" data-color="${s.color||'blue'}" aria-labelledby="title-${i+1}"><div class="slide-header"><span class="slide-num">${String(i+1).padStart(2,'0')} / ${report.slides.length}</span><span class="section-name">${escape(s.section)}</span></div><h2 id="title-${i+1}">${escape(s.title)}</h2><div class="slide-body">${s.paperIds?refList(s.paperIds):''}${s.body||''}</div><div class="source-line"><span>来源${s.source?' · '+escape(s.source):''}</span>${refs(s.refs)}</div><details class="speaker-notes"><summary>本页讲稿<span class="note-time">建议 ${s.time}${s.time==='按需'?'':' 分钟'}</span></summary><p>${escape(s.notes)}</p><p class="small">参考：${refs(s.refs)}</p></details></section>`).join('');
   document.querySelectorAll('table').forEach(table=>{const headers=[...table.querySelectorAll('thead th')].map(e=>e.textContent);table.querySelectorAll('tbody tr').forEach(row=>[...row.children].forEach((cell,i)=>{if(cell.tagName==='TD')cell.dataset.label=headers[i]||'';}));});
   const slides=[...document.querySelectorAll('.slide')];
   const mobile=matchMedia('(max-width:680px)');
   let reading=mobile.matches, current=0, notesPage=new URLSearchParams(location.search).get('notes')==='1';
   let userSelectedMode=false;
-  const outlines=report.slides.map((s,i)=>`<button data-goto="${i}"><span>${String(i+1).padStart(2,'0')}</span>${escape(s.title)}</button>`).join('');
+  const outlines=report.slides.map((s,i)=>`${i===0||report.slides[i-1].section!==s.section?`<h3 class="outline-section">${escape(s.section)}</h3>`:''}<button data-goto="${i}"><span>${String(i+1).padStart(2,'0')}</span>${escape(s.title)}</button>`).join('');
   $('#outlineList').innerHTML=outlines;
   $('.progress').setAttribute('aria-valuemax',slides.length);
   const notes=(show)=>{
