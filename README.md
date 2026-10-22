@@ -5,6 +5,7 @@
 - [导师汇报](https://babe153.github.io/vla-weekend-report/)：RT-2、OpenVLA、π₀主线，补充OFT、评测、最近邻及选题判断。
 - [22篇分组速读](https://babe153.github.io/vla-weekend-report/reading/)：110条五行笔记、中文对比表、六类筛选、搜索及本地已读进度。
 - [逐页讲稿](https://babe153.github.io/vla-weekend-report/?notes=1)；也可下载 `speaker-notes.md`。
+- [English report](https://babe153.github.io/vla-weekend-report/en/) · [English reading handbook](https://babe153.github.io/vla-weekend-report/en/reading/) · [English speaker notes](https://babe153.github.io/vla-weekend-report/en/?notes=1)。两种语言顶部均有切换入口，保留当前幻灯片／论文锚点及讲稿模式；速读进度共用当前浏览器存储。
 
 ## 分组
 
@@ -26,6 +27,9 @@ A 通用策略6篇；B 数据基础1篇；C 动作与适配5篇；D 评测2篇�
 - `scripts/build-reading.mjs`：生成静态速读HTML。
 - `app.js`、`styles.css`：演示交互与布局。
 - `reading/reading.js`、`reading/reading.css`：速读交互与布局。
+- `en/content.js`、`en/reading/notes.md`：完整英文正文与笔记来源；`en/reading/catalog.json` 为英文分组标签。
+- `scripts/build-english.mjs`、`scripts/build-reading-en.mjs`：生成英文讲稿、静态速读页面及部署目录。
+- `language.js`：中英文原生链接及阅读位置保留；两版共用布局和交互脚本。
 
 无需安装依赖，Node22或更新版本：
 

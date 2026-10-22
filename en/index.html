@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4f2ed">
+  <meta name="description" content="VLA literature report in English: 22 papers, RT-2, OpenVLA and π₀, with speaker notes, method comparisons, limitations and research assessment.">
+  <title>VLA Literature Report · RT-2 / OpenVLA / π₀</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="content.js" defer></script>
+  <script src="../app.js" defer></script>
+  <script src="../language.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#deck">Skip to report</a>
+  <header class="toolbar">
+    <a href="#slide-1" class="brand" aria-label="Back to the first slide">VLA<span>Literature report</span></a>
+    <a class="language-link" href="../" data-language-switch="../" lang="zh-CN" hreflang="zh-CN" aria-label="切换到中文">中文</a>
+    <nav class="tools" aria-label="Presentation tools">
+      <a class="notes-download" href="reading/">22-paper guide</a>
+      <button id="outlineBtn" aria-haspopup="dialog">Contents</button>
+      <button id="modeBtn" aria-pressed="false">Read</button>
+      <button id="notesBtn" aria-pressed="false">Notes</button>
+      <button id="fullBtn" class="desktop-only">Fullscreen</button>
+      <a class="notes-download" href="speaker-notes.md" download>Download notes</a>
+    </nav>
+  </header>
+  <main id="deck" aria-label="VLA literature report"></main>
+  <footer class="controls" aria-label="Slide navigation">
+    <button id="prevBtn" aria-label="Previous">←<span>Previous</span></button>
+    <div class="page-status"><span id="pageLabel" aria-live="polite"></span><span id="sectionLabel"></span></div>
+    <button id="nextBtn" aria-label="Next"><span>Next</span>→</button>
+    <div class="progress" role="progressbar" aria-label="Report progress" aria-valuemin="1" aria-valuemax="31"><div id="progressBar"></div></div>
+  </footer>
+  <dialog id="outline" aria-labelledby="outlineTitle"><div class="dialog-head"><h2 id="outlineTitle">Contents</h2><button class="close-dialog" aria-label="Close contents">Close</button></div><div id="outlineList"></div><p class="outline-links"><a href="reading/">22-paper notes and comparison</a><a href="?notes=1">All speaker notes</a><a href="speaker-notes.md" download>Download speaker notes</a></p><p class="keyboard-hint">Keys: ← → slides · N notes · R read · F fullscreen</p></dialog>
+  <dialog id="imageDialog" aria-label="Paper figure"><div class="dialog-head"><span>Original figure · use browser zoom for detail</span><button class="close-dialog" aria-label="Close figure">Close</button></div><div class="image-scroll"><img id="largeImage" alt=""></div></dialog>
+  <noscript><p class="nojs">Enable JavaScript for the presentation, or read the <a href="speaker-notes.md">full speaker notes</a>.</p></noscript>
+</body>
+</html>

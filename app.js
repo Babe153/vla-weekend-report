@@ -1,12 +1,15 @@
 (() => {
   'use strict';
   const report = window.REPORT;
+  const en=report.lang==='en';
+  const text=en?{released:'first released',paper:'Paper',project:'Project',sources:'Sources',notes:'Speaker notes',suggested:'Suggested',asNeeded:'As needed',unit:'min',reference:'References',continuous:'Continuous',present:'Present',read:'Read',exitFull:'Exit fullscreen',full:'Fullscreen'}:{released:'首发',paper:'论文原文',project:'官方项目',sources:'来源',notes:'本页讲稿',suggested:'建议',asNeeded:'按需',unit:'分钟',reference:'参考',continuous:'连续阅读',present:'演示模式',read:'阅读模式',exitFull:'退出全屏',full:'全屏'};
+  const timing=s=>['按需','As needed'].includes(s.time)?text.asNeeded:`${s.time} ${text.unit}`;
   const $ = (s) => document.querySelector(s);
   const papers = new Map(report.papers.map(p => [p.id,p]));
   const escape = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const refs = ids => ids.map(id => {const p=papers.get(id);return `<a href="${p.url}" target="_blank" rel="noopener noreferrer">[${report.papers.indexOf(p)+1}] ${escape(p.short)}</a>`;}).join('');
-  const refList = ids => `<ol class="references-list">${ids.map(id => {const p=papers.get(id);return `<li><span class="reference-title">[${report.papers.indexOf(p)+1}] ${escape(p.title)}</span><span class="reference-meta">${escape(p.author)} · ${p.year} 首发</span><span class="reference-links"><a href="${p.url}" target="_blank" rel="noopener noreferrer">论文原文</a>${p.project!==p.url?`<a href="${p.project}" target="_blank" rel="noopener noreferrer">官方项目</a>`:``}</span></li>`;}).join('')}</ol>`;
-  $('#deck').innerHTML = report.slides.map((s,i)=>`<section class="slide ${s.type||''}" id="slide-${i+1}" data-index="${i}" data-color="${s.color||'blue'}" aria-labelledby="title-${i+1}"><div class="slide-header"><span class="slide-num">${String(i+1).padStart(2,'0')} / ${report.slides.length}</span><span class="section-name">${escape(s.section)}</span></div><h2 id="title-${i+1}">${escape(s.title)}</h2><div class="slide-body">${s.paperIds?refList(s.paperIds):''}${s.body||''}</div><div class="source-line"><span>来源${s.source?' · '+escape(s.source):''}</span>${refs(s.refs)}</div><details class="speaker-notes"><summary>本页讲稿<span class="note-time">建议 ${s.time}${s.time==='按需'?'':' 分钟'}</span></summary><p>${escape(s.notes)}</p><p class="small">参考：${refs(s.refs)}</p></details></section>`).join('');
+  const refList = ids => `<ol class="references-list">${ids.map(id => {const p=papers.get(id);return `<li><span class="reference-title">[${report.papers.indexOf(p)+1}] ${escape(p.title)}</span><span class="reference-meta">${escape(p.author)} · ${p.year} ${text.released}</span><span class="reference-links"><a href="${p.url}" target="_blank" rel="noopener noreferrer">${text.paper}</a>${p.project!==p.url?`<a href="${p.project}" target="_blank" rel="noopener noreferrer">${text.project}</a>`:``}</span></li>`;}).join('')}</ol>`;
+  $('#deck').innerHTML = report.slides.map((s,i)=>`<section class="slide ${s.type||''}" id="slide-${i+1}" data-index="${i}" data-color="${s.color||'blue'}" aria-labelledby="title-${i+1}"><div class="slide-header"><span class="slide-num">${String(i+1).padStart(2,'0')} / ${report.slides.length}</span><span class="section-name">${escape(s.section)}</span></div><h2 id="title-${i+1}">${escape(s.title)}</h2><div class="slide-body">${s.paperIds?refList(s.paperIds):''}${s.body||''}</div><div class="source-line"><span>${text.sources}${s.source?' · '+escape(s.source):''}</span>${refs(s.refs)}</div><details class="speaker-notes"><summary>${text.notes}<span class="note-time">${text.suggested} ${timing(s)}</span></summary><p>${escape(s.notes)}</p><p class="small">${text.reference}: ${refs(s.refs)}</p></details></section>`).join('');
   document.querySelectorAll('table').forEach(table=>{const headers=[...table.querySelectorAll('thead th')].map(e=>e.textContent);table.querySelectorAll('tbody tr').forEach(row=>[...row.children].forEach((cell,i)=>{if(cell.tagName==='TD')cell.dataset.label=headers[i]||'';}));});
   const slides=[...document.querySelectorAll('.slide')];
   const mobile=matchMedia('(max-width:680px)');
@@ -29,18 +32,18 @@
     $('#nextBtn').disabled=current===slides.length-1;
     document.querySelectorAll('[data-goto]').forEach((b,i)=>b.classList.toggle('current',i===current));
   };
-  const saveHash=()=>history.replaceState(null,'',`#slide-${current+1}`);
-  function go(index,scroll=true){
+  const saveHash=()=>{history.replaceState(null,'',`#slide-${current+1}`);window.updateLanguageLinks?.();};
+  function go(index,scroll=true,instant=false){
     current=Math.max(0,Math.min(slides.length-1,index));
     slides.forEach((s,i)=>s.classList.toggle('active',i===current));
     status();saveHash();
-    if(scroll){if(reading||mobile.matches)slides[current].scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'start'});else window.scrollTo({top:0,behavior:'instant'});}
+    if(scroll){if(reading||mobile.matches)slides[current].scrollIntoView({behavior:instant||matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'start'});else window.scrollTo({top:0,behavior:'instant'});}
   }
   function setMode(value){
     reading=value||mobile.matches||notesPage;
     document.body.classList.toggle('reading',reading);
     $('#modeBtn').setAttribute('aria-pressed',reading);
-    $('#modeBtn').textContent=mobile.matches?'连续阅读':(reading?'演示模式':'阅读模式');
+    $('#modeBtn').textContent=mobile.matches?text.continuous:(reading?text.present:text.read);
     $('#modeBtn').disabled=mobile.matches||notesPage;
     go(current,false);
   }
@@ -66,7 +69,7 @@
   document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>{$('#outline').close();go(Number(b.dataset.goto));});
   document.querySelectorAll('[data-image]').forEach(b=>b.onclick=()=>{const img=$('#largeImage');img.src=b.dataset.image;img.alt=b.querySelector('img').alt;$('#imageDialog').showModal();});
   $('#fullBtn').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();}catch{ /* Browser policy may prohibit fullscreen. Presentation remains usable. */ }};
-  document.addEventListener('fullscreenchange',()=>$('#fullBtn').textContent=document.fullscreenElement?'退出全屏':'全屏');
+  document.addEventListener('fullscreenchange',()=>$('#fullBtn').textContent=document.fullscreenElement?text.exitFull:text.full);
   document.addEventListener('keydown',e=>{
     if(e.ctrlKey||e.metaKey||e.altKey||document.querySelector('dialog[open]')||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.isContentEditable)return;
     if(['ArrowRight','PageDown'].includes(e.key)||(!reading&&e.key===' '&&!/BUTTON|SUMMARY|A/.test(e.target.tagName))){e.preventDefault();go(current+1);}
@@ -83,6 +86,6 @@
   setMode(reading);
   window.addEventListener('hashchange',()=>go(hashIndex()));
   mobile.addEventListener('change',()=>{setMode(userSelectedMode?reading:mobile.matches);go(current,false);});
-  if(location.hash)requestAnimationFrame(()=>go(current));
+  if(location.hash){const initialIndex=current;requestAnimationFrame(()=>go(initialIndex,true,true));}
   window.addEventListener('beforeprint',()=>document.querySelectorAll('.speaker-notes').forEach(n=>{if(notesPage)n.open=true;}));
 })();

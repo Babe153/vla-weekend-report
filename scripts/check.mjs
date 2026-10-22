@@ -36,3 +36,29 @@ for(const link of reading.matchAll(/href="#([^"]+)"/g))assert(anchors.has(link[1
 new vm.Script(await readFile(path.join(root,'reading/reading.js'),'utf8'));
 for(const file of ['reading.css','reading.js','notes.md'])await access(path.join(root,'dist/reading',file));
 console.log('Checked 22 reading entries, 110 fields, anchors, public sources and responsive table labels.');
+
+const englishContext={window:{}};
+vm.runInNewContext(await readFile(path.join(root,'en/content.js'),'utf8'),englishContext);
+const english=englishContext.window.REPORT;
+assert.equal(english.lang,'en');
+assert.equal(english.slides.length,slides.length,'Languages must have the same slides');
+assert.deepEqual(Array.from(english.papers,p=>p.id),Array.from(papers,p=>p.id),'Stable paper order across languages');
+for(const [i,s] of english.slides.entries()){
+  assert(s.title&&s.notes.length>70,`English slide ${i+1} requires full speaker notes`);
+  assert(!/\p{Script=Han}/u.test(s.title+s.body+s.notes+(s.source||'')),`Untranslated English slide ${i+1}`);
+  assert.deepEqual(Array.from(s.refs),Array.from(slides[i].refs),`Source parity for slide ${i+1}`);
+  for(const m of (s.body||'').matchAll(/(?:src|data-image)="([^"#]+)"/g))if(!m[1].startsWith('http'))await access(path.resolve(root,'en',m[1]));
+}
+const englishReading=await readFile(path.join(root,'en/reading/index.html'),'utf8');
+const englishMd=await readFile(path.join(root,'en/reading/notes.md'),'utf8');
+assert.equal((englishReading.match(/class="paper" id="paper-/g)||[]).length,22);
+assert(!/\p{Script=Han}/u.test(englishMd),'English Markdown must be fully translated');
+for(const field of ['Problem','Input → output','Core change','Evidence','Limits'])assert.equal(englishMd.split(`- **${field}:**`).length-1,22,`English reading field ${field}`);
+const englishAnchors=new Set([...englishReading.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
+for(const m of englishReading.matchAll(/href="#([^"]+)"/g))assert(englishAnchors.has(m[1]),`Broken English anchor ${m[1]}`);
+for(const file of ['index.html','reading/index.html','en/index.html','en/reading/index.html']){
+  const page=await readFile(path.join(root,file),'utf8');assert(page.includes('data-language-switch='),`Language link required in ${file}`);
+}
+for(const file of ['language.js','en/index.html','en/content.js','en/speaker-notes.md','en/reading/index.html','en/reading/notes.md'])await access(path.join(root,'dist',file));
+new vm.Script(await readFile(path.join(root,'language.js'),'utf8'));
+console.log('Checked English parity: 31 slides, 22 papers, 110 reading fields, source links, translations and language navigation.');

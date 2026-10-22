@@ -1,0 +1,35 @@
+{
+  "updated": "2026-10-22",
+  "groups": [
+    {
+      "id": "policy",
+      "label": "Generalist policies",
+      "count": 6
+    },
+    {
+      "id": "data",
+      "label": "Data foundations",
+      "count": 1
+    },
+    {
+      "id": "method",
+      "label": "Actions and adaptation",
+      "count": 5
+    },
+    {
+      "id": "benchmark",
+      "label": "Evaluation benchmarks",
+      "count": 2
+    },
+    {
+      "id": "phase",
+      "label": "Phases and training resources",
+      "count": 4
+    },
+    {
+      "id": "robust",
+      "label": "Robustness and diagnostics",
+      "count": 4
+    }
+  ]
+}

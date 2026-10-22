@@ -15,8 +15,9 @@ notes+='## 22篇论文的完整书目\n\n'+report.papers.map((p,i)=>`${i+1}. ${p
 notes+='\n\n图像来源见 assets/sources.json。原图与论文版权归原作者所有。研究方案为讨论建议，未包含新实验结果。\n';
 await writeFile(path.join(root,'speaker-notes.md'),notes,'utf8');
 const dist=path.join(root,'dist');await mkdir(dist,{recursive:true});
-for(const file of ['index.html','styles.css','app.js','content.js','speaker-notes.md'])await copyFile(path.join(root,file),path.join(dist,file));
+for(const file of ['index.html','styles.css','app.js','content.js','speaker-notes.md','language.js'])await copyFile(path.join(root,file),path.join(dist,file));
 await cp(path.join(root,'assets'),path.join(dist,'assets'),{recursive:true});
 await writeFile(path.join(dist,'.nojekyll'),'');
 await import('./build-reading.mjs');
+await import('./build-english.mjs');
 console.log(`Prepared ${report.slides.length} slides, speaker notes, and dist/.`);

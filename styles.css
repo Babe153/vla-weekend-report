@@ -8,3 +8,11 @@
 .outline-links{display:flex;gap:24px;flex-wrap:wrap;font-size:13px;margin:20px 0 0}.outline-links a{min-height:44px;display:inline-flex;align-items:center}
 
 .outline-section{font-size:12px;letter-spacing:1px;color:var(--accent);margin:20px 0 5px;padding-top:8px}.slide{scroll-margin-top:0}
+
+/* Keep language navigation visible on phones, where continuous mode is automatic. */
+.language-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;font-size:13px;white-space:nowrap;margin-left:auto;padding:6px 10px;border:1px solid var(--line);border-radius:5px;text-decoration:none}.toolbar .brand{margin-right:auto}.toolbar .language-link{margin-left:0}
+html[lang=en] .slide h2{letter-spacing:-.5px}html[lang=en] .cover-copy h1 span{font-size:clamp(22px,2.5vw,35px);line-height:1.35}html[lang=en] .numbered li{grid-template-columns:180px 1fr}
+@media(max-width:680px){.toolbar #modeBtn{display:none}.toolbar .language-link{font-size:12px;padding:5px 8px}.toolbar .tools button{padding:6px 8px}.toolbar{gap:7px}html[lang=en] .slide h2{font-size:25px}html[lang=en] .numbered li{grid-template-columns:1fr}html[lang=en] .cover-copy h1 span{font-size:27px}}
+@media print{.language-link{display:none}}
+.toolbar{background:var(--bg)}
+.slide,.reading .slide{scroll-margin-top:0}
