@@ -6,7 +6,7 @@ const context = {window:{}};
 vm.runInNewContext(await readFile(path.join(root,'content.js'),'utf8'), context);
 const report=context.window.REPORT;
 const byId=new Map(report.papers.map(p=>[p.id,p]));
-let notes=`# ${report.title}\n\n${report.subtitle}\n\n共 ${report.slides.length} 页，主讲约 22 分钟。最后6页为参考资料。新增8篇为摘要级定位，全文待核。\n\n`;
+let notes=`# ${report.title}\n\n${report.subtitle}\n\n共 ${report.slides.length} 页，主讲约 22 分钟。最后6页为参考资料。新增8篇只核对了摘要，全文细节待核对。\n\n`;
 for(const [i,s] of report.slides.entries()){
   notes+=`## ${String(i+1).padStart(2,'0')} ${s.title}\n\n建议用时：${s.time}${s.time==='按需'?'':' 分钟'}\n\n${s.notes}\n\n`;
   notes+=`来源${s.source?'（'+s.source+'）':''}：${s.refs.map(id=>{const p=byId.get(id);return `[${p.short}](${p.url})`;}).join('、')}\n\n`;

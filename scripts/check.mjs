@@ -30,7 +30,7 @@ const markdown=await readFile(path.join(root,'reading/notes.md'),'utf8');
 assert.equal((reading.match(/class="paper" id="paper-/g)||[]).length,22,'Twenty-two reading entries required');
 for(const field of ['问题','输入 → 输出','核心改动','证据','边界'])assert.equal(markdown.split(`- **${field}：**`).length-1,22,`Missing reading field ${field}`);
 assert(!/[A-Z]:[\\/]/.test(markdown),'Local filesystem paths cannot be published');
-assert(reading.includes('data-label="动作表示与生成／输出"'),'Mobile table labels required');
+assert(reading.includes('data-label="怎样给出动作或分数"'),'Mobile table labels required');
 const anchors=new Set([...reading.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
 for(const link of reading.matchAll(/href="#([^"]+)"/g))assert(anchors.has(link[1]),`Broken reading anchor ${link[1]}`);
 new vm.Script(await readFile(path.join(root,'reading/reading.js'),'utf8'));

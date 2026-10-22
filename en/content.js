@@ -1,7 +1,7 @@
-/* Literature report content and speaker notes. */
+/* Plain-language literature report and speaker notes. */
 window.REPORT = {
-  "title": "VLA Literature: Models, Methods and Evaluation",
-  "subtitle": "22 papers · Six themes · Methods and capability boundaries",
+  "title": "Understanding VLA Papers: Models, Actions and Tests",
+  "subtitle": "22 papers · What each method does · What the results show",
   "date": "22 October 2026",
   "papers": [
     {
@@ -214,24 +214,24 @@ window.REPORT = {
         "openvla",
         "pi0"
       ],
-      "body": "<div class=\"cover-copy\"><p class=\"eyebrow\">ROBOT LEARNING · LITERATURE REPORT</p><h1>VLA<span>Vision-Language-Action Models</span></h1><p class=\"cover-sub\">A literature map of models, methods and evaluation</p><p class=\"cover-focus\">22-paper map · Focus: RT-2, OpenVLA and π₀</p><p class=\"cover-meta\">Updated 22 October 2026<br>About 22 minutes · Speaker notes and thematic index</p></div><figure class=\"cover-figure\"><img src=\"../assets/pi0-tasks.jpg\" alt=\"A bimanual robot folding clothing in the π₀ paper\" width=\"1200\" height=\"700\"><figcaption>π₀, Figure 2 · Image belongs to the original authors</figcaption></figure>",
-      "notes": "This report organizes twenty-two VLA and related papers into six themes: generalist policies, data foundations, actions and adaptation, evaluation, phases and training resources, and robustness diagnostics. RT-2, OpenVLA and π₀ are the main examples. OpenVLA-OFT and the related phase and robustness papers provide additional context. The emphasis is on what each paper addresses, its method, supporting evidence and limitations. The eight additions are based on original abstracts; detailed methods and experiments remain to be checked against the full texts. No new experimental results are presented."
+      "body": "<div class=\"cover-copy\"><p class=\"eyebrow\">ROBOT LEARNING · LITERATURE REPORT</p><h1>VLA<span>Vision-Language-Action Models</span></h1><p class=\"cover-sub\">How the models learn, act and get tested</p><p class=\"cover-focus\">22-paper map · Focus: RT-2, OpenVLA and π₀</p><p class=\"cover-meta\">Updated 22 October 2026<br>About 22 minutes · Speaker notes and thematic index</p></div><figure class=\"cover-figure\"><img src=\"../assets/pi0-tasks.jpg\" alt=\"A bimanual robot folding clothing in the π₀ paper\" width=\"1200\" height=\"700\"><figcaption>π₀, Figure 2 · Image belongs to the original authors</figcaption></figure>",
+      "notes": "This report covers twenty-two papers. I focus on three questions: how a robot uses an instruction, how it calculates its actions, and how each paper tests whether its method works. RT-2, OpenVLA and π₀ are the main examples. Other papers explain the data, training choices and tests. The original fourteen entries include figure and page references. For the eight additions, only the abstracts have been checked so far. This report presents the authors’ results, not new experiments of my own."
     },
     {
       "section": "Background",
-      "title": "What does a VLA policy predict?",
+      "title": "What does a VLA model do?",
       "time": "0:55",
       "refs": [
         "rt2",
         "openvla",
         "pi0"
       ],
-      "body": "<p class=\"lead\">A robot uses images and a language instruction to predict executable actions.</p><div class=\"equation\">π<sub>θ</sub>(A<sub>t</sub> ∣ I<sub>t</sub>, ℓ, q<sub>t</sub>)</div><dl class=\"terms\"><div><dt>Observation Iₜ</dt><dd>One or several camera views</dd></div><div><dt>Instruction ℓ</dt><dd>For example: “put the red cup in the drawer”</dd></div><div><dt>State qₜ</dt><dd>Proprioception, when supported by the model</dd></div><div><dt>Actions Aₜ</dt><dd>One action or a sequence of future actions</dd></div></dl><p class=\"takeaway\">The central connection: grounding semantic understanding in spatial decisions and control.</p>",
-      "notes": "The output of a VLA is a robot action: for example, an end-effector displacement, a gripper command, or a sequence of joint actions. This equation summarizes the task rather than specifying identical inputs for every model. Original OpenVLA mainly uses a single image, while π₀ also uses multiple views and robot state. A low-level controller usually executes the predicted action. End-to-end learning therefore does not imply removing that controller. I compare the models through inputs, action representations, training objectives and closed-loop execution."
+      "body": "<p class=\"lead\">Look at camera images, read a request, and calculate how the robot should move.</p><dl class=\"terms\"><div><dt>Images</dt><dd>One or several camera views.</dd></div><div><dt>Instruction</dt><dd>For example: “put the red cup in the drawer.”</dd></div><div><dt>Robot state</dt><dd>Joint angles and gripper position, when the model uses them.</dd></div><div><dt>Actions</dt><dd>How far to move or turn, and whether to open the gripper; sometimes several future steps at once.</dd></div></dl><p class=\"takeaway\">A “policy” is the model that chooses the robot’s next actions.</p>",
+      "notes": "A VLA outputs control numbers rather than a written set of instructions. Those numbers can specify a direction and distance, a rotation, or a gripper command. Some models also read the robot’s own joint angles and other measurements, called proprioception. Original OpenVLA mainly uses one image, whereas π₀ uses multiple views and robot state. A low-level controller still drives the motors after the model calculates an action."
     },
     {
       "section": "Literature map",
-      "title": "22 papers organized around six questions",
+      "title": "What problem does each group address?",
       "refs": [
         "rt2",
         "oft",
@@ -239,232 +239,232 @@ window.REPORT = {
         "longvla",
         "strong"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Theme</th><th>Papers</th><th>Question</th></tr></thead><tbody><tr><td>A · Generalist policies · 6</td><td>RT-2, OpenVLA, π₀, Octo, π₀.₅, SmolVLA</td><td>How does visual-language knowledge inform actions?</td></tr><tr><td>B · Data foundations · 1</td><td>Open X-Embodiment / RT-X</td><td>Where does experience come from, and can it transfer?</td></tr><tr><td>C · Actions and adaptation · 5</td><td>ACT, Diffusion Policy, FAST, OpenVLA-OFT, LoRA</td><td>How are actions generated and parameters adapted?</td></tr><tr><td>D · Evaluation · 2</td><td>LIBERO, LIBERO-Plus</td><td>What counts as success and robustness?</td></tr><tr><td>E · Phases and training resources · 4</td><td>Long-VLA, EGR, FrameSkip, PHASER</td><td>Which moments or sensors deserve which intervention?</td></tr><tr><td>F · Robustness and diagnostics · 4</td><td>STRONG-VLA, MAIL-Bench / MINT, View Collapse, CARE</td><td>Why do policies fail, and what explains apparent gains?</td></tr></tbody></table></div><p class=\"small\">These are reading categories, not mutually exclusive model families. Groups E/F are abstract-level additions; full-text and code details remain to be checked.</p>",
-      "notes": "The first four groups establish the distinction between policies, data, action generation and evaluation. The last two groups introduce phase-related training methods and robustness diagnostics. EGR uses per-frame, per-sensor task evidence rather than the same explicit phase labels as Long-VLA. These categories are a reading index, not a claim that the methods are equivalent. The companion handbook provides five-line notes, fixed source versions and original links for each paper. Comparisons distinguish the methods’ objectives and evaluation settings.",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Group</th><th>Papers</th><th>Main question</th></tr></thead><tbody><tr><td>A · Models for many tasks</td><td>RT-2, OpenVLA, π₀, Octo, π₀.₅, SmolVLA</td><td>How can one model handle different tasks?</td></tr><tr><td>B · Shared training data</td><td>Open X-Embodiment / RT-X</td><td>Can demonstrations from different robots be combined?</td></tr><tr><td>C · Actions and further training</td><td>ACT, Diffusion Policy, FAST, OpenVLA-OFT, LoRA</td><td>How are actions calculated and training costs reduced?</td></tr><tr><td>D · Tasks and success rates</td><td>LIBERO, LIBERO-Plus</td><td>How is successful execution tested?</td></tr><tr><td>E · What training focuses on</td><td>Long-VLA, EGR, FrameSkip, PHASER</td><td>Which inputs and steps deserve more training?</td></tr><tr><td>F · When camera input goes wrong</td><td>STRONG-VLA, MAIL-Bench / MINT, View Collapse, CARE</td><td>Can the robot finish with damaged or missing input?</td></tr></tbody></table></div><p class=\"small\">Groups help navigation; a paper can address several questions. Groups E/F have only been checked at abstract level.</p>",
+      "notes": "These groups separate different kinds of work. Some papers build robot models, some share training data, some change action prediction or reduce training cost, and others provide tests. The last two groups examine which information matters during training and what happens when inputs go wrong. Their success rates answer different questions, so they do not form one leaderboard. The eight additions have only been checked through their abstracts.",
       "time": "1:00"
     },
     {
       "section": "RT-2",
-      "title": "RT-2: actions become model output tokens",
+      "title": "RT-2: give robot actions token IDs",
       "color": "blue",
       "time": "1:10",
       "refs": [
         "rt2"
       ],
       "source": "§3.1–3.2; Figure 1",
-      "body": "<p class=\"lead\">Adapt a pretrained VLM to predict robot actions as tokens.</p><figure class=\"paper-figure\"><button class=\"zoom\" data-image=\"../assets/rt2-method.png\" aria-label=\"Enlarge method figure\"><img src=\"../assets/rt2-method.png\" alt=\"RT-2 Figure 1: images and instructions enter a VLM that emits action tokens\" loading=\"lazy\"></button><figcaption>Original paper, Figure 1 · Click to enlarge</figcaption></figure><div class=\"columns\"><div><h3>Action representation</h3><p>Discretize continuous dimensions into 256 bins and map them to existing vocabulary tokens.</p></div><div><h3>Co-fine-tuning</h3><p>Mix robot trajectories with web vision-language tasks to retain semantic knowledge.</p></div></div>",
-      "notes": "RT-2 connects language tasks and robot control through a shared output-token space. It uses PaLI-X or PaLM-E and encodes quantities such as position changes, rotation changes and gripper state as discrete symbols; the action format also includes a termination signal. Training mixes robot demonstrations with web tasks such as visual question answering. Action prediction can therefore draw on pretrained visual-language knowledge. The numbers in the figure are an action encoding, not natural-language commands sent directly to a robot. They must be decoded back into numerical control values."
+      "body": "<p class=\"lead\">Represent movement, rotation and gripper commands as IDs that an image-and-language model can output.</p><figure class=\"paper-figure\"><button class=\"zoom\" data-image=\"../assets/rt2-method.png\" aria-label=\"Enlarge method figure\"><img src=\"../assets/rt2-method.png\" alt=\"RT-2 Figure 1: images and instructions enter a VLM that emits action tokens\" loading=\"lazy\"></button><figcaption>Original paper, Figure 1 · Click to enlarge</figcaption></figure><div class=\"columns\"><div><h3>Assign action IDs</h3><p>Split each action-value range into 256 bins. Each bin gets a token ID.</p></div><div><h3>Train on both kinds of examples</h3><p>Mix robot demonstrations with image-question tasks to retain earlier knowledge.</p></div></div>",
+      "notes": "A language model already knows how to output a sequence of symbols. RT-2 uses those symbols as action IDs. IDs describe movement, rotation, gripper state and termination. Training mixes robot demonstrations with image-and-language tasks so earlier knowledge can help action selection. The IDs are converted back to control values before execution. RT-1 already used action discretization; RT-2’s key step is using a pretrained visual-language model for this prediction."
     },
     {
       "section": "RT-2",
-      "title": "RT-2: evidence and limits",
+      "title": "RT-2: understand more requests, reuse learned skills",
       "color": "blue",
       "time": "1:05",
       "refs": [
         "rt2"
       ],
       "source": "§3.3; §4–5",
-      "body": "<div class=\"statline\"><div><strong>~6,000</strong><span>Robot evaluation trials</span></div><div><strong>1–3 Hz</strong><span>Policy queries for the 55B system</span></div></div><div class=\"columns\"><div><h3>What the paper supports</h3><ul><li>Better generalization to objects and semantic instructions.</li><li>Reuse of existing skills in new semantic situations.</li></ul></div><div><h3>Limits stated by the authors</h3><ul><li>Web pretraining does not directly supply new motor skills.</li><li>Compute and latency constrain control.</li><li>Access to the backbone and data limits reproduction.</li></ul></div></div><p class=\"takeaway\">Separate semantic transfer from the coverage of learned motor skills.</p>",
-      "notes": "RT-2 reports roughly six thousand robot evaluation trials. Its central contribution is evidence that semantic knowledge can transfer into action selection, allowing existing skills to be reused under new symbolic or relational instructions. However, the authors explicitly note that additional web experience does not directly create new motor capabilities. The reported one-to-three-hertz rate belongs to a specific cloud-served 55B system, not to all VLA models. My reading is that semantic generalization is the strongest result, while precise control still depends on robot data and inference conditions."
+      "body": "<div class=\"statline\"><div><strong>~6,000</strong><span>Robot tests</span></div><div><strong>1–3 per second</strong><span>New policy queries for the 55B system</span></div></div><div class=\"columns\"><div><h3>What improves</h3><ul><li>Performance on unfamiliar objects and instructions.</li><li>Use of known skills for new requests.</li></ul></div><div><h3>What remains difficult</h3><ul><li>Learning new motor skills from web data alone.</li><li>Calculating new actions quickly.</li><li>Reproducing the large model and serving system.</li></ul></div></div><p class=\"takeaway\">Understanding a new request is different from learning a new physical skill.</p>",
+      "notes": "RT-2 provides evidence that web knowledge helps the robot choose known actions for unfamiliar objects or instructions. The authors also say that this does not directly teach entirely new motor skills. Speed is another limit: the cloud-served 55B system makes about one to three policy queries per second. That measures how often the model makes a new decision, not motor speed, and it is not a limit shared by every VLA."
     },
     {
       "section": "OpenVLA",
-      "title": "OpenVLA: an open research baseline",
+      "title": "OpenVLA: release the model so others can train it",
       "color": "teal",
       "time": "1:05",
       "refs": [
         "openvla"
       ],
       "source": "§3; Figure 2",
-      "body": "<p class=\"lead\">DINOv2 and SigLIP provide visual features; Llama 2 predicts discrete actions.</p><figure class=\"paper-figure\"><button class=\"zoom\" data-image=\"../assets/openvla-method.png\" aria-label=\"Enlarge method figure\"><img src=\"../assets/openvla-method.png\" alt=\"OpenVLA Figure 2: visual encoders, projector, Llama 2 and a seven-dimensional action output\" loading=\"lazy\"></button><figcaption>Original paper, Figure 2 · Click to enlarge</figcaption></figure><p class=\"takeaway\">Research value: inspectable weights and implementation for adaptation studies.</p>",
-      "notes": "OpenVLA continues the autoregressive discrete-action approach while emphasizing public implementation and adaptation. Its two visual encoders provide features that are combined and projected into the language model. The instruction and visual features condition a seven-dimensional action. The backbone is a Prismatic VLM using Llama 2. Compared with a closed system, this gives researchers a more accessible route to inspect components and fine-tune a policy. Public implementation does not mean that all pretraining data of every underlying component are fully transparent."
+      "body": "<p class=\"lead\">Two image networks read the scene; a language model then predicts action IDs.</p><figure class=\"paper-figure\"><button class=\"zoom\" data-image=\"../assets/openvla-method.png\" aria-label=\"Enlarge method figure\"><img src=\"../assets/openvla-method.png\" alt=\"OpenVLA Figure 2: visual encoders, projector, Llama 2 and a seven-dimensional action output\" loading=\"lazy\"></button><figcaption>Original paper, Figure 2 · Click to enlarge</figcaption></figure><p class=\"takeaway\">Released weights and code make it easier to inspect the system and continue training on another robot.</p>",
+      "notes": "OpenVLA also predicts action IDs. DINOv2 and SigLIP process the image, their outputs are combined, and a Llama-2-based model uses them with the instruction to predict an action. Public weights and code let other researchers inspect the implementation and train it further without starting from scratch. Public release does not mean that all training data for every underlying component are fully disclosed."
     },
     {
       "section": "OpenVLA",
-      "title": "OpenVLA: training and adaptation",
+      "title": "How does OpenVLA learn another robot’s actions?",
       "color": "teal",
       "time": "1:00",
       "refs": [
         "openvla"
       ],
       "source": "§3.2–3.4; §5.3–5.4",
-      "body": "<div class=\"statline\"><div><strong>7B</strong><span>Commonly reported model scale</span></div><div><strong>970k</strong><span>Real-robot demonstration trajectories</span></div></div><ol class=\"numbered\"><li><strong>Curate data</strong><span>Select OXE data with compatible observations and actions, and adjust mixture weights.</span></li><li><strong>Supervise actions</strong><span>Discretize each dimension into 256 bins; apply cross-entropy only to action tokens.</span></li><li><strong>Adapt</strong><span>LoRA reduces trainable parameters; quantization can reduce inference memory.</span></li></ol><p class=\"small\">Action bins use the 1st–99th percentile range of training data to limit outlier effects.</p>",
-      "notes": "The 970,000 figure refers to trajectories, not image frames, and cannot be compared directly with another paper’s number of training hours. Each action dimension still uses 256 bins, but percentile-based boundaries reduce sensitivity to outliers. The robot training loss is evaluated on action tokens. OpenVLA also studies LoRA and quantization to make adaptation and deployment more accessible. This training recipe should not be described as identical to RT-2’s co-fine-tuning on web tasks. The adaptation experiments also use particular model variants, so their details matter when interpreting the results."
+      "body": "<div class=\"statline\"><div><strong>~7 billion</strong><span>Model parameters</span></div><div><strong>~970,000</strong><span>Real-robot demonstrations</span></div></div><ol class=\"numbered\"><li><strong>Prepare examples</strong><span>Select compatible data and decide how often each dataset is sampled.</span></li><li><strong>Learn action IDs</strong><span>Divide action values into 256 bins and train the model to choose the correct IDs.</span></li><li><strong>Train further</strong><span>LoRA updates a small set of added parameters; quantization stores numbers using fewer bits.</span></li></ol><p class=\"small\">Bin ranges exclude extreme training values so a few outliers do not stretch them too far.</p>",
+      "notes": "The data count refers to trajectories, not images. Each action dimension is divided into 256 bins. The bin range uses most training values while excluding extreme tails. Further training on another robot’s demonstrations is called fine-tuning. LoRA reduces the number of updated parameters. Quantization instead stores numbers with fewer bits and can reduce memory use when running the model. They are different tools with different effects."
     },
     {
       "section": "OpenVLA",
-      "title": "OpenVLA: results and limitations",
+      "title": "Where does OpenVLA perform well, and where does it struggle?",
       "color": "teal",
       "time": "1:05",
       "refs": [
         "openvla"
       ],
       "source": "§5.1; §6",
-      "body": "<div class=\"highlight\"><strong>+16.5 percentage points</strong><p>Absolute success-rate gain over RT-2-X (55B) in the authors’ 29-task evaluation.</p></div><div class=\"columns\"><div><h3>What this result suggests</h3><p>Under that protocol, data and training design can help a smaller model perform better.</p></div><div><h3>Limits of the original version</h3><ul><li>Single-image input; no explicit observation history or proprioception.</li><li>Sequential token decoding limits high-frequency tasks.</li><li>Reliability remains insufficient for universal control.</li></ul></div></div><p class=\"small\">The comparator is RT-2-X. This does not establish superiority over every RT-2 system in every setting.</p>",
-      "notes": "The headline comparison is an absolute success-rate gain of 16.5 percentage points over RT-2-X across twenty-nine tasks. Models, data and components differ, so the entire gain cannot be attributed to a single architectural choice. Nor does it imply that smaller models are always better. The original version supports a single image and remains constrained on high-frequency and dexterous control. These statements concern the original paper, not every later extension. Later work may already address part of the limitation, so the original model and its extensions must be distinguished."
+      "body": "<div class=\"highlight\"><strong>+16.5 percentage points</strong><p>Higher average success than RT-2-X (55B) on the authors’ 29 tasks.</p></div><div class=\"columns\"><div><h3>What this supports</h3><p>With the tested data and training setup, a smaller model can perform better.</p></div><div><h3>Original-version limits</h3><ul><li>Mainly one image; no direct use of recent frames or joint state.</li><li>Action IDs are calculated one after another.</li><li>Other scenes can still cause failure.</li></ul></div></div><p class=\"small\">This comparison does not establish superiority on every task or over every RT-2 version.</p>",
+      "notes": "The result is an absolute gain of 16.5 percentage points under a particular test protocol. Models, data and training settings differ, so no single component explains the entire difference. Original OpenVLA mainly reads one image and calculates action IDs in sequence. That limits tasks needing rapid updates. Later versions may address some of these issues, so the version matters when interpreting the claim."
     },
     {
       "section": "π₀",
-      "title": "π₀: a VLM with a continuous-action expert",
+      "title": "π₀: calculate a sequence of future actions",
       "color": "rust",
       "time": "1:10",
       "refs": [
         "pi0"
       ],
       "source": "§III–IV; Figure 3",
-      "body": "<p class=\"lead\">PaliGemma supplies visual-language representations; flow matching generates action sequences.</p><figure class=\"paper-figure\"><button class=\"zoom\" data-image=\"../assets/pi0-method.png\" aria-label=\"Enlarge method figure\"><img src=\"../assets/pi0-method.png\" alt=\"π₀ Figure 3: data mixture, visual-language backbone and continuous-action expert\" loading=\"lazy\"></button><figcaption>Original paper, Figure 3 · Click to enlarge</figcaption></figure><div class=\"columns\"><div><p><strong>Inputs</strong><br>Camera views, language and proprioception</p></div><div><p><strong>Output</strong><br>A continuous action chunk; H = 50 in the paper</p></div></div>",
-      "notes": "π₀ asks how visual-language knowledge can support continuous action generation. It builds on PaliGemma and introduces specialized parameters for robot state and actions: an action expert. Multiple camera views, an instruction and robot state condition a sequence of future actions, rather than a set of discrete action IDs. The main model has about 3.3 billion parameters, including an action expert of roughly 300 million. The contribution combines architecture and data recipe; describing it merely as adding an action head misses important aspects of the method."
+      "body": "<p class=\"lead\">One network reads images and instructions. A connected “action expert” calculates movement values.</p><figure class=\"paper-figure\"><button class=\"zoom\" data-image=\"../assets/pi0-method.png\" aria-label=\"Enlarge method figure\"><img src=\"../assets/pi0-method.png\" alt=\"π₀ Figure 3: data mixture, visual-language backbone and continuous-action expert\" loading=\"lazy\"></button><figcaption>Original paper, Figure 3 · Click to enlarge</figcaption></figure><div class=\"columns\"><div><p><strong>Inputs</strong><br>Multiple cameras, an instruction and measurements such as joint state.</p></div><div><p><strong>Output</strong><br>A sequence of future actions; the main paper setting predicts 50 steps.</p></div></div>",
+      "notes": "π₀ connects an image-and-language model to a network specialized for actions, called the action expert. It produces numerical movements and predicts several future steps together. That sequence is called an action chunk. The model also reads multiple cameras and robot state. It has about 3.3 billion parameters, including an action expert of roughly 300 million. Predicting fifty steps does not necessarily mean executing all fifty before looking again."
     },
     {
       "section": "π₀",
-      "title": "Flow matching and action chunking",
+      "title": "How does π₀ turn random numbers into useful actions?",
       "color": "rust",
       "time": "1:15",
       "refs": [
         "pi0"
       ],
       "source": "§IV; Equations 1–2",
-      "body": "<div class=\"columns\"><div><h3>Training: learn a direction</h3><div class=\"equation compact\">A<sup>τ</sup> = τA + (1 − τ)ε</div><p>Interpolate between demonstrations and noise; predict the vector field A − ε.</p></div><div><h3>Inference: update a whole chunk</h3><div class=\"equation compact\">A<sup>τ+δ</sup> = A<sup>τ</sup> + δv<sub>θ</sub></div><p>Start from noise; the paper uses 10 integration steps.</p></div></div><hr><dl class=\"terms\"><div><dt>Benefit of chunking</dt><dd>Model temporal action relations and avoid decoding every discrete token.</dd></div><div><dt>Execution trade-off</dt><dd>Longer executed prefixes leave fewer opportunities to observe and correct.</dd></div></dl><p class=\"small\">Reported control up to 50 Hz is not equivalent to 50 complete model queries per second.</p>",
-      "notes": "Intuitively, flow matching learns how to transform a random action sequence into a plausible one. During training, demonstrations are interpolated with noise and the model learns a corresponding direction of change. During inference, it starts from noise and integrates the learned field; the paper uses ten steps. Chunking jointly represents several future actions. We must distinguish prediction horizon, replanning frequency and low-level action execution frequency. The reported fifty-hertz control capability is not directly comparable with RT-2’s full-policy query rate. Executing a longer prefix also changes the opportunity to correct errors."
+      "body": "<div class=\"columns\"><div><h3>During training</h3><p>Mix correct actions with random numbers. Teach the model which direction leads back toward correct actions.</p></div><div><h3>When running</h3><p>Start with random numbers and update them 10 times using the learned directions.</p></div></div><p class=\"small\">The method is called flow matching. These updates happen in the computation; only the resulting actions are sent to the robot.</p><dl class=\"terms\"><div><dt>Predict several steps together</dt><dd>Account for how movements follow one another.</dd></div><div><dt>Choose how many to execute</dt><dd>Executing more before looking again delays the opportunity to correct an error.</dd></div></dl><p class=\"takeaway\">Predicting 50 steps, updating 10 times and executing at 50 Hz measure different things.</p>",
+      "notes": "Think of the calculation as revising a draft action sequence. Training combines demonstrated actions with random numbers and teaches the model a direction for improving that mixture. At run time it starts from random numbers and follows learned directions for ten updates. These drafts exist only inside the computation. The robot executes the resulting actions. Prediction length, generation updates and physical execution rate are separate quantities."
     },
     {
       "section": "π₀",
-      "title": "π₀: data recipe and capability boundaries",
+      "title": "π₀: learn many tasks, then practise difficult ones",
       "color": "rust",
       "time": "1:05",
       "refs": [
         "pi0"
       ],
       "source": "§V–VII",
-      "body": "<div class=\"columns\"><div><h3>Diverse pretraining</h3><p>Mix proprietary and public robot data for broader behavior coverage.</p><h3>High-quality post-training</h3><p>Adapt to demanding tasks such as folding and packing.</p></div><div><h3>Open questions in the paper</h3><ul><li>Which data and mixture weights help most?</li><li>How much data is needed for high reliability?</li><li>How far does transfer across tasks and robots extend?</li></ul></div></div><p class=\"takeaway\">Continuous generation improves control representation; complex tasks still depend on data and adaptation.</p><p class=\"small\">Some complex-task results use partial-completion scores, not binary success rates.</p>",
-      "notes": "π₀ distinguishes broad pretraining from task-focused post-training. Diverse robot data expands experience, while high-quality task data improves proficiency on demanding operations. Some challenging tasks depend strongly on post-training, so a folding demonstration does not establish zero-shot competence in any home. The paper leaves open the best data composition, mixture weights and data requirements for reliable transfer. Several experiments measure staged task progress rather than complete binary success. I keep those measures separate instead of calling every reported score a success rate."
+      "body": "<div class=\"columns\"><div><h3>First, learn from many operations</h3><p>Use demonstrations from different robots and tasks.</p><h3>Then, practise a target task</h3><p>Continue with high-quality examples, such as folding or packing.</p></div><div><h3>Questions the paper leaves open</h3><ul><li>Which examples help most?</li><li>How much of each dataset should be used?</li><li>How much data is needed for reliable completion?</li></ul></div></div><p class=\"takeaway\">Generating an action sequence does not remove the need for relevant demonstrations.</p><p class=\"small\">Some tests score completed steps, rather than the fraction of entire tasks completed.</p>",
+      "notes": "The paper first trains on varied robot data, then continues training on high-quality demonstrations of a target task. These stages are called pretraining and post-training. Some difficult tasks depend strongly on the second stage. A folding demonstration therefore does not establish untrained success in any home. Data selection and reliable completion remain open issues in the paper. Partial task-progress scores must also be kept separate from full-task success rates."
     },
     {
       "section": "Method comparison",
-      "title": "RT-2, OpenVLA and π₀: compare design choices",
+      "title": "How do the three models calculate actions?",
       "time": "1:20",
       "refs": [
         "rt2",
         "openvla",
         "pi0"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Dimension</th><th>RT-2</th><th>OpenVLA</th><th>π₀</th></tr></thead><tbody><tr><td>Backbone</td><td>PaLI-X / PaLM-E</td><td>Prismatic / Llama 2</td><td>PaliGemma</td></tr><tr><td>Actions</td><td>Discrete dimension-wise tokens</td><td>Discrete dimension-wise tokens</td><td>Continuous action chunks</td></tr><tr><td>Objective</td><td>Token prediction</td><td>Action-token cross-entropy</td><td>Conditional flow matching</td></tr><tr><td>Training</td><td>Web and robot co-fine-tuning</td><td>VLM initialization and robot training</td><td>Multi-robot pretraining and post-training</td></tr><tr><td>Main value</td><td>Semantic transfer</td><td>Open adaptation baseline</td><td>Dexterous continuous control</td></tr><tr><td>Main cost</td><td>Inference and reproducibility</td><td>Original input/decoding constraints</td><td>Iterative generation and data requirements</td></tr></tbody></table></div><p class=\"small\">Original designs are compared. Different data, hardware and protocols preclude a cross-paper success-rate ranking.</p>",
-      "notes": "These papers illustrate distinct action representations and training recipes. RT-2 and OpenVLA emit discrete tokens, while π₀ generates continuous chunks. This is not a controlled experiment that changes only the action head: backbones, observations and datasets also differ. My interpretation is that RT-2 establishes semantic transfer, OpenVLA provides an accessible adaptation baseline, and π₀ extends continuous and dexterous control. To isolate the value of an action representation, a new experiment must hold the backbone, data and execution protocol fixed."
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Compare</th><th>RT-2</th><th>OpenVLA</th><th>π₀</th></tr></thead><tbody><tr><td>Starting model</td><td>PaLI-X / PaLM-E</td><td>Prismatic / Llama 2</td><td>PaliGemma</td></tr><tr><td>Action output</td><td>Action IDs one after another</td><td>Action IDs one after another</td><td>Update a sequence of numerical actions together</td></tr><tr><td>Training</td><td>Mix actions with image-question tasks</td><td>Start from an image-language model; train on robot actions</td><td>Learn varied operations, then practise target tasks</td></tr><tr><td>Main takeaway</td><td>Use image-text knowledge to choose actions</td><td>Public model and code for further training</td><td>Consider several future movements together</td></tr><tr><td>Main limits</td><td>Slow and difficult to reproduce</td><td>Original single-image input and sequential IDs</td><td>Repeated updates and relevant demonstrations needed</td></tr></tbody></table></div><p class=\"small\">This table compares methods, not success rates across different datasets and tests.</p>",
+      "notes": "The simplest distinction is the output process. RT-2 and OpenVLA emit action IDs one by one. π₀ updates a whole action sequence. RT-2 shows that image-text knowledge can help action selection; OpenVLA makes the model available for further work; π₀ emphasizes longer sequences of continuous movements. Their starting models and training data also differ, so output design alone cannot explain every performance difference."
     },
     {
       "section": "Related foundations",
-      "title": "OXE and Octo: shared data and adaptable policies",
+      "title": "OXE shares demonstrations; Octo learns from them",
       "time": "0:55",
       "refs": [
         "oxe",
         "octo"
       ],
-      "body": "<div class=\"columns\"><div><p class=\"eyebrow\">OPEN X-EMBODIMENT</p><h3>Organize experience across robots</h3><p>Standardized data and RT-X experiments demonstrate positive transfer.</p><p class=\"question\">Focus: how do action semantics and mixture weights affect transfer?</p></div><div><p class=\"eyebrow\">OCTO</p><h3>Keep room for adaptation</h3><p>Pretrain on about 800k trajectories; use a diffusion policy with flexible task and observation interfaces.</p><p class=\"question\">Focus: how much data is needed for a new interface?</p></div></div><p class=\"takeaway\">Matching file formats does not resolve differences in control semantics or task distributions.</p>",
-      "notes": "OXE supports shared experience across institutions and robots, rather than simply collecting files. RT-X provides evidence for positive cross-robot transfer. Octo builds a generalist policy with flexible observation and action interfaces and a diffusion decoder. It also shows that language conditioning does not necessarily imply a large generative VLM backbone. Standardized data is only a starting point: coordinate systems, sampling frequencies, action meanings and mixture weights can still change transfer outcomes."
+      "body": "<div class=\"columns\"><div><h3>Open X-Embodiment / RT-X</h3><p>Put demonstrations from different institutions and robots into a shared format.</p><p>RT-X tests whether another robot’s data helps the target robot.</p></div><div><h3>Octo</h3><p>Train on about 800,000 trajectories. Use an instruction or goal image to specify the task.</p><p>Continue training with new demonstrations when the inputs or robot change.</p></div></div><p class=\"takeaway\">A shared file format still needs compatible coordinates, action meanings and recording rates.</p>",
+      "notes": "OXE organizes demonstrations that were scattered across institutions and robots. RT-X tests whether experience from other robots helps a target robot. Octo uses this kind of data and supports changing parts that read inputs or produce actions before further training. It can use language or a goal image. Matching file formats does not automatically align coordinates, movement units or recording rates."
     },
     {
       "section": "Efficiency",
-      "title": "FAST and SmolVLA improve different bottlenecks",
+      "title": "FAST predicts fewer IDs; SmolVLA reduces waiting",
       "time": "0:55",
       "refs": [
         "fast",
         "smol"
       ],
-      "body": "<div class=\"columns\"><div><p class=\"eyebrow\">FAST · ACTION REPRESENTATION</p><h3>Compress action-chunk tokens</h3><p>A frequency-domain transform reduces redundancy in high-frequency action sequences.</p><p class=\"small\">The reported gain of up to about 5× concerns training time in particular experiments.</p></div><div><p class=\"eyebrow\">SMOLVLA · DEPLOYMENT</p><h3>Smaller models, asynchronous execution</h3><p>About 450M parameters, community data, and decoupled prediction and execution.</p><p class=\"small\">Single-GPU training does not imply equal cost on all tasks.</p></div></div><p class=\"takeaway\">Measure training time, prediction latency and control execution separately.</p>",
-      "notes": "Both papers discuss efficiency, but at different points in the system. FAST compresses temporal action redundancy before autoregressive learning. Its headline improvement of up to five times refers to training time, not to robot motion speed. SmolVLA combines a smaller architecture with an asynchronous system so execution need not wait for every new prediction. These improvements depend on hardware and task conditions. In particular, faster asynchronous execution need not improve the success rate of every task; the handbook records that distinction."
+      "body": "<div class=\"columns\"><div><p class=\"eyebrow\">FAST · SHORTER ACTION RECORDS</p><h3>Use fewer IDs for an action sequence</h3><p>Nearby movements are often similar. FAST writes the sequence in a shorter form, so the model predicts fewer IDs. Decode them back into actions before execution.</p><p class=\"small\">The gain of up to about 5× concerns training time in particular tests.</p></div><div><p class=\"eyebrow\">SMOLVLA · LESS COMPUTE AND WAITING</p><h3>Calculate the next sequence while executing the current one</h3><p>About 450 million parameters. Prediction and execution can overlap, reducing stops while waiting for the model.</p><p class=\"small\">Faster execution does not improve every task’s success rate.</p></div></div><p class=\"takeaway\">Training time, prediction time and task completion time are separate measurements.</p>",
+      "notes": "FAST changes how actions are recorded. Closely spaced movements are often similar, but recording every value at every time step creates a long list of IDs. DCT first rewrites the sequence as a sum of waves with different rates, recording how much of each wave is used. Scaling and rounding reduce precision, and BPE assigns short IDs to common number sequences. The model predicts fewer IDs; these are decoded back into actions. Compression settings affect reconstruction error. SmolVLA instead uses a smaller model and overlaps prediction with execution. The time savings occur in different parts of the system."
     },
     {
       "section": "Generalization",
-      "title": "π₀.₅: operating in unseen homes",
+      "title": "π₀.₅: tidy homes that were not used for training",
       "time": "0:55",
       "refs": [
         "pi05"
       ],
-      "body": "<p class=\"lead\">Heterogeneous co-training connects high-level semantics and low-level actions.</p><dl class=\"terms\"><div><dt>Data</dt><dd>Multi-robot demonstrations, web data and other supervision</dd></div><div><dt>Training tasks</dt><dd>Images, language, detection, semantic subtasks and actions</dd></div><div><dt>Evidence</dt><dd>Longer manipulation tasks in homes held out from training</dd></div><div><dt>Interpretation</dt><dd>Novel environments must be separated from novel task and skill coverage</dd></div></dl><p class=\"question\">Record new scenes, objects, instructions and motor skills separately.</p>",
-      "notes": "π₀.₅ moves the evaluation beyond the laboratory. It combines heterogeneous data and tasks, including high-level semantic supervision and low-level actions, and demonstrates longer operations in new homes. The important lesson is how generalization is defined and how knowledge transfers between data sources. A new home does not automatically mean that every task or motor skill is new. An evaluation should identify which factors were observed during training and use ablations to assess the contribution of each data source."
+      "body": "<p class=\"lead\">Choose the current subtask, then calculate movements; learn from several kinds of examples.</p><dl class=\"terms\"><div><dt>Training material</dt><dd>Robot operations, images and text, object locations and task-step labels.</dd></div><div><dt>What it learns</dt><dd>Both which step to do and how to move the robot.</dd></div><div><dt>Test</dt><dd>Kitchen and bedroom tasks in homes excluded from training.</dd></div><div><dt>Interpretation</dt><dd>A new room does not mean every required movement is new.</dd></div></dl>",
+      "notes": "π₀.₅ predicts a current subtask as well as the movements needed for it. It learns from robot demonstrations, web images and text, and labels for objects and task steps. The paper tests household tasks in homes not used for training. This mainly establishes a change of environment; it does not mean every object, instruction or physical skill is unseen. Removing data sources helps identify their contribution, which varies by test."
     },
     {
-      "section": "Actions and adaptation",
-      "title": "ACT, Diffusion Policy and LoRA address different layers",
+      "section": "Actions and training",
+      "title": "Three tools: predict ahead, revise actions, update fewer weights",
       "refs": [
         "act",
         "dp",
         "lora"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Method</th><th>What changes</th><th>Keep separate</th></tr></thead><tbody><tr><td>ACT</td><td>Action chunks, CVAE and temporal ensembling</td><td>The original method is not a free-form language VLA</td></tr><tr><td>Diffusion Policy</td><td>Conditional denoising of action sequences</td><td>Prediction and execution horizons differ</td></tr><tr><td>LoRA</td><td>Low-rank parameter updates</td><td>It does not specify the action head; few parameters ≠ tiny memory</td></tr></tbody></table></div>",
-      "notes": "ACT explains action chunking and temporal ensembling as ways to reduce compounding errors. Diffusion Policy models complex continuous-action distributions through conditional diffusion. LoRA instead changes how pretrained parameters are adapted; it is not a replacement for action-generation design. These methods can be combined and should not be placed on one cross-paper performance leaderboard. For an OFT experiment, we must specify the action head, execution mechanism and adaptation targets together. Saying that we use LoRA is not a complete training configuration.",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Paper</th><th>What it does</th><th>Problem addressed</th></tr></thead><tbody><tr><td>ACT</td><td>Predict several steps; average overlapping predictions for the same time</td><td>Reduce uneven actions and accumulating errors</td></tr><tr><td>Diffusion Policy</td><td>Start with random numbers and revise them into an action sequence</td><td>Represent different valid ways to act</td></tr><tr><td>LoRA</td><td>Keep most weights fixed; train small added matrices</td><td>Reduce updated and saved parameters during further training</td></tr></tbody></table></div>",
+      "notes": "ACT predicts several future steps. Predictions made at different times can overlap, so it takes a weighted average for a shared time step. A CVAE also represents differences between demonstrations during training. Diffusion Policy repeatedly revises random numbers using the observation to produce actions. LoRA instead changes which weights are updated during training. These methods address different parts of a system and can be combined.",
       "time": "1:00"
     },
     {
-      "section": "Actions and adaptation",
-      "title": "OpenVLA-OFT: an efficient adaptation recipe",
+      "section": "Actions and training",
+      "title": "OpenVLA-OFT: directly predict the next 8 steps",
       "refs": [
         "openvla",
         "oft",
         "lora"
       ],
-      "body": "<p class=\"lead\">Adapt OpenVLA using continuous actions, parallel decoding and action chunks.</p><dl class=\"terms\"><div><dt>Output</dt><dd>A continuous future chunk; a typical LIBERO configuration uses 8 steps.</dd></div><div><dt>Objective</dt><dd>L1 regression, rather than original action-token cross-entropy.</dd></div><div><dt>Inputs and adaptation</dt><dd>Configurations can include multiple cameras and proprioception; LoRA supports adaptation.</dd></div><div><dt>Trade-off</dt><dd>Direct regression is simpler, but complex multimodal behavior still needs investigation.</dd></div></dl><p class=\"small\">Read Tables I/II (p.6) and IV (p.17). Interpret speed and success within the same protocol.</p>",
-      "notes": "OFT is a study of how to adapt OpenVLA effectively, not a new giant model trained from scratch. Its recipe combines continuous action representation, parallel prediction, chunking and an L1 objective. Unlike π₀’s flow generator, it can directly regress the action chunk. Its public implementation makes the adaptation recipe inspectable. Reported success rates still depend on data and evaluation settings. A reproducible run must restore the action head, proprioception modules, processor and statistics along with the adapted model; loading only LoRA weights is insufficient.",
+      "body": "<p class=\"lead\">Keep the OpenVLA foundation, but calculate a sequence of action values in one pass.</p><dl class=\"terms\"><div><dt>Output</dt><dd>A typical LIBERO setting predicts 8 steps at once.</dd></div><div><dt>Training</dt><dd>Penalize the absolute difference between predicted and demonstrated values: L1 error.</dd></div><div><dt>Inputs</dt><dd>A configuration can include a main camera, wrist camera and joint state.</dd></div><div><dt>Limit</dt><dd>One set of numbers may struggle to preserve several valid choices for the same situation.</dd></div></dl><p class=\"small\">See Tables I/II (p.6) and IV (p.17). Compare speed only under matching settings.</p>",
+      "notes": "OFT is a recipe for continuing training from OpenVLA. Instead of producing action IDs in sequence, it directly outputs numerical actions for several future steps. L1 error adds up absolute differences from demonstrated values. It does not use π₀’s repeated updates from random numbers. Direct prediction still has limitations when several different actions are equally reasonable. Reported speed and success depend on the input, data and execution settings.",
       "time": "1:00"
     },
     {
       "section": "Evaluation",
-      "title": "LIBERO and LIBERO-Plus: align the protocol first",
+      "title": "LIBERO supplies tasks; LIBERO-Plus changes the conditions",
       "refs": [
         "libero",
         "liberoplus",
         "oft"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Layer</th><th>Hold fixed</th><th>Report</th></tr></thead><tbody><tr><td>Task success</td><td>Tasks, initial states and termination</td><td>Successes / trials per task</td></tr><tr><td>Robustness</td><td>Camera, corruption, strength and timing</td><td>Clean and perturbed results</td></tr><tr><td>Execution</td><td>Replanning, chunk size and executed prefix</td><td>Latency and control/observation failures</td></tr><tr><td>Statistics</td><td>Paired initial states and training seeds</td><td>Task/seed variation and uncertainty</td></tr></tbody></table></div><p class=\"takeaway\">Distinguish lifelong-learning metrics, later closed-loop success rates and partial-progress scores.</p>",
-      "notes": "LIBERO supplies tasks, demonstrations and evaluation tools, and the original paper studies lifelong learning and knowledge transfer. Later VLA work often reports closed-loop success rates using the same environment; that protocol differs from lifelong-learning metrics. LIBERO-Plus extends diagnosis to distribution shifts. Task identities, initial states, camera configuration, corruption and executed action prefixes are all part of interpreting a result. A checkpoint already adapted to LIBERO also differs from few-shot adaptation to unseen tasks.",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Check</th><th>State the setting</th><th>Example</th></tr></thead><tbody><tr><td>Completion</td><td>Task, starting state and ending rule</td><td>Successes out of a stated number of trials</td></tr><tr><td>Changed input</td><td>Which camera, how severe, and when</td><td>Noise or a different camera angle</td></tr><tr><td>Execution</td><td>Steps predicted and steps executed before looking again</td><td>Predicting 8 and executing 8 are separate choices</td></tr><tr><td>Repeatability</td><td>Starting states and independent training runs</td><td>Report each task and run</td></tr></tbody></table></div><p class=\"takeaway\">Full completion, partial progress and forgetting after new training are different scores.</p>",
+      "notes": "LIBERO provides simulation tasks, demonstrations and test tools. Its original paper also studies whether learning new tasks causes forgetting. Later VLA papers often use full-task success rates. LIBERO-Plus changes conditions such as layout, camera angle and lighting. Results depend on starting states, changed inputs and how many actions are executed before another observation. A percentage without those settings is easy to misinterpret.",
       "time": "1:00"
     },
     {
-      "section": "Phases and training resources",
-      "title": "Four papers on phases and training resources",
+      "section": "What training focuses on",
+      "title": "What information do these four methods focus on?",
       "refs": [
         "longvla",
         "egr",
         "frameskip",
         "phaser"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Paper</th><th>Intervention</th><th>Main problem</th></tr></thead><tbody><tr><td>Long-VLA</td><td>Phase-aware input masking</td><td>Sensory relevance and long-horizon skill chaining</td></tr><tr><td>EGR</td><td>Evidence-gated regularization</td><td>Spurious multi-sensor correlations and robustness</td></tr><tr><td>FrameSkip</td><td>Important-frame selection</td><td>Imbalanced supervision in dense trajectories</td></tr><tr><td>PHASER</td><td>Phase-based continual-learning replay</td><td>Forgetting of brief critical phases</td></tr></tbody></table></div><p class=\"takeaway\">Inputs, objectives, sample selection and replay are distinct intervention points.</p>",
-      "notes": "These papers select information or allocate training resources at different points. Long-VLA masks inputs according to phases in long-horizon tasks. EGR gates consistency objectives using relevance evidence for each frame and sensor. FrameSkip selects informative frames in the data loader. PHASER allocates historical replay across phases during continual learning. The comparison therefore distinguishes input intervention, objective design, sampling and replay, as well as their different problem settings: long-horizon control, multimodal robustness and forgetting.",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Paper</th><th>Concrete change</th><th>Purpose</th></tr></thead><tbody><tr><td>Long-VLA</td><td>Keep selected inputs for different task phases</td><td>Connect one manipulation step to the next</td></tr><tr><td>EGR</td><td>Estimate whether each sensor is useful now; change training requirements accordingly</td><td>Ignore irrelevant changes; work with useful sensors that remain</td></tr><tr><td>FrameSkip</td><td>Use fewer repetitive frames; preserve critical moments</td><td>Spend less training on near-duplicates</td></tr><tr><td>PHASER</td><td>Practise old task phases while learning new ones</td><td>Avoid forgetting brief but important steps</td></tr></tbody></table></div>",
+      "notes": "Long-VLA selects inputs according to manipulation phases. EGR estimates how useful a sensor is for the task and changes training requirements accordingly. FrameSkip selects which recorded frames and actions enter training. PHASER revisits old demonstrations during new-task learning, with attention to steps at risk of being forgotten. They all select information, but at different points and for different purposes.",
       "time": "1:20"
     },
     {
-      "section": "Phases and training resources",
-      "title": "Long-VLA and EGR: inputs versus objectives",
+      "section": "What training focuses on",
+      "title": "Long-VLA uses task phases; EGR checks sensor usefulness",
       "refs": [
         "longvla",
         "egr"
       ],
-      "body": "<div class=\"columns\"><div><h3>Long-VLA · phase-aware masking</h3><p>Moving / interaction phases → relevant sensory cues → long-horizon skill chaining.</p><p class=\"small\">Key dimensions: phase definition, input selection and subtask compatibility.</p></div><div><h3>EGR · evidence-gated regularization</h3><p>Sensor relevance → invariance / single-sensor sufficiency objectives.</p><p class=\"small\">Key dimensions: relevance estimates, sensor conditions and consistency objectives.</p></div></div><p class=\"small\">Long-VLA’s arXiv page states CoRL 2025 acceptance; EGR is listed as a preprint. This is abstract-level positioning.</p>",
-      "notes": "Both methods address which sensory information is useful, but they intervene differently. Long-VLA uses moving and interaction phases to organize input masking for long-horizon skill chaining. EGR gates training objectives using sensor evidence: invariance for low-evidence sensors and single-sensor sufficiency for high-evidence sensors. These are not interchangeable phase algorithms. The slide summarizes only the method positioning supported by the original abstracts. Equations, implementation details and ablations should be interpreted through the full papers.",
+      "body": "<div class=\"columns\"><div><h3>Long-VLA</h3><p>Is the arm moving, or interacting with an object? Keep relevant inputs for that phase to connect successive steps.</p></div><div><h3>EGR</h3><p>Estimate a task-relevance score for each frame and sensor.</p><ul><li>If it is unhelpful now, changes in its data should have little effect on actions.</li><li>If it is useful, train the model to work when only useful sensor information remains.</li></ul></div></div><p class=\"small\">Long-VLA’s page states CoRL 2025 acceptance. EGR is listed as a preprint. This explanation uses their abstracts.</p>",
+      "notes": "Long-VLA organizes inputs around moving and interaction phases to help connect operations. EGR asks which sensor helps the current task at this moment. Scores determine the training requirements: avoid changing actions because an irrelevant sensor changed, and practise acting with useful sensor information alone. The paper calls this evidence-gated regularization. The practical requirements explain the idea; the exact score calculation and equations have not been checked here.",
       "time": "1:00"
     },
     {
-      "section": "Phases and training resources",
-      "title": "FrameSkip and PHASER: sampling versus replay",
+      "section": "What training focuses on",
+      "title": "FrameSkip selects frames; PHASER practises old steps again",
       "refs": [
         "frameskip",
         "phaser"
       ],
-      "body": "<div class=\"columns\"><div><h3>FrameSkip · which frames to train on</h3><ul><li>Action variation and visual-action coherence.</li><li>Progress priors and gripper-transition preservation.</li><li>Selection in the data loader.</li></ul></div><div><h3>PHASER · which phases to replay</h3><ul><li>Support brief critical phases.</li><li>Prioritize phases at risk of forgetting.</li><li>Action change points with VLM verification.</li></ul></div></div><p class=\"takeaway\">FrameSkip changes training-frame selection; PHASER changes replay allocation in continual learning.</p>",
-      "notes": "FrameSkip and PHASER both address uneven information across trajectories, but their learning settings differ. FrameSkip scores and selects frames using action variation, visual-action coherence, progress priors and gripper transitions. It operates in the data loader. PHASER addresses continual learning, distributing replay support across phases and prioritizing forgetting risk. Frame retention and sampled-example counts matter for interpreting FrameSkip, while replay capacity and task sequence matter for PHASER. Their results should therefore be read within their respective settings.",
+      "body": "<div class=\"columns\"><div><h3>FrameSkip: fewer repeated moments</h3><ul><li>Check whether actions change.</li><li>Check whether image changes match actions.</li><li>Use task progress and preserve gripper closing/opening events.</li></ul></div><div><h3>PHASER: keep practising old skills</h3><ul><li>Retain enough examples of brief important phases.</li><li>Give priority to phases at risk of being forgotten.</li><li>Find changes in actions, then use a VLM to check phase boundaries.</li></ul></div></div>",
+      "notes": "FrameSkip reduces the dominance of repetitive parts of demonstrations. Long stretches of similar motion can receive more training than brief grasp or release moments. The method uses actions, image changes and progress to select frames. PHASER addresses forgetting during new learning by revisiting old demonstrations, called replay. It supports brief steps and prioritizes those at risk of being forgotten. One selects current training moments; the other schedules practice of older ones.",
       "time": "1:00"
     },
     {
-      "section": "Robustness and diagnostics",
-      "title": "Four papers on robustness and diagnostics",
+      "section": "When inputs go wrong",
+      "title": "What happens when camera input goes wrong?",
       "refs": [
         "strong",
         "mail",
         "viewcollapse",
         "care"
       ],
-      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Paper</th><th>Focus</th><th>Key distinction</th></tr></thead><tbody><tr><td>STRONG-VLA</td><td>Perturbation curriculum and clean realignment</td><td>Robustness acquisition versus clean execution</td></tr><tr><td>MAIL-Bench / MINT</td><td>Stage-wise camera loss and missing-view completion</td><td>Persistent missing streams versus transient corruption</td></tr><tr><td>View Collapse</td><td>View interventions and View Swap</td><td>Robust perception versus changed view reliance</td></tr><tr><td>CARE</td><td>Chunk-consistency-based execution length</td><td>Action generation versus execution</td></tr></tbody></table></div><p class=\"small\">Listed as 2026 preprints. Original abstracts checked; full texts define precise settings and ablations.</p>",
-      "notes": "These papers address robustness at different points. STRONG-VLA separates perturbation learning from clean-task realignment. MAIL-Bench evaluates camera interruptions at different task stages, and MINT combines missing-view training with selective completion. View Collapse explains that apparent robustness can reflect reliance on another camera rather than stronger perception. CARE studies executed action length under transient observation corruption. Together, the papers show why robustness results must be interpreted with their fault type, sensor dependencies, training setup and execution mechanism.",
+      "body": "<div class=\"table-wrap\"><table><thead><tr><th>Paper</th><th>What it does</th><th>What to check</th></tr></thead><tbody><tr><td>STRONG-VLA</td><td>Train on increasingly difficult corruptions, then continue with normal data</td><td>Whether normal-condition performance is preserved</td></tr><tr><td>MAIL-Bench / MINT</td><td>Test camera loss; train with missing views and try filling them in</td><td>An interrupted stream differs from one blurred frame</td></tr><tr><td>View Collapse</td><td>Change camera inputs separately to check which view the model uses</td><td>A gain can come from relying on a different camera</td></tr><tr><td>CARE</td><td>Compare consecutive action predictions to choose steps to execute</td><td>Fewer steps allow another observation sooner</td></tr></tbody></table></div><p class=\"small\">Only the abstracts have been checked here. Equations, test settings and detailed results require the full papers.</p>",
+      "notes": "STRONG-VLA trains on increasingly difficult disturbed inputs, then returns to normal data to preserve ordinary task performance. MINT practises acting without some camera views and tries to supply predicted images, withdrawing them when unreliable. View Collapse shows that success with one damaged camera can reflect reliance on another. CARE compares consecutive action predictions to select how many steps to execute before looking again. Similar goals do not mean the methods change the same part of the system.",
       "time": "1:00"
     },
     {
@@ -476,8 +476,8 @@ window.REPORT = {
         "pi0",
         "oxe"
       ],
-      "body": "<p class=\"small\">Years refer to initial preprints. Fixed versions and reading depth are recorded in the <a href=\"reading/\">22-paper handbook</a>. No figure numbers or detailed experimental claims are invented for abstract-only additions.</p>",
-      "notes": "This page lists full titles, authors, initial preprint years and original-paper links. The handbook retains fixed PDF versions and figure/page references for the original fourteen papers. The eight additions are explicitly marked as abstract-level checks. A preprint is not automatically a formally accepted conference publication. Follow the original link when discussing a particular method; the source version and evaluation protocol remain part of the claim.",
+      "body": "<p class=\"small\">Years refer to the first public paper. Versions, links and figure/page references are in the <a href=\"reading/\">22-paper guide</a>.</p>",
+      "notes": "These entries provide titles, authors and original links. Years refer to initial public release and can differ from conference years. The original fourteen notes use fixed PDF versions with figure and page references. The eight additions have only been checked through their abstracts; full texts and code have not been reviewed in detail. Preprints and confirmed conference acceptance are listed separately.",
       "time": "As needed",
       "type": "references",
       "paperIds": [
@@ -496,8 +496,8 @@ window.REPORT = {
         "pi05",
         "smol"
       ],
-      "body": "<p class=\"small\">Years refer to initial preprints. Fixed versions and reading depth are recorded in the <a href=\"reading/\">22-paper handbook</a>. No figure numbers or detailed experimental claims are invented for abstract-only additions.</p>",
-      "notes": "This page lists full titles, authors, initial preprint years and original-paper links. The handbook retains fixed PDF versions and figure/page references for the original fourteen papers. The eight additions are explicitly marked as abstract-level checks. A preprint is not automatically a formally accepted conference publication. Follow the original link when discussing a particular method; the source version and evaluation protocol remain part of the claim.",
+      "body": "<p class=\"small\">Years refer to the first public paper. Versions, links and figure/page references are in the <a href=\"reading/\">22-paper guide</a>.</p>",
+      "notes": "These entries provide titles, authors and original links. Years refer to initial public release and can differ from conference years. The original fourteen notes use fixed PDF versions with figure and page references. The eight additions have only been checked through their abstracts; full texts and code have not been reviewed in detail. Preprints and confirmed conference acceptance are listed separately.",
       "time": "As needed",
       "type": "references",
       "paperIds": [
@@ -516,8 +516,8 @@ window.REPORT = {
         "liberoplus",
         "act"
       ],
-      "body": "<p class=\"small\">Years refer to initial preprints. Fixed versions and reading depth are recorded in the <a href=\"reading/\">22-paper handbook</a>. No figure numbers or detailed experimental claims are invented for abstract-only additions.</p>",
-      "notes": "This page lists full titles, authors, initial preprint years and original-paper links. The handbook retains fixed PDF versions and figure/page references for the original fourteen papers. The eight additions are explicitly marked as abstract-level checks. A preprint is not automatically a formally accepted conference publication. Follow the original link when discussing a particular method; the source version and evaluation protocol remain part of the claim.",
+      "body": "<p class=\"small\">Years refer to the first public paper. Versions, links and figure/page references are in the <a href=\"reading/\">22-paper guide</a>.</p>",
+      "notes": "These entries provide titles, authors and original links. Years refer to initial public release and can differ from conference years. The original fourteen notes use fixed PDF versions with figure and page references. The eight additions have only been checked through their abstracts; full texts and code have not been reviewed in detail. Preprints and confirmed conference acceptance are listed separately.",
       "time": "As needed",
       "type": "references",
       "paperIds": [
@@ -536,8 +536,8 @@ window.REPORT = {
         "longvla",
         "egr"
       ],
-      "body": "<p class=\"small\">Years refer to initial preprints. Fixed versions and reading depth are recorded in the <a href=\"reading/\">22-paper handbook</a>. No figure numbers or detailed experimental claims are invented for abstract-only additions.</p>",
-      "notes": "This page lists full titles, authors, initial preprint years and original-paper links. The handbook retains fixed PDF versions and figure/page references for the original fourteen papers. The eight additions are explicitly marked as abstract-level checks. A preprint is not automatically a formally accepted conference publication. Follow the original link when discussing a particular method; the source version and evaluation protocol remain part of the claim.",
+      "body": "<p class=\"small\">Years refer to the first public paper. Versions, links and figure/page references are in the <a href=\"reading/\">22-paper guide</a>.</p>",
+      "notes": "These entries provide titles, authors and original links. Years refer to initial public release and can differ from conference years. The original fourteen notes use fixed PDF versions with figure and page references. The eight additions have only been checked through their abstracts; full texts and code have not been reviewed in detail. Preprints and confirmed conference acceptance are listed separately.",
       "time": "As needed",
       "type": "references",
       "paperIds": [
@@ -556,8 +556,8 @@ window.REPORT = {
         "strong",
         "mail"
       ],
-      "body": "<p class=\"small\">Years refer to initial preprints. Fixed versions and reading depth are recorded in the <a href=\"reading/\">22-paper handbook</a>. No figure numbers or detailed experimental claims are invented for abstract-only additions.</p>",
-      "notes": "This page lists full titles, authors, initial preprint years and original-paper links. The handbook retains fixed PDF versions and figure/page references for the original fourteen papers. The eight additions are explicitly marked as abstract-level checks. A preprint is not automatically a formally accepted conference publication. Follow the original link when discussing a particular method; the source version and evaluation protocol remain part of the claim.",
+      "body": "<p class=\"small\">Years refer to the first public paper. Versions, links and figure/page references are in the <a href=\"reading/\">22-paper guide</a>.</p>",
+      "notes": "These entries provide titles, authors and original links. Years refer to initial public release and can differ from conference years. The original fourteen notes use fixed PDF versions with figure and page references. The eight additions have only been checked through their abstracts; full texts and code have not been reviewed in detail. Preprints and confirmed conference acceptance are listed separately.",
       "time": "As needed",
       "type": "references",
       "paperIds": [
@@ -574,8 +574,8 @@ window.REPORT = {
         "viewcollapse",
         "care"
       ],
-      "body": "<p class=\"small\">Years refer to initial preprints. Fixed versions and reading depth are recorded in the <a href=\"reading/\">22-paper handbook</a>. No figure numbers or detailed experimental claims are invented for abstract-only additions.</p>",
-      "notes": "This page lists full titles, authors, initial preprint years and original-paper links. The handbook retains fixed PDF versions and figure/page references for the original fourteen papers. The eight additions are explicitly marked as abstract-level checks. A preprint is not automatically a formally accepted conference publication. Follow the original link when discussing a particular method; the source version and evaluation protocol remain part of the claim.",
+      "body": "<p class=\"small\">Years refer to the first public paper. Versions, links and figure/page references are in the <a href=\"reading/\">22-paper guide</a>.</p>",
+      "notes": "These entries provide titles, authors and original links. Years refer to initial public release and can differ from conference years. The original fourteen notes use fixed PDF versions with figure and page references. The eight additions have only been checked through their abstracts; full texts and code have not been reviewed in detail. Preprints and confirmed conference acceptance are listed separately.",
       "time": "As needed",
       "type": "references",
       "paperIds": [

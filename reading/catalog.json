@@ -3,32 +3,32 @@
   "groups": [
     {
       "id": "policy",
-      "label": "通用策略",
+      "label": "多任务机器人模型",
       "count": 6
     },
     {
       "id": "data",
-      "label": "数据基础",
+      "label": "共享训练数据",
       "count": 1
     },
     {
       "id": "method",
-      "label": "动作与适配",
+      "label": "算动作与继续训练",
       "count": 5
     },
     {
       "id": "benchmark",
-      "label": "评测基准",
+      "label": "测试任务与成功率",
       "count": 2
     },
     {
       "id": "phase",
-      "label": "阶段与训练资源",
+      "label": "训练时重点看什么",
       "count": 4
     },
     {
       "id": "robust",
-      "label": "鲁棒训练与诊断",
+      "label": "输入出问题以后",
       "count": 4
     }
   ],
@@ -40,14 +40,14 @@
       "author": "Yiguo Fan et al.",
       "title": "Long-VLA: Unleashing Long-Horizon Capability of Vision Language Action Model for Robot Manipulation",
       "arxiv": "2508.19958v2",
-      "role": "阶段与训练资源",
+      "role": "训练时挑信息",
       "category": "phase",
-      "question": "长程操作中，如何让策略在移动与交互阶段关注合适的感知线索？",
-      "io": "多模态观察与任务条件 → 经阶段感知输入遮蔽的策略 → 操作动作。",
-      "change": "将子任务划分为移动和交互阶段，采用阶段感知输入遮蔽，并提出L-CALVIN长程评测。",
-      "evidence": "摘要报告仿真及实机验证；优先精读阶段划分、遮蔽规则和消融。未在本页复核具体图号。",
-      "boundary": "主要面向长程操作与技能衔接；所测任务的收益不能直接外推至所有视觉故障。",
-      "relation": "按阶段选择输入，与EGR的目标门控、FrameSkip的帧选择区分。"
+      "question": "机器人要连续做几个步骤时，怎样让前一步更容易接到下一步？",
+      "io": "图像等输入和任务要求 → 根据移动、交互阶段隐藏部分输入 → 算出动作。",
+      "change": "把小任务分为移动和交互阶段，在不同阶段保留相关输入；另提供L-CALVIN测试较长任务。",
+      "evidence": "摘要提到仿真和实机测试。全文重点核对怎样分阶段、隐藏哪些输入，以及分别去掉某项改动后的成绩；这里没有补写尚未核对的图号。",
+      "boundary": "主要测试长任务里的步骤衔接；不能把这些成绩当作任何画面故障下都可靠的证据。",
+      "relation": "按操作阶段挑输入，与EGR按传感器用途改变训练要求不同。"
     },
     {
       "id": "egr",
@@ -56,14 +56,14 @@
       "author": "Yue Yang et al.",
       "title": "Sensing Which Modality Matters: Evidence-Gated Regularization for Robust VLA Policies",
       "arxiv": "2609.03142v1",
-      "role": "阶段与训练资源",
+      "role": "训练时挑信息",
       "category": "phase",
-      "question": "有限示范下，多传感器策略如何避免学到无关传感器之间的伪相关？",
-      "io": "每帧、每传感器的任务相关性信号 → 门控一致性目标 → 鲁棒多模态策略。",
-      "change": "对低证据传感器鼓励不变性，对高证据传感器鼓励单传感器充分性；不增加推理开销。",
-      "evidence": "摘要报告BEHAVIOR-1K诊断、47项闭环技能及两种实机平台；需精读证据计算和正则项。",
-      "boundary": "聚焦传感器任务相关性和多模态鲁棒性；与显式阶段划分的方法设定不同。",
-      "relation": "按传感器任务证据门控训练目标，而非显式移动／交互阶段遮蔽。"
+      "question": "传感器很多、示范又少时，机器人会不会被恰好一起变化的无关信息带偏？",
+      "io": "每帧、每个传感器与任务有关的估计分数 → 改变训练要求 → 学习怎样使用传感器。",
+      "change": "无关传感器的数据变了，动作尽量不变；有用传感器单独留下时，也练习完成任务。使用模型时不用增加这套训练计算。",
+      "evidence": "摘要提到BEHAVIOR-1K测试、47项边看边做的技能和两种实机系统。全文重点看怎样给传感器打分，以及分数怎样改变训练要求。",
+      "boundary": "重点是传感器此时有没有用；它不等同于按移动、交互阶段选择输入。具体分数和训练公式还需要全文核对。",
+      "relation": "看哪个传感器此时有用，不按相同的移动阶段来分。"
     },
     {
       "id": "frameskip",
@@ -72,14 +72,14 @@
       "author": "Bin Yu et al.",
       "title": "FrameSkip: Learning from Fewer but More Informative Frames in VLA Training",
       "arxiv": "2605.13757v1",
-      "role": "阶段与训练资源",
+      "role": "训练时挑信息",
       "category": "phase",
-      "question": "密集轨迹里的低变化片段会挤占关键对齐、抓取和释放时刻的训练监督，如何处理？",
-      "io": "示范轨迹 → 帧重要性打分与筛选 → 原有VLA训练流程。",
-      "change": "结合动作变化、视觉动作一致性、进度先验和夹爪转换保护，在数据加载层选帧。",
-      "evidence": "摘要报告RoboCasa-GR1、SimplerEnv和LIBERO；需核对保留帧比例、采样量和简单筛选对照。",
-      "boundary": "选择训练帧而非修改动作头或推理流程；保留率和训练采样量会影响结果解释。",
-      "relation": "在数据加载层选择帧；与PHASER的持续学习回放设定不同。"
+      "question": "示范里重复画面很多，抓住、松开等短暂时刻却很少，训练会不会顾此失彼？",
+      "io": "一段示范 → 给各时刻打分并选帧 → 用选出的画面和动作训练原模型。",
+      "change": "看动作是否变化、画面变化是否和动作对应、任务到了哪一步，并保留夹爪抓住或松开的时刻。",
+      "evidence": "摘要提到RoboCasa-GR1、SimplerEnv和LIBERO。全文重点看留下多少帧、训练共用多少条记录，以及是否优于简单的选帧办法。",
+      "boundary": "主要改变训练时选哪些记录，不改动作输出和使用流程。保留多少帧、训练时总共抽取多少条记录，都会影响成绩的解释。",
+      "relation": "挑当前训练用哪些记录；PHASER挑旧记录怎样再练。"
     },
     {
       "id": "phaser",
@@ -88,14 +88,14 @@
       "author": "Ziyang Chen et al.",
       "title": "PHASER: Phase-Aware and Semantic Experience Replay for Vision-Language-Action Models",
       "arxiv": "2606.03598v2",
-      "role": "阶段与训练资源",
+      "role": "训练时挑信息",
       "category": "phase",
-      "question": "连续学习新技能时，如何避免短暂关键阶段因回放不足而被遗忘？",
-      "io": "历史示范与阶段边界 → 阶段回放容量及遗忘风险路由 → 持续学习策略。",
-      "change": "按阶段分配回放支持，优先高遗忘风险阶段；Auto-PC结合动作变点检测与VLM语义核验。",
-      "evidence": "摘要报告三个VLA底座和LIBERO持续学习套件；重点核对匹配回放预算与阶段提取消融。",
-      "boundary": "主要解决持续学习中的遗忘；不能直接当作单次鲁棒微调的同任务性能结论。",
-      "relation": "围绕持续学习遗忘分配阶段回放，与单次训练的帧选择不同。"
+      "question": "学新任务时，怎样避免忘掉旧任务中短暂却重要的步骤？",
+      "io": "旧示范及其步骤划分 → 决定保留哪些、重新练哪些 → 继续训练模型。",
+      "change": "为各步骤保留示范，容易忘的步骤优先再练。自动分步时，先找动作变化的位置，再让视觉语言模型核对。这种重新练旧数据叫回放。",
+      "evidence": "摘要提到三种VLA模型和LIBERO的学新忘旧测试。全文重点看使用同样多旧示范时的成绩，以及自动划分步骤是否有帮助。",
+      "boundary": "主要研究学新任务时遗忘旧任务的问题，不能直接当作一次抗干扰训练的成绩。",
+      "relation": "解决学新忘旧，与单次训练时选帧不同。"
     },
     {
       "id": "strong",
@@ -104,14 +104,14 @@
       "author": "Yuhan Xie et al.",
       "title": "STRONG-VLA: Decoupled Robustness Learning for Vision-Language-Action Models under Multimodal Perturbations",
       "arxiv": "2604.10055v3",
-      "role": "鲁棒训练与诊断",
+      "role": "输入出问题以后",
       "category": "robust",
-      "question": "多模态扰动训练与正常任务表现之间的冲突如何缓解？",
-      "io": "受扰动和干净示范 → 两阶段微调 → 鲁棒策略。",
-      "change": "先用难度递增的多模态扰动学习鲁棒性，再对齐干净任务分布；建立28类扰动评测。",
-      "evidence": "摘要报告LIBERO多个VLA底座及AIRBOT实机；重点精读两阶段训练和干净性能恢复。",
-      "boundary": "两阶段训练的总更新量、扰动分布和干净再对齐成本，需要结合具体配置理解。",
-      "relation": "从训练课程与干净再对齐解释鲁棒性，和推理阶段干预区分。"
+      "question": "让机器人适应受干扰的画面和指令后，会不会反而在正常条件下做差？",
+      "io": "受干扰与正常的示范 → 先后两轮继续训练 → 测试能否完成任务。",
+      "change": "先练逐渐变难的干扰，再用正常数据继续练，尽量恢复正常任务表现；论文测试28类画面和文字干扰。",
+      "evidence": "摘要提到LIBERO上多种模型和AIRBOT实机测试。全文重点看两轮分别怎样练，以及正常条件下的成绩有没有恢复。",
+      "boundary": "解释成绩时，要看训练一共做了多少步、练过哪些干扰，以及正常数据又练了多久。",
+      "relation": "改训练过程；CARE主要改执行多少步。"
     },
     {
       "id": "mail",
@@ -120,14 +120,14 @@
       "author": "Mingle Jiang et al.",
       "title": "Learning to Act under Visual Interruptions with Vision-Language-Action Models",
       "arxiv": "2609.35003v1",
-      "role": "鲁棒训练与诊断",
+      "role": "输入出问题以后",
       "category": "robust",
-      "question": "操作过程中摄像头停止提供后续帧，策略还能完成多少任务？",
-      "io": "不同阶段与相机的视觉中断 → 闭环评测；MINT训练并选择性补充缺失视图。",
-      "change": "MAIL-Bench按参考成功轨迹阶段评测；MINT结合缺视图训练与光流／世界模型补视图。",
-      "evidence": "摘要报告π₀.₅、GR00T N1.5及AgiBot G2实机；优先看中断时机、持续方式和补帧退出规则。",
-      "boundary": "摄像头后续缺帧不等同于短时模糊；缺帧持续方式与时机属于评测定义的一部分。",
-      "relation": "结合相机中断评测与缺失视图处理；区别于瞬时图像扰动。"
+      "question": "执行到一半，某台相机不再传来新画面，机器人还能做完吗？",
+      "io": "在不同操作步骤中断不同相机 → 测试剩余任务；MINT还会训练缺画面时怎么做。",
+      "change": "先练缺少相机输入的情况。使用时根据已有画面中的移动，或根据模型预测，尝试补出缺失画面；补得不可靠就停用。",
+      "evidence": "摘要提到π₀.₅、GR00T N1.5和AgiBot G2。全文重点看相机何时中断、中断多久，以及什么时候停止使用补出的画面。",
+      "boundary": "相机后续一直不再传图，与某一帧变模糊是两种故障。何时中断、持续多久，都是测试条件的一部分。",
+      "relation": "相机持续中断，与CARE研究的一次短暂坏图不同。"
     },
     {
       "id": "viewcollapse",
@@ -136,14 +136,14 @@
       "author": "Futa Waseda et al.",
       "title": "Does Adversarial Training Improve Generalization in Multi-View VLAs? Revealing and Mitigating View Collapse",
       "arxiv": "2609.33707v1",
-      "role": "鲁棒训练与诊断",
+      "role": "输入出问题以后",
       "category": "robust",
-      "question": "多视角VLA的对抗训练收益，是否来自放弃使用被扰动的相机？",
-      "io": "多视角策略与受控视图干预 → 七类LIBERO-Plus偏移评测与依赖诊断。",
-      "change": "揭示腕部视角主导的view collapse，区分感知鲁棒性与融合策略变化，并用View Swap干预。",
-      "evidence": "摘要指出收益依偏移类型而异；需精读单视图干预与View Swap消融。",
-      "boundary": "某视角受扰后不掉点不等于该视角感知变强；不能把对抗训练称为通用泛化解法。",
-      "relation": "区分感知鲁棒性与多视角依赖变化，提供受控视图诊断。"
+      "question": "一台相机的画面变差后还能做成，是看得更清楚了，还是改看另一台了？",
+      "io": "分别改变各相机画面 → 在LIBERO-Plus七类变化下测试 → 判断模型依赖哪个视角。",
+      "change": "用刻意寻找的困难输入训练后，模型可能主要看腕部相机。作者分别改变视图并使用View Swap做比较，检查成绩提高的原因。",
+      "evidence": "摘要说明效果随测试条件而变。全文重点看分别改变相机输入的测试，以及View Swap是否改变了模型对相机的依赖。",
+      "boundary": "某台相机画面变差后成绩没掉，不能单凭这点说它更会看那台相机；也可能是不太用了。",
+      "relation": "说明成绩提高可能来自改看另一台相机。"
     },
     {
       "id": "care",
@@ -152,14 +152,14 @@
       "author": "Shojiro Yamabe and Jun Sakuma",
       "title": "Are Vision-Language-Action Models Robust to One-Step Observation Perturbations?",
       "arxiv": "2609.32550v1",
-      "role": "鲁棒训练与诊断",
+      "role": "输入出问题以后",
       "category": "robust",
-      "question": "一次短暂观察污染为何会造成较长的控制失败，动作块执行长度有何影响？",
-      "io": "当前与上一轮预测动作块 → 一致性判断 → 动态执行前缀。",
-      "change": "研究单步扰动，按预测动作块一致性选择执行长度，在异常时缩短开环执行。",
-      "evidence": "摘要报告低额外开销与干净性能保持；需精读扰动插入、长度选择和固定前缀对照。",
-      "boundary": "推理时执行机制与训练增强不同；比较增强收益时也应固定执行长度。",
-      "relation": "根据动作块一致性调整执行前缀；与训练增强属于不同环节。"
+      "question": "只坏一帧为什么也可能做错很久？先执行多少步会有什么影响？",
+      "io": "比较前后两次预测的动作 → 决定先做几步 → 做完后重新观察。",
+      "change": "根据前后动作预测是否一致，改变先执行的步数。少执行几步，就能早点重新看画面和算动作。",
+      "evidence": "摘要提到额外计算较少，正常条件下的成绩得以保持。全文重点看哪一步破坏画面、怎样决定执行步数，以及固定执行步数时的比较。",
+      "boundary": "这是改变执行方式，不是改变训练数据。比较不同方法的成绩时，也要说明每次先做几步。",
+      "relation": "改变何时重新看画面，不改变训练示范。"
     }
   ]
 }

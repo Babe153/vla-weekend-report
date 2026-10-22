@@ -3,32 +3,32 @@
   "groups": [
     {
       "id": "policy",
-      "label": "Generalist policies",
+      "label": "Models for many tasks",
       "count": 6
     },
     {
       "id": "data",
-      "label": "Data foundations",
+      "label": "Shared training data",
       "count": 1
     },
     {
       "id": "method",
-      "label": "Actions and adaptation",
+      "label": "Actions and further training",
       "count": 5
     },
     {
       "id": "benchmark",
-      "label": "Evaluation benchmarks",
+      "label": "Tasks and success rates",
       "count": 2
     },
     {
       "id": "phase",
-      "label": "Phases and training resources",
+      "label": "What training focuses on",
       "count": 4
     },
     {
       "id": "robust",
-      "label": "Robustness and diagnostics",
+      "label": "When inputs go wrong",
       "count": 4
     }
   ]

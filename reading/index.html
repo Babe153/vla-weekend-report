@@ -2,522 +2,554 @@
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f4f2ed"><meta name="description" content="22篇VLA论文中文速读：问题、输入输出、核心改动、证据与边界。含论文关系、动作生成对比及原文图表页码，适合手机阅读。"><title>22篇 VLA 论文速读 · 中文阅读手册</title><link rel="icon" href="data:,"><link rel="stylesheet" href="reading.css"><script src="reading.js" defer></script><script src="../language.js" defer></script></head>
 <body><a class="skip-link" href="#main">跳至正文</a>
 <header class="site-header"><a class="wordmark" href="#top">VLA<span>论文阅读手册</span></a><nav aria-label="阅读导航"><a href="#map">关系</a><a href="#comparison">对比</a><a href="#notes">速读</a><a href="#pitfalls">易混点</a><a href="../">导师汇报</a><a class="reading-language" href="../en/reading/" data-language-switch="../en/reading/" lang="en" hreflang="en">English</a></nav></header>
-<main id="main"><section class="hero" id="top"><p class="eyebrow">ROBOT LEARNING / READING NOTES</p><h1>22篇论文，<br>读懂模型与方法。</h1><p class="hero-lead">用五个问题理解 VLA：解决什么、输入输出、改了哪里、证据是什么、边界在哪。</p><div class="hero-links"><a class="primary-link" href="#notes">开始五行速读 <span aria-hidden="true">↗</span></a><a href="#comparison">先看中文对比表</a></div><div class="hero-meta"><span>22 篇原文</span><span>110 条速读笔记</span><span>更新于 2026.10.22</span></div></section>
-<aside class="reading-note"><strong>先定位，再精读。</strong> 六组文献区分模型、工具、评测与相关文献。原14篇保留图表页码；新增8篇为摘要级定位，待全文核对。不同任务和评分协议下的成功率，不放在同一个排行榜里。图表页码对应所列固定版本的 PDF。</aside>
-<section class="chapter" id="map"><h2>一、六组文献与推荐阅读路线</h2><div class="table-wrap"><table>
+<main id="main"><section class="hero" id="top"><p class="eyebrow">ROBOT LEARNING / READING NOTES</p><h1>22篇论文，<br>读懂模型与方法。</h1><p class="hero-lead">每篇说清：遇到什么问题、具体怎么做、哪张图支持、还有什么做不到。</p><div class="hero-links"><a class="primary-link" href="#notes">开始五行速读 <span aria-hidden="true">↗</span></a><a href="#comparison">先看中文对比表</a></div><div class="hero-meta"><span>22 篇原文</span><span>110 条速读笔记</span><span>更新于 2026.10.22</span></div></section>
+<aside class="reading-note"><strong>先看做法，再看结果。</strong> 先弄清每篇解决什么、具体改了哪一步，再看图表是否支持。原14篇保留页码；新增8篇只核对了摘要。不同任务和测试条件的成功率，不放在一起排名。</aside>
+<section class="chapter" id="map"><h2>一、先弄清每组论文在做什么</h2><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>分组</th>
-<th>对应论文</th>
-<th>先回答的问题</th>
+<th>论文</th>
+<th>主要问题</th>
 </tr>
 </thead>
 <tbody><tr>
-<td data-label="分组">A · 通用策略 · 6篇</td>
-<td data-label="对应论文">RT-2、OpenVLA、π₀、Octo、π₀.₅、SmolVLA</td>
-<td data-label="先回答的问题">视觉语言知识怎样生成动作？</td>
+<td data-label="分组">A · 多任务机器人模型</td>
+<td data-label="论文">RT-2、OpenVLA、π₀、Octo、π₀.₅、SmolVLA</td>
+<td data-label="主要问题">怎样让一个模型做不同任务？</td>
 </tr>
 <tr>
-<td data-label="分组">B · 数据基础 · 1篇</td>
-<td data-label="对应论文">Open X-Embodiment / RT-X</td>
-<td data-label="先回答的问题">经验来自哪里，能否跨机器人迁移？</td>
+<td data-label="分组">B · 共享训练数据</td>
+<td data-label="论文">Open X-Embodiment / RT-X</td>
+<td data-label="主要问题">不同机器人的示范能不能一起用？</td>
 </tr>
 <tr>
-<td data-label="分组">C · 动作与适配 · 5篇</td>
-<td data-label="对应论文">ACT、Diffusion Policy、FAST、OpenVLA-OFT、LoRA</td>
-<td data-label="先回答的问题">动作怎么生成，怎样低成本更新？</td>
+<td data-label="分组">C · 算动作与继续训练</td>
+<td data-label="论文">ACT、Diffusion Policy、FAST、OpenVLA-OFT、LoRA</td>
+<td data-label="主要问题">怎样算动作，怎样减少训练花费？</td>
 </tr>
 <tr>
-<td data-label="分组">D · 评测 · 2篇</td>
-<td data-label="对应论文">LIBERO、LIBERO-Plus</td>
-<td data-label="先回答的问题">什么算成功，怎样测鲁棒性？</td>
+<td data-label="分组">D · 测试任务与成功率</td>
+<td data-label="论文">LIBERO、LIBERO-Plus</td>
+<td data-label="主要问题">怎样测试机器人有没有做成？</td>
 </tr>
 <tr>
-<td data-label="分组">E · 阶段与训练资源 · 4篇</td>
-<td data-label="对应论文">Long-VLA、EGR、FrameSkip、PHASER</td>
-<td data-label="先回答的问题">哪些时刻／传感器需要何种训练干预？</td>
+<td data-label="分组">E · 训练时重点看什么</td>
+<td data-label="论文">Long-VLA、EGR、FrameSkip、PHASER</td>
+<td data-label="主要问题">哪些输入、时刻和旧示范更值得练？</td>
 </tr>
 <tr>
-<td data-label="分组">F · 鲁棒训练与诊断 · 4篇</td>
-<td data-label="对应论文">STRONG-VLA、MAIL-Bench / MINT、View Collapse、CARE</td>
-<td data-label="先回答的问题">扰动下为何失败，怎样排除假提升？</td>
+<td data-label="分组">F · 输入出问题以后</td>
+<td data-label="论文">STRONG-VLA、MAIL-Bench / MINT、View Collapse、CARE</td>
+<td data-label="主要问题">画面变差或相机中断后会怎样？</td>
 </tr>
 </tbody></table></div>
-<p><strong>给导师汇报：</strong> 先讲RT-2 → OpenVLA → π₀ → OFT → 评测 → 阶段与鲁棒性相关文献。模型基础见01–14；阶段与鲁棒性文献见15–22。重点讲原理和差异，不必逐篇罗列所有细节。</p>
-<p><strong>阶段与鲁棒性分组阅读：</strong> Long-VLA（15）→ EGR（16）→ FrameSkip（17）→ PHASER（18）→ View Collapse（21）→ STRONG-VLA（19）。MAIL-Bench / MINT（20）与CARE（22）用于补足故障和执行机制。</p>
-<p><strong>分类说明：</strong> EGR按传感器证据门控，FrameSkip按帧选样，PHASER研究持续学习；放在同组是为了比较重要性与资源分配，不表示它们都使用同一种阶段标签。MAIL-Bench兼具基准与方法，这里放在鲁棒诊断组。</p>
+<p>先读RT-2 → OpenVLA → π₀，理解三种代表做法。再看OFT、动作相关方法和测试论文。最后两组介绍训练时挑哪些信息，以及输入出问题时的表现。分组只方便查阅，不表示同组方法完全一样。</p>
+<p>几个词先说清楚：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>论文常用词</th>
+<th>这里指什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td data-label="论文常用词">策略</td>
+<td data-label="这里指什么">根据当前画面和要求，算下一步动作的模型。</td>
+</tr>
+<tr>
+<td data-label="论文常用词">token</td>
+<td data-label="这里指什么">模型读写的小单位；动作token通常是代表动作的编号。</td>
+</tr>
+<tr>
+<td data-label="论文常用词">微调</td>
+<td data-label="这里指什么">在已经学过的模型上，用新示范继续训练。</td>
+</tr>
+<tr>
+<td data-label="论文常用词">动作块</td>
+<td data-label="这里指什么">一次预测后面几步的动作。</td>
+</tr>
+<tr>
+<td data-label="论文常用词">泛化</td>
+<td data-label="这里指什么">没有专门练过的物体、场景或要求，能不能应付。</td>
+</tr>
+<tr>
+<td data-label="论文常用词">鲁棒性</td>
+<td data-label="这里指什么">画面变差、输入被干扰后，还能不能做好。</td>
+</tr>
+</tbody></table></div>
 </section>
-<section class="chapter" id="comparison"><h2>二、中文横向对比表</h2><div class="table-wrap"><table>
+<section class="chapter" id="comparison"><h2>二、22篇论文分别做了什么</h2><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>论文</th>
-<th>主要角色／问题</th>
-<th>数据与知识来源</th>
-<th>动作表示与生成／输出</th>
-<th>与其他论文的关系</th>
+<th>主要做什么</th>
+<th>用什么资料</th>
+<th>怎样给出动作或分数</th>
+<th>和谁一起看</th>
 </tr>
 </thead>
 <tbody><tr>
 <td data-label="论文"><a href="#paper-01">01 RT-2</a></td>
-<td data-label="主要角色／问题">通用策略</td>
-<td data-label="数据与知识来源">网络图文＋机器人示范</td>
-<td data-label="动作表示与生成／输出">逐维离散；自回归；一步动作</td>
-<td data-label="与其他论文的关系">建立视觉语言能力直接参与动作预测的代表路线；可与OpenVLA对读。</td>
+<td data-label="主要做什么">多任务机器人模型</td>
+<td data-label="用什么资料">网络图片文字和机器人示范</td>
+<td data-label="怎样给出动作或分数">动作编号逐个输出，再换回控制数值</td>
+<td data-label="和谁一起看">和OpenVLA一起看：都把动作写成编号。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-02">02 OpenVLA</a></td>
-<td data-label="主要角色／问题">通用策略</td>
-<td data-label="数据与知识来源">Open X-Embodiment等机器人示范</td>
-<td data-label="动作表示与生成／输出">逐维离散；自回归；一步动作</td>
-<td data-label="与其他论文的关系">与RT-2共享动作token思路；OFT以它为底座修改适配配方。</td>
+<td data-label="主要做什么">多任务机器人模型</td>
+<td data-label="用什么资料">OXE等真实机器人示范</td>
+<td data-label="怎样给出动作或分数">动作编号逐个输出，再换回控制数值</td>
+<td data-label="和谁一起看">OFT在它的基础上改变动作计算方式。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-03">03 π₀</a></td>
-<td data-label="主要角色／问题">通用策略</td>
-<td data-label="数据与知识来源">多机器人自采数据＋公开机器人数据</td>
-<td data-label="动作表示与生成／输出">连续动作块；flow matching迭代生成</td>
-<td data-label="与其他论文的关系">与RT-2/OpenVLA的离散自回归路线对照；π₀.₅以它为基础继续发展。</td>
+<td data-label="主要做什么">多任务机器人模型</td>
+<td data-label="用什么资料">多种机器人的自采与公开示范</td>
+<td data-label="怎样给出动作或分数">反复修改一段动作数字，一起输出多步</td>
+<td data-label="和谁一起看">和Diffusion Policy对照：都从随机数字逐步算动作，训练办法不同。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-04">04 Open X-Embodiment / RT-X</a></td>
-<td data-label="主要角色／问题">数据与跨机器人验证</td>
-<td data-label="数据与知识来源">跨机构、跨机器人示范集合</td>
-<td data-label="动作表示与生成／输出">RT-X采用离散动作；具体生成依策略而定</td>
-<td data-label="与其他论文的关系">为Octo、OpenVLA等提供机器人数据基础；不是另一种动作生成算法。</td>
+<td data-label="主要做什么">共享示范数据</td>
+<td data-label="用什么资料">不同机构和机器人的操作记录</td>
+<td data-label="怎样给出动作或分数">提供数据；RT-X用动作编号控制</td>
+<td data-label="和谁一起看">为OpenVLA和Octo等提供操作示范。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-05">05 Octo</a></td>
-<td data-label="主要角色／问题">通用策略</td>
-<td data-label="数据与知识来源">经过筛选与加权的OXE示范</td>
-<td data-label="动作表示与生成／输出">连续动作块；条件扩散头</td>
-<td data-label="与其他论文的关系">与OpenVLA对比通用策略设计；与Diffusion Policy联系动作生成机制。</td>
+<td data-label="主要做什么">多任务机器人模型</td>
+<td data-label="用什么资料">从OXE筛选的示范</td>
+<td data-label="怎样给出动作或分数">多次修改随机数字，得到一段动作</td>
+<td data-label="和谁一起看">和OpenVLA比整个模型，和Diffusion Policy比算动作的部分。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-06">06 FAST</a></td>
-<td data-label="主要角色／问题">动作表示方法</td>
-<td data-label="数据与知识来源">动作序列用于训练编码器；策略另需机器人示范</td>
-<td data-label="动作表示与生成／输出">压缩离散动作块；策略自回归生成token</td>
-<td data-label="与其他论文的关系">与RT-2式逐维编码对照；也出现在π₀.₅的预训练阶段。</td>
+<td data-label="主要做什么">把动作记录写短</td>
+<td data-label="用什么资料">动作记录用于压缩工具；模型还需示范</td>
+<td data-label="怎样给出动作或分数">短编号串，执行前还原成动作</td>
+<td data-label="和谁一起看">π₀.₅的训练中也用它；和逐时刻编号的办法对照。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-07">07 π₀.₅</a></td>
-<td data-label="主要角色／问题">通用策略</td>
-<td data-label="数据与知识来源">跨机器人示范＋高层语义标注＋网络图文等</td>
-<td data-label="动作表示与生成／输出">预训练用FAST；后训练／控制用连续flow动作块</td>
-<td data-label="与其他论文的关系">承接π₀并使用FAST；重点增加多源知识迁移和环境泛化。</td>
+<td data-label="主要做什么">多任务机器人模型</td>
+<td data-label="用什么资料">机器人示范、网页图片文字、步骤标注</td>
+<td data-label="怎样给出动作或分数">先选当前步骤，再计算动作</td>
+<td data-label="和谁一起看">接着π₀发展，同时使用FAST。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-08">08 SmolVLA</a></td>
-<td data-label="主要角色／问题">通用策略</td>
-<td data-label="数据与知识来源">社区SO100示范为主；目标任务适配数据</td>
-<td data-label="动作表示与生成／输出">连续动作块；flow matching；异步执行可选</td>
-<td data-label="与其他论文的关系">与π₀联系动作专家思路；适合比较模型规模、数据与执行机制的成本。</td>
+<td data-label="主要做什么">多任务机器人模型</td>
+<td data-label="用什么资料">主要是SO100社区示范，再加目标任务数据</td>
+<td data-label="怎样给出动作或分数">一次多算几步，可边做边算</td>
+<td data-label="和谁一起看">和π₀一起看动作计算；另外关注小模型与减少等待。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-09">09 OpenVLA-OFT</a></td>
-<td data-label="主要角色／问题">动作建模与适配配方</td>
-<td data-label="数据与知识来源">预训练OpenVLA＋下游任务示范</td>
-<td data-label="动作表示与生成／输出">连续动作块；并行预测；L1回归</td>
-<td data-label="与其他论文的关系">直接建立在OpenVLA上；与扩散／flow路线比较适配时的复杂度与效果。</td>
+<td data-label="主要做什么">算动作与继续训练</td>
+<td data-label="用什么资料">已有OpenVLA和目标任务示范</td>
+<td data-label="怎样给出动作或分数">一次直接预测未来8步数值</td>
+<td data-label="和谁一起看">直接接着OpenVLA训练；与π₀、Diffusion Policy的多次修改比较。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-10">10 LIBERO</a></td>
-<td data-label="主要角色／问题">任务与评测基准</td>
-<td data-label="数据与知识来源">仿真任务、示范与初始状态</td>
-<td data-label="动作表示与生成／输出">不规定唯一模型或动作生成算法</td>
-<td data-label="与其他论文的关系">供OpenVLA-OFT等评测；LIBERO-Plus在其基础上扩展鲁棒性测试。</td>
+<td data-label="主要做什么">测试任务</td>
+<td data-label="用什么资料">仿真任务、示范、起始状态</td>
+<td data-label="怎样给出动作或分数">任务完成与学新忘旧等分数</td>
+<td data-label="和谁一起看">提供任务，供OFT等方法测试。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-11">11 LIBERO-Plus</a></td>
-<td data-label="主要角色／问题">鲁棒性评测基准</td>
-<td data-label="数据与知识来源">基于LIBERO扩展的扰动任务与相关训练资源</td>
-<td data-label="动作表示与生成／输出">不规定唯一策略；控制扰动与评测协议</td>
-<td data-label="与其他论文的关系">连接高成功率与真实鲁棒性的差距，关注分布偏移下的可靠性。</td>
+<td data-label="主要做什么">测试任务</td>
+<td data-label="用什么资料">改过测试条件的LIBERO任务</td>
+<td data-label="怎样给出动作或分数">条件改变后的任务成功次数</td>
+<td data-label="和谁一起看">在LIBERO基础上改变条件，检查高成功率是否可靠。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-12">12 ACT</a></td>
-<td data-label="主要角色／问题">模仿学习策略</td>
-<td data-label="数据与知识来源">任务相关的人类遥操作示范</td>
-<td data-label="动作表示与生成／输出">连续动作块；CVAE；时间集成</td>
-<td data-label="与其他论文的关系">为理解OFT的动作分块提供基础；与Diffusion Policy同属重要模仿学习参照。</td>
+<td data-label="主要做什么">从示范学动作</td>
+<td data-label="用什么资料">人遥控机器人做任务的示范</td>
+<td data-label="怎样给出动作或分数">多步预测，并平均同一时刻的结果</td>
+<td data-label="和谁一起看">帮助理解为什么一次多算几步、怎样让动作更连贯。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-13">13 Diffusion Policy</a></td>
-<td data-label="主要角色／问题">模仿学习策略</td>
-<td data-label="数据与知识来源">任务相关机器人示范</td>
-<td data-label="动作表示与生成／输出">连续动作序列；条件扩散；滚动执行</td>
-<td data-label="与其他论文的关系">与Octo的扩散头有关；用于对照π₀的flow建模及OFT的直接回归。</td>
+<td data-label="主要做什么">从示范学动作</td>
+<td data-label="用什么资料">目标任务的机器人示范</td>
+<td data-label="怎样给出动作或分数">多次修改数字，先做几步再看</td>
+<td data-label="和谁一起看">Octo也用扩散办法；可与π₀和OFT对照。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-14">14 LoRA</a></td>
-<td data-label="主要角色／问题">通用微调工具</td>
-<td data-label="数据与知识来源">预训练模型与目标任务数据；原文主要是NLP</td>
-<td data-label="动作表示与生成／输出">不规定动作；只改变参数更新方式</td>
-<td data-label="与其他论文的关系">可用于OpenVLA/OFT适配；与动作tokenizer和动作生成头是不同维度。</td>
+<td data-label="主要做什么">减少训练参数</td>
+<td data-label="用什么资料">已有模型和新数据；原论文主要测语言任务</td>
+<td data-label="怎样给出动作或分数">只改变训练哪些参数，不规定动作</td>
+<td data-label="和谁一起看">可用于OpenVLA等模型继续训练，和动作计算方式是两件事。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-15">15 Long-VLA</a></td>
-<td data-label="主要角色／问题">阶段与训练资源</td>
-<td data-label="数据与知识来源">机器人示范／任务观察；详见原文</td>
-<td data-label="动作表示与生成／输出">将子任务划分为移动和交互阶段，采用阶段感知输入遮蔽，并提出L-CALVIN长程评测。</td>
-<td data-label="与其他论文的关系">按阶段选择输入，与EGR的目标门控、FrameSkip的帧选择区分。</td>
+<td data-label="主要做什么">训练时挑信息</td>
+<td data-label="用什么资料">操作示范与传感器记录；范围见原文</td>
+<td data-label="怎样给出动作或分数">按阶段选择输入，再输出动作</td>
+<td data-label="和谁一起看">按操作阶段挑输入，与EGR按传感器用途改变训练要求不同。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-16">16 EGR</a></td>
-<td data-label="主要角色／问题">阶段与训练资源</td>
-<td data-label="数据与知识来源">机器人示范／任务观察；详见原文</td>
-<td data-label="动作表示与生成／输出">对低证据传感器鼓励不变性，对高证据传感器鼓励单传感器充分性；不增加推理开销。</td>
-<td data-label="与其他论文的关系">按传感器任务证据门控训练目标，而非显式移动／交互阶段遮蔽。</td>
+<td data-label="主要做什么">训练时挑信息</td>
+<td data-label="用什么资料">操作示范与传感器记录；范围见原文</td>
+<td data-label="怎样给出动作或分数">按传感器是否有用改变训练要求</td>
+<td data-label="和谁一起看">看哪个传感器此时有用，不按相同的移动阶段来分。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-17">17 FrameSkip</a></td>
-<td data-label="主要角色／问题">阶段与训练资源</td>
-<td data-label="数据与知识来源">机器人示范／任务观察；详见原文</td>
-<td data-label="动作表示与生成／输出">结合动作变化、视觉动作一致性、进度先验和夹爪转换保护，在数据加载层选帧。</td>
-<td data-label="与其他论文的关系">在数据加载层选择帧；与PHASER的持续学习回放设定不同。</td>
+<td data-label="主要做什么">训练时挑信息</td>
+<td data-label="用什么资料">操作示范与传感器记录；范围见原文</td>
+<td data-label="怎样给出动作或分数">挑选训练用的画面与动作记录</td>
+<td data-label="和谁一起看">挑当前训练用哪些记录；PHASER挑旧记录怎样再练。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-18">18 PHASER</a></td>
-<td data-label="主要角色／问题">阶段与训练资源</td>
-<td data-label="数据与知识来源">机器人示范／任务观察；详见原文</td>
-<td data-label="动作表示与生成／输出">按阶段分配回放支持，优先高遗忘风险阶段；Auto-PC结合动作变点检测与VLM语义核验。</td>
-<td data-label="与其他论文的关系">围绕持续学习遗忘分配阶段回放，与单次训练的帧选择不同。</td>
+<td data-label="主要做什么">训练时挑信息</td>
+<td data-label="用什么资料">操作示范与传感器记录；范围见原文</td>
+<td data-label="怎样给出动作或分数">安排旧任务的哪些步骤再练</td>
+<td data-label="和谁一起看">解决学新忘旧，与单次训练时选帧不同。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-19">19 STRONG-VLA</a></td>
-<td data-label="主要角色／问题">鲁棒训练与诊断</td>
-<td data-label="数据与知识来源">机器人示范／任务观察；详见原文</td>
-<td data-label="动作表示与生成／输出">先用难度递增的多模态扰动学习鲁棒性，再对齐干净任务分布；建立28类扰动评测。</td>
-<td data-label="与其他论文的关系">从训练课程与干净再对齐解释鲁棒性，和推理阶段干预区分。</td>
+<td data-label="主要做什么">输入出问题以后</td>
+<td data-label="用什么资料">操作示范与传感器记录；范围见原文</td>
+<td data-label="怎样给出动作或分数">先练受干扰数据，再练正常数据</td>
+<td data-label="和谁一起看">改训练过程；CARE主要改执行多少步。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-20">20 MAIL-Bench / MINT</a></td>
-<td data-label="主要角色／问题">鲁棒训练与诊断</td>
-<td data-label="数据与知识来源">机器人示范／任务观察；详见原文</td>
-<td data-label="动作表示与生成／输出">MAIL-Bench按参考成功轨迹阶段评测；MINT结合缺视图训练与光流／世界模型补视图。</td>
-<td data-label="与其他论文的关系">结合相机中断评测与缺失视图处理；区别于瞬时图像扰动。</td>
+<td data-label="主要做什么">输入出问题以后</td>
+<td data-label="用什么资料">操作示范与传感器记录；范围见原文</td>
+<td data-label="怎样给出动作或分数">测试相机中断，并尝试补画面</td>
+<td data-label="和谁一起看">相机持续中断，与CARE研究的一次短暂坏图不同。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-21">21 View Collapse</a></td>
-<td data-label="主要角色／问题">鲁棒训练与诊断</td>
-<td data-label="数据与知识来源">机器人示范／任务观察；详见原文</td>
-<td data-label="动作表示与生成／输出">揭示腕部视角主导的view collapse，区分感知鲁棒性与融合策略变化，并用View Swap干预。</td>
-<td data-label="与其他论文的关系">区分感知鲁棒性与多视角依赖变化，提供受控视图诊断。</td>
+<td data-label="主要做什么">输入出问题以后</td>
+<td data-label="用什么资料">操作示范与传感器记录；范围见原文</td>
+<td data-label="怎样给出动作或分数">检查模型到底使用哪台相机</td>
+<td data-label="和谁一起看">说明成绩提高可能来自改看另一台相机。</td>
 </tr>
 <tr>
 <td data-label="论文"><a href="#paper-22">22 CARE</a></td>
-<td data-label="主要角色／问题">鲁棒训练与诊断</td>
-<td data-label="数据与知识来源">机器人示范／任务观察；详见原文</td>
-<td data-label="动作表示与生成／输出">研究单步扰动，按预测动作块一致性选择执行长度，在异常时缩短开环执行。</td>
-<td data-label="与其他论文的关系">根据动作块一致性调整执行前缀；与训练增强属于不同环节。</td>
+<td data-label="主要做什么">输入出问题以后</td>
+<td data-label="用什么资料">操作示范与传感器记录；范围见原文</td>
+<td data-label="怎样给出动作或分数">前后预测作比较，决定先做几步</td>
+<td data-label="和谁一起看">改变何时重新看画面，不改变训练示范。</td>
 </tr>
 </tbody></table></div>
 </section>
-<section class="chapter" id="relationships"><h2>三、基础模型与相关方法的联系</h2><ol>
-<li><strong>语义与动作：RT-2 → OpenVLA。</strong> 两者都用离散动作token；是方法联系，不意味着权重直接继承。</li>
-<li><strong>连续生成：Diffusion Policy、Octo、π₀。</strong> 前两者用扩散，π₀采用flow matching；输入、数据与目标函数不能混同。</li>
-<li><strong>开放适配：OpenVLA → OFT，配合LoRA。</strong> OFT调整动作表示、解码和训练目标；LoRA调整参数更新方式。</li>
-<li><strong>效率与泛化：ACT、FAST、SmolVLA、π₀.₅。</strong> 动作分块、压缩编码、模型规模、异步执行和异构数据分别处理不同环节。</li>
-<li><strong>基础与评测：OXE、LIBERO、LIBERO-Plus。</strong> 分别支持数据共享、任务评测与鲁棒诊断。</li>
-<li><strong>阶段和重要性：Long-VLA、EGR、FrameSkip、PHASER。</strong> 提示阶段输入、证据门控和关键时刻资源分配都已有相关研究。</li>
-<li><strong>鲁棒性机制：STRONG-VLA、MAIL-Bench / MINT、View Collapse、CARE。</strong> 区分训练课程、相机缺帧、视角依赖与执行前缀，排除混淆。</li>
+<section class="chapter" id="relationships"><h2>三、把几条联系记住</h2><ol>
+<li><strong>RT-2和OpenVLA：</strong> 都把动作数值换成编号，一个接一个地预测。二者做法有关，不表示OpenVLA用了RT-2的模型参数。</li>
+<li><strong>OpenVLA和OFT：</strong> OFT接着OpenVLA训练，把动作编号改成直接计算后面多步的动作数值。</li>
+<li><strong>Diffusion Policy、Octo和π₀：</strong> 都能从随机数字开始逐步算出动作，但训练时学的修改办法不同。正文分别解释扩散和flow matching。</li>
+<li><strong>ACT、FAST和SmolVLA：</strong> ACT一次多算几步；FAST让动作记录更短；SmolVLA减少模型计算和等待。它们节省的东西不同。</li>
+<li><strong>OXE、LIBERO和LIBERO-Plus：</strong> OXE提供共享示范；LIBERO提供测试任务；LIBERO-Plus改变测试条件，检查成绩会不会掉。</li>
+<li><strong>Long-VLA、EGR、FrameSkip和PHASER：</strong> 分别挑输入、按传感器用途改变训练要求、挑训练时刻、安排旧示范重新练。</li>
+<li><strong>STRONG-VLA、MINT、View Collapse和CARE：</strong> 分别改训练过程、处理缺失画面、检查相机依赖，以及决定先执行几步。</li>
 </ol>
 </section>
 <section class="chapter" id="notes"><div class="chapter-heading"><div><p class="eyebrow">READ / COMPARE / VERIFY</p><h2>四、每篇只记这五行</h2></div><p id="progress" aria-live="polite">已读 0 / 22</p></div>
-<div class="reading-controls"><label class="search-label" for="paper-search">搜索论文或概念<input id="paper-search" type="search" placeholder="例如：OpenVLA、动作块、flow" autocomplete="off"></label><label for="paper-category">论文角色<select id="paper-category"><option value="all">全部论文</option><option value="policy">通用策略 · 6篇</option><option value="data">数据基础 · 1篇</option><option value="method">动作与适配 · 5篇</option><option value="benchmark">评测基准 · 2篇</option><option value="phase">阶段与训练资源 · 4篇</option><option value="robust">鲁棒训练与诊断 · 4篇</option></select></label></div>
+<div class="reading-controls"><label class="search-label" for="paper-search">搜索论文或概念<input id="paper-search" type="search" placeholder="例如：OpenVLA、动作块、flow" autocomplete="off"></label><label for="paper-category">论文做什么<select id="paper-category"><option value="all">全部论文</option><option value="policy">多任务机器人模型 · 6篇</option><option value="data">共享训练数据 · 1篇</option><option value="method">算动作与继续训练 · 5篇</option><option value="benchmark">测试任务与成功率 · 2篇</option><option value="phase">训练时重点看什么 · 4篇</option><option value="robust">输入出问题以后 · 4篇</option></select></label></div>
 <div class="list-tools"><span id="results" aria-live="polite">显示 22 / 22 篇</span><button id="toggle-all" type="button">展开全部笔记</button></div>
-<nav class="group-jumps" aria-label="按主题跳转"><a href="#group-policy">A 通用策略</a><a href="#group-data">B 数据基础</a><a href="#group-method">C 动作与适配</a><a href="#group-benchmark">D 评测基准</a><a href="#group-phase">E 阶段与训练资源</a><a href="#group-robust">F 鲁棒训练与诊断</a></nav><section class="paper-group" data-group="policy" id="group-policy" aria-labelledby="group-title-policy"><h3 class="group-title" id="group-title-policy"><span>A</span>通用策略 <small>6篇</small></h3><div class="paper-list"><article class="paper" id="paper-01" data-category="policy">
-  <div class="paper-top"><span class="paper-number">01</span><span class="paper-role">通用策略</span><label class="read-toggle"><input type="checkbox" data-read="01"><span>已读</span></label></div>
-  <details open><summary><h3>RT-2</h3><span class="preview">机器人演示覆盖的物体、说法和场景有限，怎样将网络图文知识用于实际控制？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2307.15818v1，26页。<a href="https://arxiv.org/pdf/2307.15818v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2307.15818v1">原文来源</a></p>
+<nav class="group-jumps" aria-label="按主题跳转"><a href="#group-policy">A 多任务机器人模型</a><a href="#group-data">B 共享训练数据</a><a href="#group-method">C 算动作与继续训练</a><a href="#group-benchmark">D 测试任务与成功率</a><a href="#group-phase">E 训练时重点看什么</a><a href="#group-robust">F 输入出问题以后</a></nav><section class="paper-group" data-group="policy" id="group-policy" aria-labelledby="group-title-policy"><h3 class="group-title" id="group-title-policy"><span>A</span>多任务机器人模型 <small>6篇</small></h3><div class="paper-list"><article class="paper" id="paper-01" data-category="policy">
+  <div class="paper-top"><span class="paper-number">01</span><span class="paper-role">多任务机器人模型</span><label class="read-toggle"><input type="checkbox" data-read="01"><span>已读</span></label></div>
+  <details open><summary><h3>RT-2</h3><span class="preview">机器人没练过某些物体和说法时，能否用以前读图文学到的知识完成任务？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2307.15818v1，26页。<a href="https://arxiv.org/pdf/2307.15818v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2307.15818v1">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 机器人演示覆盖的物体、说法和场景有限，怎样将网络图文知识用于实际控制？</li>
-<li><strong>输入 → 输出：</strong> 相机图像＋语言指令 → 一步动作的离散token → 解码为位移、旋转、夹爪与终止信号。</li>
-<li><strong>核心改动：</strong> 在已有视觉语言模型上，将动作编码为现有词表中的token，并混合机器人数据与网络图文数据微调；动作离散化本身继承RT-1。</li>
-<li><strong>证据：</strong> Figure 4（p.8）与Table 4（p.23）：对应评测中，RT-1未见场景平均32%，RT-2-PaLI-X为62%，已见任务表现相近；Figure 6b（p.10）检查规模和训练配方。</li>
-<li><strong>边界：</strong> §5（p.11）和Figure 9（p.23）：语义迁移没有自动带来全新运动技能，陌生物体动力学仍会导致失败；大模型控制延迟较高。</li>
+<li><strong>问题：</strong> 机器人没练过某些物体和说法时，能否用以前读图文学到的知识完成任务？</li>
+<li><strong>输入 → 输出：</strong> 摄像头画面和一句要求 → 动作编号 → 还原成移动、转动、夹爪和停止命令。</li>
+<li><strong>核心改动：</strong> 把每个动作数值分成256档，每档用一个编号表示。训练时既练机器人动作，也继续练看图回答问题。</li>
+<li><strong>证据：</strong> Figure 4（p.8）和Table 4（p.23）：在对应测试里，RT-1面对未见情况平均32%，RT-2-PaLI-X为62%，已见任务成绩接近。Figure 6b（p.10）分别检查模型大小和训练办法的影响。</li>
+<li><strong>边界：</strong> §5（p.11）和Figure 9（p.23）：能理解新说法，不等于学会新的手上技能。陌生物体的重量、摩擦等仍可能让它失败；计算也比较慢。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-02" data-category="policy">
-  <div class="paper-top"><span class="paper-number">02</span><span class="paper-role">通用策略</span><label class="read-toggle"><input type="checkbox" data-read="02"><span>已读</span></label></div>
-  <details><summary><h3>OpenVLA</h3><span class="preview">如何获得公开、可适配的通用机器人策略，并降低使用大型闭源VLA的门槛？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2406.09246v3，37页。<a href="https://arxiv.org/pdf/2406.09246v3">原论文PDF</a> · <a href="https://arxiv.org/abs/2406.09246v3">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">02</span><span class="paper-role">多任务机器人模型</span><label class="read-toggle"><input type="checkbox" data-read="02"><span>已读</span></label></div>
+  <details><summary><h3>OpenVLA</h3><span class="preview">能否公开一个机器人模型，让别人用自己的数据继续训练？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2406.09246v3，37页。<a href="https://arxiv.org/pdf/2406.09246v3">原论文PDF</a> · <a href="https://arxiv.org/abs/2406.09246v3">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 如何获得公开、可适配的通用机器人策略，并降低使用大型闭源VLA的门槛？</li>
-<li><strong>输入 → 输出：</strong> 原版单张相机图像＋语言指令 → 自回归生成一步离散动作token → 连续控制量。</li>
-<li><strong>核心改动：</strong> 基于Prismatic-7B VLM，融合DINOv2和SigLIP视觉特征，在多机器人示范上训练，并提供LoRA适配与量化评测流程。</li>
-<li><strong>证据：</strong> Figure 5（p.9）展示新机器人适配；Table 1（p.10）中LoRA接近全参数适配。注意该节脚注使用较小数据混合、仅SigLIP视觉骨干的模型变体；主架构见Figure 2（p.4）。</li>
-<li><strong>边界：</strong> §6（p.11）：原版仅支持单图像，动作生成吞吐量限制高频控制，可靠性仍有提升空间；后续OFT的多相机能力不能倒算为原版能力。</li>
+<li><strong>问题：</strong> 能否公开一个机器人模型，让别人用自己的数据继续训练？</li>
+<li><strong>输入 → 输出：</strong> 原版看一张图和一句指令 → 一个接一个输出动作编号 → 还原动作数值。</li>
+<li><strong>核心改动：</strong> DINOv2和SigLIP两套网络处理图片，再把结果和指令交给语言模型。作者公开权重、代码，并测试怎样只更新少量参数。</li>
+<li><strong>证据：</strong> Figure 5（p.9）看换机器人后继续训练的成绩；Table 1（p.10）中LoRA接近更新全部参数。注意该表用的是较小数据组合、只有SigLIP图像网络的版本；主模型见Figure 2（p.4）。</li>
+<li><strong>边界：</strong> §6（p.11）：原版主要看一张图，编号要逐个算，快速操作仍困难。后来的OFT能看多台相机，不能算成原版已有的能力。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-03" data-category="policy">
-  <div class="paper-top"><span class="paper-number">03</span><span class="paper-role">通用策略</span><label class="read-toggle"><input type="checkbox" data-read="03"><span>已读</span></label></div>
-  <details><summary><h3>π₀</h3><span class="preview">如何结合视觉语言知识和连续动作生成，支持多机器人、高频且灵巧的操作？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2410.24164v4，17页。<a href="https://arxiv.org/pdf/2410.24164v4">原论文PDF</a> · <a href="https://arxiv.org/abs/2410.24164v4">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">03</span><span class="paper-role">多任务机器人模型</span><label class="read-toggle"><input type="checkbox" data-read="03"><span>已读</span></label></div>
+  <details><summary><h3>π₀</h3><span class="preview">怎样让会读图和文字的模型，也能算出细致、连贯的多步动作？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2410.24164v4，17页。<a href="https://arxiv.org/pdf/2410.24164v4">原论文PDF</a> · <a href="https://arxiv.org/abs/2410.24164v4">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 如何结合视觉语言知识和连续动作生成，支持多机器人、高频且灵巧的操作？</li>
-<li><strong>输入 → 输出：</strong> 相机图像＋语言指令＋机器人状态 → 条件flow matching生成连续动作块 → 执行控制。</li>
-<li><strong>核心改动：</strong> 在预训练VLM上加入机器人动作专家，以flow matching建模连续动作分布，并采用多机器人数据预训练与任务后训练。</li>
-<li><strong>证据：</strong> Figure 7（p.8）、11（p.10）、13（p.11）分别比较直接使用、不同示范量适配和复杂任务后训练，整体支持预训练迁移的收益；模型机制见Figure 3（p.4）。</li>
-<li><strong>边界：</strong> §VII（p.11–12）：部分任务仍不可靠，预训练数据配比及跨任务、跨机器人迁移的边界尚未充分解释；复杂任务结果需区分是否经过后训练。</li>
+<li><strong>问题：</strong> 怎样让会读图和文字的模型，也能算出细致、连贯的多步动作？</li>
+<li><strong>输入 → 输出：</strong> 多台相机、指令和机器人状态 → 一次计算一段未来动作 → 执行其中的动作。</li>
+<li><strong>核心改动：</strong> 接上专门算动作的网络。从随机数字开始，反复往像示范动作的方向修改，这叫flow matching。先练多种任务，再专门练具体任务。</li>
+<li><strong>证据：</strong> Figure 7（p.8）看不专门训练就测试的成绩；Figure 11（p.10）比较给多少条新示范；Figure 13（p.11）看专门练复杂任务的效果。网络组成见Figure 3（p.4）。</li>
+<li><strong>边界：</strong> §VII（p.11–12）：有些任务仍做不稳。每种示范该用多少、换任务或换机器人后还行不行，都没有完全回答。要分清测试前是否专门练过。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-05" data-category="policy">
-  <div class="paper-top"><span class="paper-number">05</span><span class="paper-role">通用策略</span><label class="read-toggle"><input type="checkbox" data-read="05"><span>已读</span></label></div>
-  <details><summary><h3>Octo</h3><span class="preview">怎样用一个公开通用策略适应不同相机、任务描述和动作空间，并以少量目标数据迁移？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2405.12213v2，17页。<a href="https://arxiv.org/pdf/2405.12213v2">原论文PDF</a> · <a href="https://arxiv.org/abs/2405.12213v2">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">05</span><span class="paper-role">多任务机器人模型</span><label class="read-toggle"><input type="checkbox" data-read="05"><span>已读</span></label></div>
+  <details><summary><h3>Octo</h3><span class="preview">换了摄像头、任务要求或机器人，能否用少量新示范继续训练，而不用从头学？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2405.12213v2，17页。<a href="https://arxiv.org/pdf/2405.12213v2">原论文PDF</a> · <a href="https://arxiv.org/abs/2405.12213v2">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 怎样用一个公开通用策略适应不同相机、任务描述和动作空间，并以少量目标数据迁移？</li>
-<li><strong>输入 → 输出：</strong> 图像／可选状态＋语言指令或目标图像 → Transformer表征 → 扩散头输出连续动作块。</li>
-<li><strong>核心改动：</strong> 用模块化输入tokenizer、Transformer和可替换读出头处理异构接口，在约80万条OXE轨迹上训练；主体并非大型VLM语言解码器。</li>
-<li><strong>证据：</strong> Table I（p.7）中预训练后微调优于从头训练；Table II（p.7）检验结构与数据选择；Figure 5（p.6）报告直接使用结果，架构见Figure 2（p.3）。</li>
-<li><strong>边界：</strong> §V（p.8）：腕部相机和语言条件的利用仍受数据覆盖影响；支持新接口的适配机制，不代表对所有新接口都可零样本控制。</li>
+<li><strong>问题：</strong> 换了摄像头、任务要求或机器人，能否用少量新示范继续训练，而不用从头学？</li>
+<li><strong>输入 → 输出：</strong> 图像、可选的机器人状态，加指令或目标图片 → 计算一段未来动作。</li>
+<li><strong>核心改动：</strong> 把读入数据和输出动作的部分做成可更换的模块，用约80万条示范先训练。算动作时，从随机数字开始多次修改。</li>
+<li><strong>证据：</strong> Table I（p.7）比较先练共享数据再练目标任务，与直接从零训练；Table II（p.7）分别改变网络和数据。Figure 5（p.6）是不针对任务再练的成绩，Figure 2（p.3）是网络组成。</li>
+<li><strong>边界：</strong> §V（p.8）：能更换输入模块，不等于换任何相机或机器人都不用再练。是否会看腕部相机、是否听指令，还受训练数据影响。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-07" data-category="policy">
-  <div class="paper-top"><span class="paper-number">07</span><span class="paper-role">通用策略</span><label class="read-toggle"><input type="checkbox" data-read="07"><span>已读</span></label></div>
-  <details><summary><h3>π₀.₅</h3><span class="preview">如何让机器人在未参与训练的真实家庭中执行多阶段整理任务？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2504.16054v1，19页。<a href="https://arxiv.org/pdf/2504.16054v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2504.16054v1">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">07</span><span class="paper-role">多任务机器人模型</span><label class="read-toggle"><input type="checkbox" data-read="07"><span>已读</span></label></div>
+  <details><summary><h3>π₀.₅</h3><span class="preview">能否到没有用于训练的家庭里，完成由多个步骤组成的整理任务？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2504.16054v1，19页。<a href="https://arxiv.org/pdf/2504.16054v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2504.16054v1">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 如何让机器人在未参与训练的真实家庭中执行多阶段整理任务？</li>
-<li><strong>输入 → 输出：</strong> 图像＋任务指令＋机器人状态 → 高层子任务文字 → 条件连续动作块。</li>
-<li><strong>核心改动：</strong> 在π₀路线加入异构任务共同训练：先用FAST离散动作和多源语义任务预训练，再通过后训练学习flow动作专家，并联合高层子任务推断。</li>
-<li><strong>证据：</strong> Figure 7（p.8）报告新家庭任务进度；Figure 10、11（p.10）显示跨机器人数据移除造成退步，网络数据贡献随测试类型变化，并非每项移除都显著；配方见Figure 3（p.4）。</li>
-<li><strong>边界：</strong> §VI（p.11–12）：陌生把手、遮挡和高层子任务分心仍会造成失败；长期记忆与复杂指令有限，所测新家庭并不等于任意家庭都可靠。</li>
+<li><strong>问题：</strong> 能否到没有用于训练的家庭里，完成由多个步骤组成的整理任务？</li>
+<li><strong>输入 → 输出：</strong> 图像、任务要求和机器人状态 → 当前该做哪个小步骤 → 对应的多步动作。</li>
+<li><strong>核心改动：</strong> 一起练机器人动作、看图文字任务和操作步骤。先用FAST编号学动作，再继续训练直接算动作的部分，也学习选择当前步骤。</li>
+<li><strong>证据：</strong> Figure 7（p.8）看新家庭里完成了多少步骤；Figure 10、11（p.10）分别去掉一些训练资料，检查成绩怎么变。去掉其他机器人数据会退步，网页数据是否有帮助取决于测试，不是每次差异都明显。训练过程见Figure 3（p.4）。</li>
+<li><strong>边界：</strong> §VI（p.11–12）：陌生把手、遮挡或选错当前步骤仍会让它失败。房子是新的，不代表所有动作都没练过；也不能说明到任何家庭都可靠。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-08" data-category="policy">
-  <div class="paper-top"><span class="paper-number">08</span><span class="paper-role">通用策略</span><label class="read-toggle"><input type="checkbox" data-read="08"><span>已读</span></label></div>
-  <details><summary><h3>SmolVLA</h3><span class="preview">如何降低VLA训练和部署成本，并利用低成本机器人社区数据？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2506.01844v1，24页。<a href="https://arxiv.org/pdf/2506.01844v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2506.01844v1">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">08</span><span class="paper-role">多任务机器人模型</span><label class="read-toggle"><input type="checkbox" data-read="08"><span>已读</span></label></div>
+  <details><summary><h3>SmolVLA</h3><span class="preview">能否用较小的模型和社区示范，减少训练与运行花费？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2506.01844v1，24页。<a href="https://arxiv.org/pdf/2506.01844v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2506.01844v1">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 如何降低VLA训练和部署成本，并利用低成本机器人社区数据？</li>
-<li><strong>输入 → 输出：</strong> 多路图像＋语言指令＋状态 → 小型VLM特征 → flow动作专家生成连续动作块，可异步执行。</li>
-<li><strong>核心改动：</strong> 组合约450M参数模型、VLM层裁减、轻量动作专家和社区数据，并将动作预测与执行解耦。</li>
-<li><strong>证据：</strong> Table 2–4（p.11）显示小模型在所测仿真与实机任务中有竞争力；Figure 5（p.12）显示异步执行缩短任务时间，但排序项成功率下降；结构见Figure 1（p.1），消融见Table 6–13（p.13–14）。</li>
-<li><strong>边界：</strong> §5.1（p.14–15）：原版社区预训练主要来自SO100，规模与机器人多样性有限；适配其他平台的结果不能概括成任意平台零样本可用。</li>
+<li><strong>问题：</strong> 能否用较小的模型和社区示范，减少训练与运行花费？</li>
+<li><strong>输入 → 输出：</strong> 多台相机、指令和机器人状态 → 算出一段动作；可以边执行当前段，边计算下一段。</li>
+<li><strong>核心改动：</strong> 用约4.5亿参数的模型，减少部分网络层，并用社区示范训练。把计算下一段和执行当前段同时进行，减少等待。</li>
+<li><strong>证据：</strong> Table 2–4（p.11）比较仿真与实机成绩；Figure 5（p.12）中，边算边做缩短了任务时间，但排序任务成功率下降。Figure 1看网络组成，Table 6–13（p.13–14）分别去掉组件做比较。</li>
+<li><strong>边界：</strong> §5.1（p.14–15）：原来的社区训练数据主要来自SO100。机器人种类和数据量仍有限，换平台后专门练过的成绩不能说成无需训练就能用。</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="data" id="group-data" aria-labelledby="group-title-data"><h3 class="group-title" id="group-title-data"><span>B</span>数据基础 <small>1篇</small></h3><div class="paper-list"><article class="paper" id="paper-04" data-category="data">
-  <div class="paper-top"><span class="paper-number">04</span><span class="paper-role">数据与跨机器人验证</span><label class="read-toggle"><input type="checkbox" data-read="04"><span>已读</span></label></div>
-  <details><summary><h3>Open X-Embodiment / RT-X</h3><span class="preview">各实验室的数据被机器人、任务和格式分隔，跨机器人经验能否共享并产生正迁移？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2310.08864v9，12页。<a href="https://arxiv.org/pdf/2310.08864v9">原论文PDF</a> · <a href="https://arxiv.org/abs/2310.08864v9">原文来源</a></p>
+<section class="paper-group" data-group="data" id="group-data" aria-labelledby="group-title-data"><h3 class="group-title" id="group-title-data"><span>B</span>共享训练数据 <small>1篇</small></h3><div class="paper-list"><article class="paper" id="paper-04" data-category="data">
+  <div class="paper-top"><span class="paper-number">04</span><span class="paper-role">共享示范数据</span><label class="read-toggle"><input type="checkbox" data-read="04"><span>已读</span></label></div>
+  <details><summary><h3>Open X-Embodiment / RT-X</h3><span class="preview">不同机构和不同机器人的示范，能不能整理到一起，帮助彼此学习？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2310.08864v9，12页。<a href="https://arxiv.org/pdf/2310.08864v9">原论文PDF</a> · <a href="https://arxiv.org/abs/2310.08864v9">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 各实验室的数据被机器人、任务和格式分隔，跨机器人经验能否共享并产生正迁移？</li>
-<li><strong>输入 → 输出：</strong> 不同机器人的示范 → 标准化数据接口；RT-X策略接收图像＋指令 → 离散末端动作。</li>
-<li><strong>核心改动：</strong> 建立跨机构、多机器人数据集合与统一格式，并用RT-1-X、RT-2-X检验跨机器人共同训练；数据集合与模型系列要分开理解。</li>
-<li><strong>证据：</strong> Figure 4、5（p.5–6）通过目标机器人数据与跨机器人共同训练的对照展示正迁移；Figure 2（p.3）和Figure 3（p.4）分别说明数据与模型。</li>
-<li><strong>边界：</strong> §VI（p.6–7）：实验没有覆盖感知和执行方式差异极大的机器人；格式标准化不等于所有动作语义完全相同，也不等于任意新机器人即插即用。</li>
+<li><strong>问题：</strong> 不同机构和不同机器人的示范，能不能整理到一起，帮助彼此学习？</li>
+<li><strong>输入 → 输出：</strong> 各机器人的操作记录 → 共同的数据格式；RT-X再根据画面和指令输出动作编号。</li>
+<li><strong>核心改动：</strong> 整理跨机构、跨机器人的示范，再用RT-1-X和RT-2-X检查：加上别的机器人的数据，目标机器人的成绩是否提高。</li>
+<li><strong>证据：</strong> Figure 4、5（p.5–6）比较只用本机器人数据，与加入其他机器人数据的成绩。Figure 2（p.3）介绍数据，Figure 3（p.4）介绍模型。</li>
+<li><strong>边界：</strong> §VI（p.6–7）：测试没覆盖所有类型的机器人。文件格式一样，不代表移动一单位或某个坐标方向的含义也一样。新机器人仍可能需要继续训练。</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="method" id="group-method" aria-labelledby="group-title-method"><h3 class="group-title" id="group-title-method"><span>C</span>动作与适配 <small>5篇</small></h3><div class="paper-list"><article class="paper" id="paper-06" data-category="method">
-  <div class="paper-top"><span class="paper-number">06</span><span class="paper-role">动作表示方法</span><label class="read-toggle"><input type="checkbox" data-read="06"><span>已读</span></label></div>
-  <details><summary><h3>FAST</h3><span class="preview">逐时间、逐维度分桶会产生冗长且高度相关的动作token，怎样改善高频动作序列的学习？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2501.09747v1，19页。<a href="https://arxiv.org/pdf/2501.09747v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2501.09747v1">原文来源</a></p>
+<section class="paper-group" data-group="method" id="group-method" aria-labelledby="group-title-method"><h3 class="group-title" id="group-title-method"><span>C</span>算动作与继续训练 <small>5篇</small></h3><div class="paper-list"><article class="paper" id="paper-06" data-category="method">
+  <div class="paper-top"><span class="paper-number">06</span><span class="paper-role">把动作记录写短</span><label class="read-toggle"><input type="checkbox" data-read="06"><span>已读</span></label></div>
+  <details><summary><h3>FAST</h3><span class="preview">动作记录得很密时，相邻数值往往很相似。怎样让模型少预测一些编号？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2501.09747v1，19页。<a href="https://arxiv.org/pdf/2501.09747v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2501.09747v1">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 逐时间、逐维度分桶会产生冗长且高度相关的动作token，怎样改善高频动作序列的学习？</li>
-<li><strong>输入 → 输出：</strong> 连续动作块 → DCT频域变换、量化、BPE压缩 → token序列；解码后重建连续动作块。</li>
-<li><strong>核心改动：</strong> 提出基于时序压缩的动作tokenizer；FAST+是通用tokenizer，π₀-FAST是使用该编码训练的策略，三者不应混称。</li>
-<li><strong>证据：</strong> Figure 6（p.8）显示编码选择影响高频动作学习，Figure 11（p.10）结合Figure 1支持大规模训练效率收益；编码流水线见Figure 4（p.5）。</li>
-<li><strong>边界：</strong> §VI-E与§VII（p.9–11）：论文的最高约5倍改善针对训练时间；自回归推理仍可能比连续生成版本慢，编码压缩也存在精度与长度取舍。</li>
+<li><strong>问题：</strong> 动作记录得很密时，相邻数值往往很相似。怎样让模型少预测一些编号？</li>
+<li><strong>输入 → 输出：</strong> 一段动作 → 描述整段变化的数字 → 调整精度并取整 → 更短的编号串；执行前还原成动作。</li>
+<li><strong>核心改动：</strong> DCT把整段动作的变化写成多条快慢不同的起伏曲线相加，记录每条曲线占多少；再取整，用BPE给常见数字组合分配短编号。FAST+是通用的编号工具，π₀-FAST是使用它的机器人模型。</li>
+<li><strong>证据：</strong> Figure 4（p.5）看动作怎样变成短编号；Figure 6（p.8）比较几种记录办法的学习效果；Figure 11（p.10）和Figure 1检查训练花费的时间。</li>
+<li><strong>边界：</strong> §VI-E、§VII（p.9–11）：最高约5倍的加快说的是训练时间。使用时编号仍要逐个预测，不一定比π₀更快。记录越短，也可能损失更多动作细节。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-09" data-category="method">
-  <div class="paper-top"><span class="paper-number">09</span><span class="paper-role">动作建模与适配配方</span><label class="read-toggle"><input type="checkbox" data-read="09"><span>已读</span></label></div>
-  <details><summary><h3>OpenVLA-OFT</h3><span class="preview">原版OpenVLA动作生成较慢，怎样提高下游适配效果和控制效率？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2502.19645v2，24页。<a href="https://arxiv.org/pdf/2502.19645v2">原论文PDF</a> · <a href="https://arxiv.org/abs/2502.19645v2">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">09</span><span class="paper-role">算动作与继续训练</span><label class="read-toggle"><input type="checkbox" data-read="09"><span>已读</span></label></div>
+  <details><summary><h3>OpenVLA-OFT</h3><span class="preview">原版OpenVLA算动作慢，能否在继续训练时把速度和成功率一起改善？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2502.19645v2，24页。<a href="https://arxiv.org/pdf/2502.19645v2">原论文PDF</a> · <a href="https://arxiv.org/abs/2502.19645v2">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 原版OpenVLA动作生成较慢，怎样提高下游适配效果和控制效率？</li>
-<li><strong>输入 → 输出：</strong> LIBERO配置：主相机＋腕部相机＋语言＋状态 → 一次前向并行回归8步连续动作块。</li>
-<li><strong>核心改动：</strong> 将并行解码、动作分块、连续动作表示和L1目标组成OFT微调配方；FiLM语言调制属于可选OFT+扩展。</li>
-<li><strong>证据：</strong> Figure 2（p.3）看设计选择；Table I、II（p.6）比较组件与速度，Table IV（p.17）核对配置；论文对应协议的LIBERO均值由76.5%到97.1%。</li>
-<li><strong>边界：</strong> §VIII（p.10）：多种同样合理的动作选择可能不易用L1刻画；预训练阶段能否同样获益尚未证明，语言依赖也可能不一致；吞吐提升不等于整回合等倍提速。</li>
+<li><strong>问题：</strong> 原版OpenVLA算动作慢，能否在继续训练时把速度和成功率一起改善？</li>
+<li><strong>输入 → 输出：</strong> LIBERO常用设置：主相机、腕部相机、指令和状态 → 一次直接给出未来8步的动作数值。</li>
+<li><strong>核心改动：</strong> 把逐个输出编号改成同时预测多步数值。训练时按预测值与示范值相差多少扣分（L1误差）。OFT+还可让指令直接调整图像处理过程。</li>
+<li><strong>证据：</strong> Figure 2（p.3）列出改了哪些计算步骤；Table I、II（p.6）比较各项改动和速度；Table IV（p.17）列具体设置。在作者对应测试里，LIBERO平均成功率从76.5%到97.1%。</li>
+<li><strong>边界：</strong> §VIII（p.10）：同一情况有几种合理做法时，直接给一组数值较难保留这些选择。每秒算出的动作多了，不等于整项任务也按同样倍数变快。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-12" data-category="method">
-  <div class="paper-top"><span class="paper-number">12</span><span class="paper-role">模仿学习策略</span><label class="read-toggle"><input type="checkbox" data-read="12"><span>已读</span></label></div>
-  <details><summary><h3>ACT</h3><span class="preview">低成本硬件上的精细操作容易出现误差累积，如何从少量演示学到协调、连贯的动作？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2304.13705v1，18页。<a href="https://arxiv.org/pdf/2304.13705v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2304.13705v1">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">12</span><span class="paper-role">从示范学动作</span><label class="read-toggle"><input type="checkbox" data-read="12"><span>已读</span></label></div>
+  <details><summary><h3>ACT</h3><span class="preview">怎样让低成本机器人从少量示范里学到连贯动作，减少越做越偏？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2304.13705v1，18页。<a href="https://arxiv.org/pdf/2304.13705v1">原论文PDF</a> · <a href="https://arxiv.org/abs/2304.13705v1">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 低成本硬件上的精细操作容易出现误差累积，如何从少量演示学到协调、连贯的动作？</li>
-<li><strong>输入 → 输出：</strong> 相机图像＋关节状态 → CVAE与Transformer预测连续动作块 → 时间集成得到执行动作。</li>
-<li><strong>核心改动：</strong> 组合动作分块和时间集成，使用CVAE表示演示行为变化；原版控制输入不以自由语言指令为核心。</li>
-<li><strong>证据：</strong> Figure 8与§VI（p.9–10）的消融支持动作分块和时间集成在所测任务中的作用；Table I、II（p.8）比较任务表现；结构和执行见Figure 4、5（p.4）。</li>
-<li><strong>边界：</strong> §VII（p.10）：仍受演示覆盖与感知条件影响；在少数任务上数据高效，不等于具有通用语义或任意任务泛化能力。</li>
+<li><strong>问题：</strong> 怎样让低成本机器人从少量示范里学到连贯动作，减少越做越偏？</li>
+<li><strong>输入 → 输出：</strong> 相机和关节状态 → 预测未来多步 → 把前后几次对同一时刻的预测加权平均后执行。</li>
+<li><strong>核心改动：</strong> 一次多算几步；对重叠预测做加权平均，让动作更连贯。训练还用CVAE记录不同示范做法的差别。原版主要不用自由语言指令。</li>
+<li><strong>证据：</strong> Figure 8和§VI（p.9–10）分别去掉多步预测、重叠预测平均等部分，检查哪些有帮助。Table I、II（p.8）列任务成绩；Figure 4、5（p.4）解释网络和动作怎样执行。</li>
+<li><strong>边界：</strong> §VII（p.10）：仍受示范内容和画面质量影响。少量示范学会几个操作，不代表能听懂任意要求，或完成任何新任务。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-13" data-category="method">
-  <div class="paper-top"><span class="paper-number">13</span><span class="paper-role">模仿学习策略</span><label class="read-toggle"><input type="checkbox" data-read="13"><span>已读</span></label></div>
-  <details><summary><h3>Diffusion Policy</h3><span class="preview">同一观察可能存在多种合理动作，如何稳定建模复杂连续动作分布并生成动作序列？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2303.04137v5，19页。<a href="https://arxiv.org/pdf/2303.04137v5">原论文PDF</a> · <a href="https://arxiv.org/abs/2303.04137v5">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">13</span><span class="paper-role">从示范学动作</span><label class="read-toggle"><input type="checkbox" data-read="13"><span>已读</span></label></div>
+  <details><summary><h3>Diffusion Policy</h3><span class="preview">同一画面下，绕左边或右边都可能合理。模型怎样保留不同的动作选择？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2303.04137v5，19页。<a href="https://arxiv.org/pdf/2303.04137v5">原论文PDF</a> · <a href="https://arxiv.org/abs/2303.04137v5">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 同一观察可能存在多种合理动作，如何稳定建模复杂连续动作分布并生成动作序列？</li>
-<li><strong>输入 → 输出：</strong> 图像／状态等观察历史 → 条件去噪生成连续动作序列 → 执行其中一段并滚动重规划。</li>
-<li><strong>核心改动：</strong> 用条件扩散表示策略，结合视觉条件和滚动时域控制；原版不以互联网预训练VLM与自由语言控制为前提。</li>
-<li><strong>证据：</strong> §4.1（p.4–5）展示多峰行为，§5.4（p.8–9）消融说明生成与控制设计影响表现；§5.2（p.7）交代评分，Figure 2（p.3）区分生成与执行区间。</li>
-<li><strong>边界：</strong> §9（p.13）：仍依赖示范分布；迭代采样带来延迟，生成长度与实际执行长度需要取舍；动作分布表达能力不保证开放世界语义能力。</li>
+<li><strong>问题：</strong> 同一画面下，绕左边或右边都可能合理。模型怎样保留不同的动作选择？</li>
+<li><strong>输入 → 输出：</strong> 最近的画面和机器人状态 → 从随机数字开始反复修改 → 得到一段动作，先做几步再看画面。</li>
+<li><strong>核心改动：</strong> 训练模型把被随机数字扰乱的动作改好，这叫扩散方法。执行时只先做预测中的一部分，重新观察后再算。</li>
+<li><strong>证据：</strong> §4.1（p.4–5）看同一情况的不同做法；§5.4（p.8–9）分别改变算动作和执行的设置。§5.2（p.7）解释评分，Figure 2（p.3）区分预测多少步和先执行多少步。</li>
+<li><strong>边界：</strong> §9（p.13）：还需要相关示范。反复计算要花时间；先做得越多，重新看画面的机会越晚。能生成多种动作，不等于能听懂任意新要求。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-14" data-category="method">
-  <div class="paper-top"><span class="paper-number">14</span><span class="paper-role">通用微调工具</span><label class="read-toggle"><input type="checkbox" data-read="14"><span>已读</span></label></div>
-  <details><summary><h3>LoRA</h3><span class="preview">大模型全参数适配的可训练参数与优化器成本高，如何减少需要更新和保存的参数？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2106.09685v2，26页。<a href="https://arxiv.org/pdf/2106.09685v2">原论文PDF</a> · <a href="https://arxiv.org/abs/2106.09685v2">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">14</span><span class="paper-role">减少训练参数</span><label class="read-toggle"><input type="checkbox" data-read="14"><span>已读</span></label></div>
+  <details><summary><h3>LoRA</h3><span class="preview">继续训练大模型时，能不能少更新、少保存一些参数？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2106.09685v2，26页。<a href="https://arxiv.org/pdf/2106.09685v2">原论文PDF</a> · <a href="https://arxiv.org/abs/2106.09685v2">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 大模型全参数适配的可训练参数与优化器成本高，如何减少需要更新和保存的参数？</li>
-<li><strong>输入 → 输出：</strong> 预训练权重W₀＋目标任务数据 → 学习低秩增量BA → 保存适配参数或合并为W₀＋BA。</li>
-<li><strong>核心改动：</strong> 冻结所适配的原权重，以两个小矩阵表示权重更新；它是一种参数化方法，不规定机器人动作表示或执行机制。</li>
-<li><strong>证据：</strong> §5（p.5–8）显示在所测NLP任务中，少量适配参数可达到接近或优于全参数微调的结果；§7.1–7.2（p.10）检验适配位置与rank；机制见Figure 1、§4（p.1、4–5）。</li>
-<li><strong>边界：</strong> 原论文实验主要是语言模型，不能直接推断VLA性能与显存；rank和适配位置需验证，底座权重及训练激活仍需内存，VLA动作头等模块也可能要额外训练和保存。</li>
+<li><strong>问题：</strong> 继续训练大模型时，能不能少更新、少保存一些参数？</li>
+<li><strong>输入 → 输出：</strong> 已有模型与新数据 → 学两个较小矩阵 → 用它们对原模型作小幅修改。</li>
+<li><strong>核心改动：</strong> 保留原来的大矩阵，只训练新增的两个小矩阵，用它们的乘积表示修改量。这叫LoRA；它不规定机器人怎样输出动作。</li>
+<li><strong>证据：</strong> §5（p.5–8）在语言任务里比较少量参数训练与全部参数训练。§7.1–7.2（p.10）改变更新位置和小矩阵大小；Figure 1与§4（p.1、4–5）看两个小矩阵怎样改模型。</li>
+<li><strong>边界：</strong> 原论文主要测语言模型，不能直接当作VLA成绩或显存需求。原模型、训练中的中间结果和动作输出部分仍要占显存。</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="benchmark" id="group-benchmark" aria-labelledby="group-title-benchmark"><h3 class="group-title" id="group-title-benchmark"><span>D</span>评测基准 <small>2篇</small></h3><div class="paper-list"><article class="paper" id="paper-10" data-category="benchmark">
-  <div class="paper-top"><span class="paper-number">10</span><span class="paper-role">任务与评测基准</span><label class="read-toggle"><input type="checkbox" data-read="10"><span>已读</span></label></div>
-  <details><summary><h3>LIBERO</h3><span class="preview">怎样可控地研究机器人终身学习中，物体、空间关系和行为知识的迁移？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2306.03310v2，44页。<a href="https://arxiv.org/pdf/2306.03310v2">原论文PDF</a> · <a href="https://arxiv.org/abs/2306.03310v2">原文来源</a></p>
+<section class="paper-group" data-group="benchmark" id="group-benchmark" aria-labelledby="group-title-benchmark"><h3 class="group-title" id="group-title-benchmark"><span>D</span>测试任务与成功率 <small>2篇</small></h3><div class="paper-list"><article class="paper" id="paper-10" data-category="benchmark">
+  <div class="paper-top"><span class="paper-number">10</span><span class="paper-role">测试任务</span><label class="read-toggle"><input type="checkbox" data-read="10"><span>已读</span></label></div>
+  <details><summary><h3>LIBERO</h3><span class="preview">机器人学了新任务以后，还记得旧任务吗？旧知识能不能帮助新任务？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2306.03310v2，44页。<a href="https://arxiv.org/pdf/2306.03310v2">原论文PDF</a> · <a href="https://arxiv.org/abs/2306.03310v2">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> 怎样可控地研究机器人终身学习中，物体、空间关系和行为知识的迁移？</li>
-<li><strong>输入 → 输出：</strong> 任务描述、场景与目标条件、专家示范 → 训练／评测协议 → 成功率及终身学习指标。</li>
-<li><strong>核心改动：</strong> 构建程序化任务生成与多种任务集，将不同知识迁移因素分开，并提供演示和统一实验接口。</li>
-<li><strong>证据：</strong> §5.2（p.7–10）显示架构与算法选择会改变迁移和遗忘表现，说明不能只比较单一累计分数；任务划分见Figure 1、§4.2（p.2、5），指标见§5.1与Figure 3（p.6–7）。</li>
-<li><strong>边界：</strong> §7（p.10）：仿真任务存在范围限制；原论文终身学习指标与后续VLA单策略成功率并非同一协议，高分也不能证明真实世界可靠。</li>
+<li><strong>问题：</strong> 机器人学了新任务以后，还记得旧任务吗？旧知识能不能帮助新任务？</li>
+<li><strong>输入 → 输出：</strong> 仿真任务、起始场景和示范 → 训练和执行测试 → 完成比例、学新后忘旧的程度等分数。</li>
+<li><strong>核心改动：</strong> 提供一套可生成和组合的任务，把物体、位置关系和操作做法分别改变，方便检查哪种旧经验有帮助。</li>
+<li><strong>证据：</strong> §5.2（p.7–10）比较不同网络与训练办法，检查旧任务遗忘和对新任务的帮助。Figure 1、§4.2（p.2、5）看任务怎样分；§5.1和Figure 3（p.6–7）看各项分数怎样算。</li>
+<li><strong>边界：</strong> §7（p.10）：仿真任务范围有限。原论文测“学新忘旧”的分数，与后续VLA测“整项做成多少次”的成功率不同，也不能直接证明实机可靠。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-11" data-category="benchmark">
-  <div class="paper-top"><span class="paper-number">11</span><span class="paper-role">鲁棒性评测基准</span><label class="read-toggle"><input type="checkbox" data-read="11"><span>已读</span></label></div>
-  <details><summary><h3>LIBERO-Plus</h3><span class="preview">VLA在常规基准得分很高，面对视角、布局、光照和图像退化等变化时是否仍然可靠？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2510.13626v3，32页。<a href="https://arxiv.org/pdf/2510.13626v3">原论文PDF</a> · <a href="https://arxiv.org/abs/2510.13626v3">原文来源</a></p>
+  <div class="paper-top"><span class="paper-number">11</span><span class="paper-role">测试任务</span><label class="read-toggle"><input type="checkbox" data-read="11"><span>已读</span></label></div>
+  <details><summary><h3>LIBERO-Plus</h3><span class="preview">平时测试分很高的机器人，换角度、改光照或让画面变差后，还能做成吗？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用版本：2510.13626v3，32页。<a href="https://arxiv.org/pdf/2510.13626v3">原论文PDF</a> · <a href="https://arxiv.org/abs/2510.13626v3">原文来源</a></p>
 <ul>
-<li><strong>问题：</strong> VLA在常规基准得分很高，面对视角、布局、光照和图像退化等变化时是否仍然可靠？</li>
-<li><strong>输入 → 输出：</strong> 原任务＋七类受控扰动 → 策略闭环执行 → 分条件成功率、组合扰动和输入依赖诊断。</li>
-<li><strong>核心改动：</strong> 在LIBERO上系统构造扰动，结合单因素、组合因素及视觉／语言干预，分析高分背后的脆弱性。</li>
-<li><strong>证据：</strong> Table 1（p.3）展示视角、初态等变化下的明显退步；§3–5（p.3–8）的干预和组合分析进一步诊断依赖关系；基准与噪声参数见Table 2、5（p.9、15）。</li>
-<li><strong>边界：</strong> 结论受所测任务、模型与扰动定义约束；对指令改写不敏感本身不足以证明理解指令，需结合移除／替换目标等诊断；本身不是万能鲁棒训练算法。</li>
+<li><strong>问题：</strong> 平时测试分很高的机器人，换角度、改光照或让画面变差后，还能做成吗？</li>
+<li><strong>输入 → 输出：</strong> LIBERO任务加上不同变化 → 机器人边看边做 → 记录每种条件下的成功次数。</li>
+<li><strong>核心改动：</strong> 分别改变布局、相机、起点、指令、光照、背景和噪声，也测试多个变化一起发生，并检查模型到底有没有使用图像和指令。</li>
+<li><strong>证据：</strong> Table 1（p.3）看换拍摄角度、改起点后成绩下降多少；§3–5（p.3–8）看改变单项、同时改多项和移除输入的测试。Table 2、5（p.9、15）列任务和噪声设置。</li>
+<li><strong>边界：</strong> 成绩只说明测过的任务和条件。换个说法后动作不变，可能是听懂了，也可能根本没听；还需要改变目标等测试。这篇主要提供测试和分析。</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="phase" id="group-phase" aria-labelledby="group-title-phase"><h3 class="group-title" id="group-title-phase"><span>E</span>阶段与训练资源 <small>4篇 · 新增／摘要级定位</small></h3><div class="paper-list"><article class="paper" id="paper-15" data-category="phase">
-  <div class="paper-top"><span class="paper-number">15</span><span class="paper-role">阶段与训练资源</span><label class="read-toggle"><input type="checkbox" data-read="15"><span>已读</span></label></div>
-  <details><summary><h3>Long-VLA</h3><span class="preview">长程操作中，如何让策略在移动与交互阶段关注合适的感知线索？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2508.19958v2 原始摘要，2026-10-22核对。<strong>阅读深度：摘要级定位，未完成全文与代码核查。</strong> <a href="https://arxiv.org/abs/2508.19958v2">原文来源</a> · <a href="https://arxiv.org/pdf/2508.19958v2">论文PDF</a></p>
+<section class="paper-group" data-group="phase" id="group-phase" aria-labelledby="group-title-phase"><h3 class="group-title" id="group-title-phase"><span>E</span>训练时重点看什么 <small>4篇 · 新增／仅核对摘要</small></h3><div class="paper-list"><article class="paper" id="paper-15" data-category="phase">
+  <div class="paper-top"><span class="paper-number">15</span><span class="paper-role">训练时挑信息</span><label class="read-toggle"><input type="checkbox" data-read="15"><span>已读</span></label></div>
+  <details><summary><h3>Long-VLA</h3><span class="preview">机器人要连续做几个步骤时，怎样让前一步更容易接到下一步？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2508.19958v2 作者摘要，2026-10-22核对。<strong>阅读深度：只核对了摘要，还没有逐项检查全文和代码。</strong> <a href="https://arxiv.org/abs/2508.19958v2">原文来源</a> · <a href="https://arxiv.org/pdf/2508.19958v2">论文PDF</a></p>
 <ul>
-<li><strong>问题：</strong> 长程操作中，如何让策略在移动与交互阶段关注合适的感知线索？</li>
-<li><strong>输入 → 输出：</strong> 多模态观察与任务条件 → 经阶段感知输入遮蔽的策略 → 操作动作。</li>
-<li><strong>核心改动：</strong> 将子任务划分为移动和交互阶段，采用阶段感知输入遮蔽，并提出L-CALVIN长程评测。</li>
-<li><strong>证据：</strong> 摘要报告仿真及实机验证；优先精读阶段划分、遮蔽规则和消融。未在本页复核具体图号。</li>
-<li><strong>边界：</strong> 主要面向长程操作与技能衔接；所测任务的收益不能直接外推至所有视觉故障。</li>
+<li><strong>问题：</strong> 机器人要连续做几个步骤时，怎样让前一步更容易接到下一步？</li>
+<li><strong>输入 → 输出：</strong> 图像等输入和任务要求 → 根据移动、交互阶段隐藏部分输入 → 算出动作。</li>
+<li><strong>核心改动：</strong> 把小任务分为移动和交互阶段，在不同阶段保留相关输入；另提供L-CALVIN测试较长任务。</li>
+<li><strong>证据：</strong> 摘要提到仿真和实机测试。全文重点核对怎样分阶段、隐藏哪些输入，以及分别去掉某项改动后的成绩；这里没有补写尚未核对的图号。</li>
+<li><strong>边界：</strong> 主要测试长任务里的步骤衔接；不能把这些成绩当作任何画面故障下都可靠的证据。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-16" data-category="phase">
-  <div class="paper-top"><span class="paper-number">16</span><span class="paper-role">阶段与训练资源</span><label class="read-toggle"><input type="checkbox" data-read="16"><span>已读</span></label></div>
-  <details><summary><h3>EGR</h3><span class="preview">有限示范下，多传感器策略如何避免学到无关传感器之间的伪相关？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2609.03142v1 原始摘要，2026-10-22核对。<strong>阅读深度：摘要级定位，未完成全文与代码核查。</strong> <a href="https://arxiv.org/abs/2609.03142v1">原文来源</a> · <a href="https://arxiv.org/pdf/2609.03142v1">论文PDF</a></p>
+  <div class="paper-top"><span class="paper-number">16</span><span class="paper-role">训练时挑信息</span><label class="read-toggle"><input type="checkbox" data-read="16"><span>已读</span></label></div>
+  <details><summary><h3>EGR</h3><span class="preview">传感器很多、示范又少时，机器人会不会被恰好一起变化的无关信息带偏？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2609.03142v1 作者摘要，2026-10-22核对。<strong>阅读深度：只核对了摘要，还没有逐项检查全文和代码。</strong> <a href="https://arxiv.org/abs/2609.03142v1">原文来源</a> · <a href="https://arxiv.org/pdf/2609.03142v1">论文PDF</a></p>
 <ul>
-<li><strong>问题：</strong> 有限示范下，多传感器策略如何避免学到无关传感器之间的伪相关？</li>
-<li><strong>输入 → 输出：</strong> 每帧、每传感器的任务相关性信号 → 门控一致性目标 → 鲁棒多模态策略。</li>
-<li><strong>核心改动：</strong> 对低证据传感器鼓励不变性，对高证据传感器鼓励单传感器充分性；不增加推理开销。</li>
-<li><strong>证据：</strong> 摘要报告BEHAVIOR-1K诊断、47项闭环技能及两种实机平台；需精读证据计算和正则项。</li>
-<li><strong>边界：</strong> 聚焦传感器任务相关性和多模态鲁棒性；与显式阶段划分的方法设定不同。</li>
+<li><strong>问题：</strong> 传感器很多、示范又少时，机器人会不会被恰好一起变化的无关信息带偏？</li>
+<li><strong>输入 → 输出：</strong> 每帧、每个传感器与任务有关的估计分数 → 改变训练要求 → 学习怎样使用传感器。</li>
+<li><strong>核心改动：</strong> 无关传感器的数据变了，动作尽量不变；有用传感器单独留下时，也练习完成任务。使用模型时不用增加这套训练计算。</li>
+<li><strong>证据：</strong> 摘要提到BEHAVIOR-1K测试、47项边看边做的技能和两种实机系统。全文重点看怎样给传感器打分，以及分数怎样改变训练要求。</li>
+<li><strong>边界：</strong> 重点是传感器此时有没有用；它不等同于按移动、交互阶段选择输入。具体分数和训练公式还需要全文核对。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-17" data-category="phase">
-  <div class="paper-top"><span class="paper-number">17</span><span class="paper-role">阶段与训练资源</span><label class="read-toggle"><input type="checkbox" data-read="17"><span>已读</span></label></div>
-  <details><summary><h3>FrameSkip</h3><span class="preview">密集轨迹里的低变化片段会挤占关键对齐、抓取和释放时刻的训练监督，如何处理？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2605.13757v1 原始摘要，2026-10-22核对。<strong>阅读深度：摘要级定位，未完成全文与代码核查。</strong> <a href="https://arxiv.org/abs/2605.13757v1">原文来源</a> · <a href="https://arxiv.org/pdf/2605.13757v1">论文PDF</a></p>
+  <div class="paper-top"><span class="paper-number">17</span><span class="paper-role">训练时挑信息</span><label class="read-toggle"><input type="checkbox" data-read="17"><span>已读</span></label></div>
+  <details><summary><h3>FrameSkip</h3><span class="preview">示范里重复画面很多，抓住、松开等短暂时刻却很少，训练会不会顾此失彼？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2605.13757v1 作者摘要，2026-10-22核对。<strong>阅读深度：只核对了摘要，还没有逐项检查全文和代码。</strong> <a href="https://arxiv.org/abs/2605.13757v1">原文来源</a> · <a href="https://arxiv.org/pdf/2605.13757v1">论文PDF</a></p>
 <ul>
-<li><strong>问题：</strong> 密集轨迹里的低变化片段会挤占关键对齐、抓取和释放时刻的训练监督，如何处理？</li>
-<li><strong>输入 → 输出：</strong> 示范轨迹 → 帧重要性打分与筛选 → 原有VLA训练流程。</li>
-<li><strong>核心改动：</strong> 结合动作变化、视觉动作一致性、进度先验和夹爪转换保护，在数据加载层选帧。</li>
-<li><strong>证据：</strong> 摘要报告RoboCasa-GR1、SimplerEnv和LIBERO；需核对保留帧比例、采样量和简单筛选对照。</li>
-<li><strong>边界：</strong> 选择训练帧而非修改动作头或推理流程；保留率和训练采样量会影响结果解释。</li>
+<li><strong>问题：</strong> 示范里重复画面很多，抓住、松开等短暂时刻却很少，训练会不会顾此失彼？</li>
+<li><strong>输入 → 输出：</strong> 一段示范 → 给各时刻打分并选帧 → 用选出的画面和动作训练原模型。</li>
+<li><strong>核心改动：</strong> 看动作是否变化、画面变化是否和动作对应、任务到了哪一步，并保留夹爪抓住或松开的时刻。</li>
+<li><strong>证据：</strong> 摘要提到RoboCasa-GR1、SimplerEnv和LIBERO。全文重点看留下多少帧、训练共用多少条记录，以及是否优于简单的选帧办法。</li>
+<li><strong>边界：</strong> 主要改变训练时选哪些记录，不改动作输出和使用流程。保留多少帧、训练时总共抽取多少条记录，都会影响成绩的解释。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-18" data-category="phase">
-  <div class="paper-top"><span class="paper-number">18</span><span class="paper-role">阶段与训练资源</span><label class="read-toggle"><input type="checkbox" data-read="18"><span>已读</span></label></div>
-  <details><summary><h3>PHASER</h3><span class="preview">连续学习新技能时，如何避免短暂关键阶段因回放不足而被遗忘？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2606.03598v2 原始摘要，2026-10-22核对。<strong>阅读深度：摘要级定位，未完成全文与代码核查。</strong> <a href="https://arxiv.org/abs/2606.03598v2">原文来源</a> · <a href="https://arxiv.org/pdf/2606.03598v2">论文PDF</a></p>
+  <div class="paper-top"><span class="paper-number">18</span><span class="paper-role">训练时挑信息</span><label class="read-toggle"><input type="checkbox" data-read="18"><span>已读</span></label></div>
+  <details><summary><h3>PHASER</h3><span class="preview">学新任务时，怎样避免忘掉旧任务中短暂却重要的步骤？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2606.03598v2 作者摘要，2026-10-22核对。<strong>阅读深度：只核对了摘要，还没有逐项检查全文和代码。</strong> <a href="https://arxiv.org/abs/2606.03598v2">原文来源</a> · <a href="https://arxiv.org/pdf/2606.03598v2">论文PDF</a></p>
 <ul>
-<li><strong>问题：</strong> 连续学习新技能时，如何避免短暂关键阶段因回放不足而被遗忘？</li>
-<li><strong>输入 → 输出：</strong> 历史示范与阶段边界 → 阶段回放容量及遗忘风险路由 → 持续学习策略。</li>
-<li><strong>核心改动：</strong> 按阶段分配回放支持，优先高遗忘风险阶段；Auto-PC结合动作变点检测与VLM语义核验。</li>
-<li><strong>证据：</strong> 摘要报告三个VLA底座和LIBERO持续学习套件；重点核对匹配回放预算与阶段提取消融。</li>
-<li><strong>边界：</strong> 主要解决持续学习中的遗忘；不能直接当作单次鲁棒微调的同任务性能结论。</li>
+<li><strong>问题：</strong> 学新任务时，怎样避免忘掉旧任务中短暂却重要的步骤？</li>
+<li><strong>输入 → 输出：</strong> 旧示范及其步骤划分 → 决定保留哪些、重新练哪些 → 继续训练模型。</li>
+<li><strong>核心改动：</strong> 为各步骤保留示范，容易忘的步骤优先再练。自动分步时，先找动作变化的位置，再让视觉语言模型核对。这种重新练旧数据叫回放。</li>
+<li><strong>证据：</strong> 摘要提到三种VLA模型和LIBERO的学新忘旧测试。全文重点看使用同样多旧示范时的成绩，以及自动划分步骤是否有帮助。</li>
+<li><strong>边界：</strong> 主要研究学新任务时遗忘旧任务的问题，不能直接当作一次抗干扰训练的成绩。</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="robust" id="group-robust" aria-labelledby="group-title-robust"><h3 class="group-title" id="group-title-robust"><span>F</span>鲁棒训练与诊断 <small>4篇 · 新增／摘要级定位</small></h3><div class="paper-list"><article class="paper" id="paper-19" data-category="robust">
-  <div class="paper-top"><span class="paper-number">19</span><span class="paper-role">鲁棒训练与诊断</span><label class="read-toggle"><input type="checkbox" data-read="19"><span>已读</span></label></div>
-  <details><summary><h3>STRONG-VLA</h3><span class="preview">多模态扰动训练与正常任务表现之间的冲突如何缓解？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2604.10055v3 原始摘要，2026-10-22核对。<strong>阅读深度：摘要级定位，未完成全文与代码核查。</strong> <a href="https://arxiv.org/abs/2604.10055v3">原文来源</a> · <a href="https://arxiv.org/pdf/2604.10055v3">论文PDF</a></p>
+<section class="paper-group" data-group="robust" id="group-robust" aria-labelledby="group-title-robust"><h3 class="group-title" id="group-title-robust"><span>F</span>输入出问题以后 <small>4篇 · 新增／仅核对摘要</small></h3><div class="paper-list"><article class="paper" id="paper-19" data-category="robust">
+  <div class="paper-top"><span class="paper-number">19</span><span class="paper-role">输入出问题以后</span><label class="read-toggle"><input type="checkbox" data-read="19"><span>已读</span></label></div>
+  <details><summary><h3>STRONG-VLA</h3><span class="preview">让机器人适应受干扰的画面和指令后，会不会反而在正常条件下做差？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2604.10055v3 作者摘要，2026-10-22核对。<strong>阅读深度：只核对了摘要，还没有逐项检查全文和代码。</strong> <a href="https://arxiv.org/abs/2604.10055v3">原文来源</a> · <a href="https://arxiv.org/pdf/2604.10055v3">论文PDF</a></p>
 <ul>
-<li><strong>问题：</strong> 多模态扰动训练与正常任务表现之间的冲突如何缓解？</li>
-<li><strong>输入 → 输出：</strong> 受扰动和干净示范 → 两阶段微调 → 鲁棒策略。</li>
-<li><strong>核心改动：</strong> 先用难度递增的多模态扰动学习鲁棒性，再对齐干净任务分布；建立28类扰动评测。</li>
-<li><strong>证据：</strong> 摘要报告LIBERO多个VLA底座及AIRBOT实机；重点精读两阶段训练和干净性能恢复。</li>
-<li><strong>边界：</strong> 两阶段训练的总更新量、扰动分布和干净再对齐成本，需要结合具体配置理解。</li>
+<li><strong>问题：</strong> 让机器人适应受干扰的画面和指令后，会不会反而在正常条件下做差？</li>
+<li><strong>输入 → 输出：</strong> 受干扰与正常的示范 → 先后两轮继续训练 → 测试能否完成任务。</li>
+<li><strong>核心改动：</strong> 先练逐渐变难的干扰，再用正常数据继续练，尽量恢复正常任务表现；论文测试28类画面和文字干扰。</li>
+<li><strong>证据：</strong> 摘要提到LIBERO上多种模型和AIRBOT实机测试。全文重点看两轮分别怎样练，以及正常条件下的成绩有没有恢复。</li>
+<li><strong>边界：</strong> 解释成绩时，要看训练一共做了多少步、练过哪些干扰，以及正常数据又练了多久。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-20" data-category="robust">
-  <div class="paper-top"><span class="paper-number">20</span><span class="paper-role">鲁棒训练与诊断</span><label class="read-toggle"><input type="checkbox" data-read="20"><span>已读</span></label></div>
-  <details><summary><h3>MAIL-Bench / MINT</h3><span class="preview">操作过程中摄像头停止提供后续帧，策略还能完成多少任务？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2609.35003v1 原始摘要，2026-10-22核对。<strong>阅读深度：摘要级定位，未完成全文与代码核查。</strong> <a href="https://arxiv.org/abs/2609.35003v1">原文来源</a> · <a href="https://arxiv.org/pdf/2609.35003v1">论文PDF</a></p>
+  <div class="paper-top"><span class="paper-number">20</span><span class="paper-role">输入出问题以后</span><label class="read-toggle"><input type="checkbox" data-read="20"><span>已读</span></label></div>
+  <details><summary><h3>MAIL-Bench / MINT</h3><span class="preview">执行到一半，某台相机不再传来新画面，机器人还能做完吗？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2609.35003v1 作者摘要，2026-10-22核对。<strong>阅读深度：只核对了摘要，还没有逐项检查全文和代码。</strong> <a href="https://arxiv.org/abs/2609.35003v1">原文来源</a> · <a href="https://arxiv.org/pdf/2609.35003v1">论文PDF</a></p>
 <ul>
-<li><strong>问题：</strong> 操作过程中摄像头停止提供后续帧，策略还能完成多少任务？</li>
-<li><strong>输入 → 输出：</strong> 不同阶段与相机的视觉中断 → 闭环评测；MINT训练并选择性补充缺失视图。</li>
-<li><strong>核心改动：</strong> MAIL-Bench按参考成功轨迹阶段评测；MINT结合缺视图训练与光流／世界模型补视图。</li>
-<li><strong>证据：</strong> 摘要报告π₀.₅、GR00T N1.5及AgiBot G2实机；优先看中断时机、持续方式和补帧退出规则。</li>
-<li><strong>边界：</strong> 摄像头后续缺帧不等同于短时模糊；缺帧持续方式与时机属于评测定义的一部分。</li>
+<li><strong>问题：</strong> 执行到一半，某台相机不再传来新画面，机器人还能做完吗？</li>
+<li><strong>输入 → 输出：</strong> 在不同操作步骤中断不同相机 → 测试剩余任务；MINT还会训练缺画面时怎么做。</li>
+<li><strong>核心改动：</strong> 先练缺少相机输入的情况。使用时根据已有画面中的移动，或根据模型预测，尝试补出缺失画面；补得不可靠就停用。</li>
+<li><strong>证据：</strong> 摘要提到π₀.₅、GR00T N1.5和AgiBot G2。全文重点看相机何时中断、中断多久，以及什么时候停止使用补出的画面。</li>
+<li><strong>边界：</strong> 相机后续一直不再传图，与某一帧变模糊是两种故障。何时中断、持续多久，都是测试条件的一部分。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-21" data-category="robust">
-  <div class="paper-top"><span class="paper-number">21</span><span class="paper-role">鲁棒训练与诊断</span><label class="read-toggle"><input type="checkbox" data-read="21"><span>已读</span></label></div>
-  <details><summary><h3>View Collapse</h3><span class="preview">多视角VLA的对抗训练收益，是否来自放弃使用被扰动的相机？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2609.33707v1 原始摘要，2026-10-22核对。<strong>阅读深度：摘要级定位，未完成全文与代码核查。</strong> <a href="https://arxiv.org/abs/2609.33707v1">原文来源</a> · <a href="https://arxiv.org/pdf/2609.33707v1">论文PDF</a></p>
+  <div class="paper-top"><span class="paper-number">21</span><span class="paper-role">输入出问题以后</span><label class="read-toggle"><input type="checkbox" data-read="21"><span>已读</span></label></div>
+  <details><summary><h3>View Collapse</h3><span class="preview">一台相机的画面变差后还能做成，是看得更清楚了，还是改看另一台了？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2609.33707v1 作者摘要，2026-10-22核对。<strong>阅读深度：只核对了摘要，还没有逐项检查全文和代码。</strong> <a href="https://arxiv.org/abs/2609.33707v1">原文来源</a> · <a href="https://arxiv.org/pdf/2609.33707v1">论文PDF</a></p>
 <ul>
-<li><strong>问题：</strong> 多视角VLA的对抗训练收益，是否来自放弃使用被扰动的相机？</li>
-<li><strong>输入 → 输出：</strong> 多视角策略与受控视图干预 → 七类LIBERO-Plus偏移评测与依赖诊断。</li>
-<li><strong>核心改动：</strong> 揭示腕部视角主导的view collapse，区分感知鲁棒性与融合策略变化，并用View Swap干预。</li>
-<li><strong>证据：</strong> 摘要指出收益依偏移类型而异；需精读单视图干预与View Swap消融。</li>
-<li><strong>边界：</strong> 某视角受扰后不掉点不等于该视角感知变强；不能把对抗训练称为通用泛化解法。</li>
+<li><strong>问题：</strong> 一台相机的画面变差后还能做成，是看得更清楚了，还是改看另一台了？</li>
+<li><strong>输入 → 输出：</strong> 分别改变各相机画面 → 在LIBERO-Plus七类变化下测试 → 判断模型依赖哪个视角。</li>
+<li><strong>核心改动：</strong> 用刻意寻找的困难输入训练后，模型可能主要看腕部相机。作者分别改变视图并使用View Swap做比较，检查成绩提高的原因。</li>
+<li><strong>证据：</strong> 摘要说明效果随测试条件而变。全文重点看分别改变相机输入的测试，以及View Swap是否改变了模型对相机的依赖。</li>
+<li><strong>边界：</strong> 某台相机画面变差后成绩没掉，不能单凭这点说它更会看那台相机；也可能是不太用了。</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-22" data-category="robust">
-  <div class="paper-top"><span class="paper-number">22</span><span class="paper-role">鲁棒训练与诊断</span><label class="read-toggle"><input type="checkbox" data-read="22"><span>已读</span></label></div>
-  <details><summary><h3>CARE</h3><span class="preview">一次短暂观察污染为何会造成较长的控制失败，动作块执行长度有何影响？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2609.32550v1 原始摘要，2026-10-22核对。<strong>阅读深度：摘要级定位，未完成全文与代码核查。</strong> <a href="https://arxiv.org/abs/2609.32550v1">原文来源</a> · <a href="https://arxiv.org/pdf/2609.32550v1">论文PDF</a></p>
+  <div class="paper-top"><span class="paper-number">22</span><span class="paper-role">输入出问题以后</span><label class="read-toggle"><input type="checkbox" data-read="22"><span>已读</span></label></div>
+  <details><summary><h3>CARE</h3><span class="preview">只坏一帧为什么也可能做错很久？先执行多少步会有什么影响？</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>所用来源：arXiv:2609.32550v1 作者摘要，2026-10-22核对。<strong>阅读深度：只核对了摘要，还没有逐项检查全文和代码。</strong> <a href="https://arxiv.org/abs/2609.32550v1">原文来源</a> · <a href="https://arxiv.org/pdf/2609.32550v1">论文PDF</a></p>
 <ul>
-<li><strong>问题：</strong> 一次短暂观察污染为何会造成较长的控制失败，动作块执行长度有何影响？</li>
-<li><strong>输入 → 输出：</strong> 当前与上一轮预测动作块 → 一致性判断 → 动态执行前缀。</li>
-<li><strong>核心改动：</strong> 研究单步扰动，按预测动作块一致性选择执行长度，在异常时缩短开环执行。</li>
-<li><strong>证据：</strong> 摘要报告低额外开销与干净性能保持；需精读扰动插入、长度选择和固定前缀对照。</li>
-<li><strong>边界：</strong> 推理时执行机制与训练增强不同；比较增强收益时也应固定执行长度。</li>
+<li><strong>问题：</strong> 只坏一帧为什么也可能做错很久？先执行多少步会有什么影响？</li>
+<li><strong>输入 → 输出：</strong> 比较前后两次预测的动作 → 决定先做几步 → 做完后重新观察。</li>
+<li><strong>核心改动：</strong> 根据前后动作预测是否一致，改变先执行的步数。少执行几步，就能早点重新看画面和算动作。</li>
+<li><strong>证据：</strong> 摘要提到额外计算较少，正常条件下的成绩得以保持。全文重点看哪一步破坏画面、怎样决定执行步数，以及固定执行步数时的比较。</li>
+<li><strong>边界：</strong> 这是改变执行方式，不是改变训练数据。比较不同方法的成绩时，也要说明每次先做几步。</li>
 </ul>
-</div></details></article></div></section><p class="empty-state" id="empty-state" hidden>没有匹配的论文，请换个关键词或论文角色。</p><p class="storage-note" id="storage-note">“已读”只保存在当前浏览器，不会上传。</p></section>
-<section class="chapter" id="pitfalls"><h2>五、汇报前最容易混淆的十件事</h2><div class="table-wrap"><table>
+</div></details></article></div></section><p class="empty-state" id="empty-state" hidden>没有匹配的论文。请换个关键词，或选择另一个分组。</p><p class="storage-note" id="storage-note">“已读”只保存在当前浏览器，不会上传。</p></section>
+<section class="chapter" id="pitfalls"><h2>五、这些说法容易弄混</h2><div class="table-wrap"><table>
 <thead>
 <tr>
-<th>容易混淆</th>
-<th>应当怎样理解</th>
+<th>说法</th>
+<th>具体区别</th>
 </tr>
 </thead>
 <tbody><tr>
-<td data-label="容易混淆">动作token与语言指令</td>
-<td data-label="应当怎样理解">前者编码控制量，后者描述任务。</td>
+<td data-label="说法">指令与动作编号</td>
+<td data-label="具体区别">指令说想做什么；编号表示怎样移动。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">动作维度与动作块</td>
-<td data-label="应当怎样理解">RT-2的8项对应一步，OFT的8步对应未来8个时刻。</td>
+<td data-label="说法">动作有8项与未来8步</td>
+<td data-label="具体区别">RT-2的8项描述当前一步；OFT的8步是后面8个时刻。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">连续动作与单次生成</td>
-<td data-label="应当怎样理解">π₀仍需迭代生成，OFT可以直接回归。</td>
+<td data-label="说法">一次预测多步与一次算完</td>
+<td data-label="具体区别">π₀仍要反复修改数字；OFT可以一次直接给出结果。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">预测长度、执行长度与生成迭代</td>
-<td data-label="应当怎样理解">分别是算多远、先做多少、生成迭代几次。</td>
+<td data-label="说法">预测几步、先做几步、计算时改几次</td>
+<td data-label="具体区别">是三个可以分别设置的数字。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">FAST训练与推理加速</td>
-<td data-label="应当怎样理解">原文最高约5倍指训练时间。</td>
+<td data-label="说法">训练更快与机器人做得更快</td>
+<td data-label="具体区别">FAST最高约5倍的加快，指训练花的时间。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">少参数与低显存</td>
-<td data-label="应当怎样理解">底座、激活、输入和动作头仍占用显存。</td>
+<td data-label="说法">更新参数少与显存一定小</td>
+<td data-label="具体区别">原模型和计算中的中间结果仍要放进显存。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">未见家庭与全新运动技能</td>
-<td data-label="应当怎样理解">环境泛化不自动包含技能泛化。</td>
+<td data-label="说法">换了房间与学了新动作</td>
+<td data-label="具体区别">到新房间完成熟悉操作，不等于会所有新技能。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">成功率与阶段分数</td>
-<td data-label="应当怎样理解">完整二值成功与部分进度不能混为一谈。</td>
+<td data-label="说法">完整做成与部分得分</td>
+<td data-label="具体区别">做完几个步骤的分数，不是整项任务的成功率。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">阶段输入、证据门控、选帧与回放</td>
-<td data-label="应当怎样理解">干预位置和学习设定不同，不能直接当作同一种算法。</td>
+<td data-label="说法">挑输入、挑示范与重练旧示范</td>
+<td data-label="具体区别">改的是训练过程的不同地方。</td>
 </tr>
 <tr>
-<td data-label="容易混淆">受扰不掉点与感知变强</td>
-<td data-label="应当怎样理解">可能只是依赖另一相机或更短执行前缀。</td>
+<td data-label="说法">相机坏了还能做与看得更清楚</td>
+<td data-label="具体区别">也可能只是转而使用另一台相机。</td>
 </tr>
 </tbody></table></div>
 </section>
-<section class="chapter" id="checklist"><h2>六、汇报与阅读自检</h2><p>对原有14篇：能说出问题、输入输出、改动、证据图表和边界。对新增8篇：明确目前只是摘要定位，列出下一步要从全文核对什么，不编造方法图号或复现结果。</p>
-<p>来源备注：新增8篇链接固定到本次摘要版本；Long-VLA页面注明CoRL2025，其余新增文献按预印本列示，未据此声称正式录用。π₀使用v4，Diffusion Policy使用v5，LIBERO-Plus使用v3预印本，页码不与改题会议版本混用。</p>
+<section class="chapter" id="checklist"><h2>六、读完一篇，能不能说清这五件事？</h2><p>它遇到什么问题？给模型什么、得到什么？具体改了哪一步？哪张图或表支持结果？哪些情况还不能下结论？</p>
+<p>新增八篇目前只核对摘要。笔记会说明哪些细节还没核对，不补写未知的图号或测试结果。</p>
+<p>版本说明：Long-VLA页面注明CoRL 2025录用；其余新增论文按预印本列示。π₀用v4，Diffusion Policy用v5，LIBERO-Plus用v3；这里的页码不能直接套到其他版本。</p>
 </section>
 <footer><p>原论文与相关成果归各作者所有。本页为中文阅读笔记，未包含新的实验结果。</p><div class="footer-links"><a href="notes.md" download="VLA22篇_中文速读笔记.md">下载 Markdown 原文</a><a href="https://github.com/Babe153/vla-weekend-report/tree/main/reading">GitHub 源码</a><a href="../">导师汇报与逐页讲稿</a><button id="print-notes" type="button">打印笔记</button></div></footer></main></body></html>

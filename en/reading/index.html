@@ -3,521 +3,553 @@
 <body><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="#top">VLA<span>Reading handbook</span></a><nav aria-label="Reading navigation"><a href="#map">Map</a><a href="#comparison">Compare</a><a href="#notes">Notes</a><a href="#pitfalls">Pitfalls</a><a href="../">Report</a><a class="reading-language" href="../../reading/" data-language-switch="../../reading/" lang="zh-CN" hreflang="zh-CN">中文</a></nav></header>
 <main id="main"><section class="hero" id="top"><p class="eyebrow">ROBOT LEARNING / READING NOTES</p><h1>22 papers.<br>Understand models and methods.</h1><p class="hero-lead">Five questions for each paper: the problem, inputs and outputs, core change, evidence, and limits.</p><div class="hero-links"><a class="primary-link" href="#notes">Read the five-line notes <span aria-hidden="true">↗</span></a><a href="#comparison">Compare the papers</a></div><div class="hero-meta"><span>22 original papers</span><span>110 reading notes</span><span>Updated 22 Oct 2026</span></div></section>
-<aside class="reading-note"><strong>Locate, then read closely.</strong> Six themes separate models, tools, benchmarks and related methods. The original 14 retain figure/page references; the 8 additions are abstract-level checks. Success rates across different tasks and scoring protocols are not ranked together. Page references use the fixed PDF versions listed below.</aside>
-<section class="chapter" id="map"><h2>1. Six themes and a reading route</h2><div class="table-wrap"><table>
+<aside class="reading-note"><strong>Read the method, then check the result.</strong> Understand the problem and concrete change before checking the results. The original 14 retain page references; only the abstracts of the 8 additions have been checked. Success rates under different tasks and conditions are not ranked together.</aside>
+<section class="chapter" id="map"><h2>1. What does each group do?</h2><div class="table-wrap"><table>
 <thead>
 <tr>
-<th>Theme</th>
+<th>Group</th>
 <th>Papers</th>
-<th>Core question</th>
+<th>Main question</th>
 </tr>
 </thead>
 <tbody><tr>
-<td data-label="Theme">A · Generalist policies · 6</td>
+<td data-label="Group">A · Models for many tasks</td>
 <td data-label="Papers">RT-2, OpenVLA, π₀, Octo, π₀.₅, SmolVLA</td>
-<td data-label="Core question">How does visual-language knowledge support actions?</td>
+<td data-label="Main question">How can one model do different tasks?</td>
 </tr>
 <tr>
-<td data-label="Theme">B · Data foundations · 1</td>
+<td data-label="Group">B · Shared training data</td>
 <td data-label="Papers">Open X-Embodiment / RT-X</td>
-<td data-label="Core question">Can experience transfer across robots?</td>
+<td data-label="Main question">Can different robots share demonstrations?</td>
 </tr>
 <tr>
-<td data-label="Theme">C · Actions and adaptation · 5</td>
+<td data-label="Group">C · Actions and further training</td>
 <td data-label="Papers">ACT, Diffusion Policy, FAST, OpenVLA-OFT, LoRA</td>
-<td data-label="Core question">How are actions generated and parameters adapted?</td>
+<td data-label="Main question">How are actions calculated and costs reduced?</td>
 </tr>
 <tr>
-<td data-label="Theme">D · Evaluation · 2</td>
+<td data-label="Group">D · Tasks and success rates</td>
 <td data-label="Papers">LIBERO, LIBERO-Plus</td>
-<td data-label="Core question">How are success and robustness measured?</td>
+<td data-label="Main question">How is successful execution tested?</td>
 </tr>
 <tr>
-<td data-label="Theme">E · Phases and training resources · 4</td>
+<td data-label="Group">E · What training focuses on</td>
 <td data-label="Papers">Long-VLA, EGR, FrameSkip, PHASER</td>
-<td data-label="Core question">When and where should training intervene?</td>
+<td data-label="Main question">Which inputs, moments and old examples matter?</td>
 </tr>
 <tr>
-<td data-label="Theme">F · Robustness and diagnostics · 4</td>
+<td data-label="Group">F · When inputs go wrong</td>
 <td data-label="Papers">STRONG-VLA, MAIL-Bench / MINT, View Collapse, CARE</td>
-<td data-label="Core question">What causes failures and apparent gains?</td>
+<td data-label="Main question">What happens with damaged or missing views?</td>
 </tr>
 </tbody></table></div>
-<p><strong>Advisor-report route:</strong> RT-2 → OpenVLA → π₀ → OFT → evaluation → phase-related methods and robustness diagnostics. Entries 01–14 cover foundations; 15–22 cover phases and robustness. Explain mechanisms and distinctions rather than reciting every detail.</p>
-<p><strong>Phase and robustness reading route:</strong> Long-VLA (15) → EGR (16) → FrameSkip (17) → PHASER (18) → View Collapse (21) → STRONG-VLA (19). MAIL-Bench / MINT (20) and CARE (22) add fault and execution perspectives.</p>
-<p><strong>Category boundaries:</strong> EGR gates sensor evidence, FrameSkip selects frames, and PHASER addresses continual learning. Grouping them supports comparison of relevance and resource allocation; it does not imply shared phase labels. MAIL-Bench includes both a benchmark and a method and is indexed under robustness diagnostics.</p>
+<p>Start with RT-2 → OpenVLA → π₀. Then read OFT, action methods and testing papers. The last two groups examine what training focuses on and what happens when inputs go wrong. Groups help navigation; their methods are not interchangeable.</p>
+<p>Terms used in the papers:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning here</th>
+</tr>
+</thead>
+<tbody><tr>
+<td data-label="Term">Policy</td>
+<td data-label="Meaning here">A model that chooses the next action from the scene and request.</td>
+</tr>
+<tr>
+<td data-label="Term">Token</td>
+<td data-label="Meaning here">A unit a model reads or writes; an action token usually represents a control value with an ID.</td>
+</tr>
+<tr>
+<td data-label="Term">Fine-tuning</td>
+<td data-label="Meaning here">Further training of an existing model on new examples.</td>
+</tr>
+<tr>
+<td data-label="Term">Action chunk</td>
+<td data-label="Meaning here">Several future action steps predicted together.</td>
+</tr>
+<tr>
+<td data-label="Term">Generalization</td>
+<td data-label="Meaning here">Handling an object, scene or request not specifically practised.</td>
+</tr>
+<tr>
+<td data-label="Term">Robustness</td>
+<td data-label="Meaning here">Continuing to work when inputs are damaged or disturbed.</td>
+</tr>
+</tbody></table></div>
 </section>
-<section class="chapter" id="comparison"><h2>2. Cross-paper comparison</h2><div class="table-wrap"><table>
+<section class="chapter" id="comparison"><h2>2. What does each paper do?</h2><div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Paper</th>
-<th>Main role / question</th>
-<th>Data and knowledge</th>
-<th>Action representation / output</th>
-<th>Relationship</th>
+<th>What it does</th>
+<th>Training or test material</th>
+<th>How actions or scores are produced</th>
+<th>Read alongside</th>
 </tr>
 </thead>
 <tbody><tr>
 <td data-label="Paper"><a href="#paper-01">01 RT-2</a></td>
-<td data-label="Main role / question">Generalist policy</td>
-<td data-label="Data and knowledge">Web image-text and robot demonstrations</td>
-<td data-label="Action representation / output">Dimension-wise discrete tokens; autoregressive; one action</td>
-<td data-label="Relationship">Read with OpenVLA for semantic knowledge transfer into control.</td>
+<td data-label="What it does">Model for many tasks</td>
+<td data-label="Training or test material">Web images/text and robot demonstrations</td>
+<td data-label="How actions or scores are produced">Action IDs in sequence, then control values</td>
+<td data-label="Read alongside">Read with OpenVLA: both use action IDs.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-02">02 OpenVLA</a></td>
-<td data-label="Main role / question">Generalist policy</td>
-<td data-label="Data and knowledge">OXE and other robot demonstrations</td>
-<td data-label="Action representation / output">Dimension-wise discrete tokens; autoregressive; one action</td>
-<td data-label="Relationship">Shares token-based control with RT-2; OFT modifies its adaptation recipe.</td>
+<td data-label="What it does">Model for many tasks</td>
+<td data-label="Training or test material">OXE and other real-robot demonstrations</td>
+<td data-label="How actions or scores are produced">Action IDs in sequence, then control values</td>
+<td data-label="Read alongside">OFT builds on it and changes action calculation.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-03">03 π₀</a></td>
-<td data-label="Main role / question">Generalist policy</td>
-<td data-label="Data and knowledge">Proprietary multi-robot and public robot data</td>
-<td data-label="Action representation / output">Continuous chunks; iterative flow matching</td>
-<td data-label="Relationship">Contrasts with discrete RT-2/OpenVLA; provides a foundation for π₀.₅.</td>
+<td data-label="What it does">Model for many tasks</td>
+<td data-label="Training or test material">Proprietary and public robot demonstrations</td>
+<td data-label="How actions or scores are produced">Revise a numerical sequence; output several steps</td>
+<td data-label="Read alongside">Compare with Diffusion Policy: both revise random numbers, using different training methods.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-04">04 Open X-Embodiment / RT-X</a></td>
-<td data-label="Main role / question">Data and cross-robot transfer</td>
-<td data-label="Data and knowledge">Demonstrations across institutions and robots</td>
-<td data-label="Action representation / output">Standardized data; RT-X policies emit discrete actions</td>
-<td data-label="Relationship">A data foundation for Octo and OpenVLA, not another action-generation algorithm.</td>
+<td data-label="What it does">Shared demonstrations</td>
+<td data-label="Training or test material">Recordings across institutions and robots</td>
+<td data-label="How actions or scores are produced">Shared data; RT-X uses action IDs</td>
+<td data-label="Read alongside">Supplies demonstrations for OpenVLA and Octo.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-05">05 Octo</a></td>
-<td data-label="Main role / question">Generalist policy</td>
-<td data-label="Data and knowledge">Filtered and weighted OXE demonstrations</td>
-<td data-label="Action representation / output">Continuous chunks; conditional diffusion head</td>
-<td data-label="Relationship">Compare its generalist architecture with OpenVLA and its generator with Diffusion Policy.</td>
+<td data-label="What it does">Model for many tasks</td>
+<td data-label="Training or test material">Selected OXE demonstrations</td>
+<td data-label="How actions or scores are produced">Repeated revisions produce an action sequence</td>
+<td data-label="Read alongside">Compare the full model with OpenVLA and its action calculation with Diffusion Policy.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-06">06 FAST</a></td>
-<td data-label="Main role / question">Action representation</td>
-<td data-label="Data and knowledge">Action sequences for the tokenizer; demonstrations for the policy</td>
-<td data-label="Action representation / output">Compressed discrete action chunks; autoregressive policy</td>
-<td data-label="Relationship">Contrasts with dimension-wise bins; used in π₀.₅ pretraining.</td>
+<td data-label="What it does">Shorter action records</td>
+<td data-label="Training or test material">Action records for compression; demonstrations for the policy</td>
+<td data-label="How actions or scores are produced">Shorter IDs decoded back to actions</td>
+<td data-label="Read alongside">Used during π₀.₅ training; compare with per-time-step IDs.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-07">07 π₀.₅</a></td>
-<td data-label="Main role / question">Generalist policy</td>
-<td data-label="Data and knowledge">Multi-robot data, semantic labels and web image-text</td>
-<td data-label="Action representation / output">FAST pretraining; flow action chunks after post-training</td>
-<td data-label="Relationship">Extends π₀ using FAST and heterogeneous knowledge transfer.</td>
+<td data-label="What it does">Model for many tasks</td>
+<td data-label="Training or test material">Robot demos, web images/text and step labels</td>
+<td data-label="How actions or scores are produced">Choose the current step, then calculate actions</td>
+<td data-label="Read alongside">Extends π₀ and also uses FAST.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-08">08 SmolVLA</a></td>
-<td data-label="Main role / question">Generalist policy</td>
-<td data-label="Data and knowledge">Mainly community SO100 data, then target adaptation</td>
-<td data-label="Action representation / output">Continuous flow chunks; optional asynchronous execution</td>
-<td data-label="Relationship">Relates to π₀’s action expert; compare model, data and execution costs.</td>
+<td data-label="What it does">Model for many tasks</td>
+<td data-label="Training or test material">Mainly SO100 community data, then target examples</td>
+<td data-label="How actions or scores are produced">Several steps at once; overlap calculation and execution</td>
+<td data-label="Read alongside">Related to π₀ action calculation; additionally focuses on size and waiting time.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-09">09 OpenVLA-OFT</a></td>
-<td data-label="Main role / question">Action modeling and adaptation</td>
-<td data-label="Data and knowledge">Pretrained OpenVLA and downstream demonstrations</td>
-<td data-label="Action representation / output">Continuous chunks; parallel prediction; L1 regression</td>
-<td data-label="Relationship">An adaptation recipe built on OpenVLA; compare with diffusion/flow generators.</td>
+<td data-label="What it does">Actions and further training</td>
+<td data-label="Training or test material">Existing OpenVLA plus target demonstrations</td>
+<td data-label="How actions or scores are produced">Directly predict 8 numerical steps</td>
+<td data-label="Read alongside">Builds on OpenVLA; compare direct prediction with repeated updates in π₀ and Diffusion Policy.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-10">10 LIBERO</a></td>
-<td data-label="Main role / question">Task evaluation benchmark</td>
-<td data-label="Data and knowledge">Simulation tasks, demonstrations and initial states</td>
-<td data-label="Action representation / output">Evaluation protocols; no single prescribed policy</td>
-<td data-label="Relationship">Used by OFT; LIBERO-Plus extends robustness evaluation.</td>
+<td data-label="What it does">Test tasks</td>
+<td data-label="Training or test material">Simulation tasks, demos and start states</td>
+<td data-label="How actions or scores are produced">Completion and forgetting scores</td>
+<td data-label="Read alongside">Supplies tasks used to test methods such as OFT.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-11">11 LIBERO-Plus</a></td>
-<td data-label="Main role / question">Robustness evaluation benchmark</td>
-<td data-label="Data and knowledge">Perturbed LIBERO tasks and associated training resources</td>
-<td data-label="Action representation / output">Controlled shifts and diagnostics; no single prescribed policy</td>
-<td data-label="Relationship">Tests the gap between benchmark success and reliability.</td>
+<td data-label="What it does">Test tasks</td>
+<td data-label="Training or test material">LIBERO tasks with changed conditions</td>
+<td data-label="How actions or scores are produced">Success counts under changed conditions</td>
+<td data-label="Read alongside">Changes LIBERO conditions to test whether high scores are reliable.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-12">12 ACT</a></td>
-<td data-label="Main role / question">Imitation-learning policy</td>
-<td data-label="Data and knowledge">Task-specific teleoperated demonstrations</td>
-<td data-label="Action representation / output">Continuous CVAE chunks; temporal ensembling</td>
-<td data-label="Relationship">A foundation for chunking; compare with Diffusion Policy.</td>
+<td data-label="What it does">Learn from demonstrations</td>
+<td data-label="Training or test material">Human-teleoperated demonstrations</td>
+<td data-label="How actions or scores are produced">Predict steps and average overlapping results</td>
+<td data-label="Read alongside">Explains predicting ahead and averaging overlapping movements.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-13">13 Diffusion Policy</a></td>
-<td data-label="Main role / question">Imitation-learning policy</td>
-<td data-label="Data and knowledge">Task-specific robot demonstrations</td>
-<td data-label="Action representation / output">Conditional diffusion sequences; receding-horizon execution</td>
-<td data-label="Relationship">Connects to Octo; contrasts with π₀ flow and OFT direct regression.</td>
+<td data-label="What it does">Learn from demonstrations</td>
+<td data-label="Training or test material">Robot demonstrations of target tasks</td>
+<td data-label="How actions or scores are produced">Revise numbers; execute a few steps and observe</td>
+<td data-label="Read alongside">Octo also uses diffusion; compare with π₀ and OFT.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-14">14 LoRA</a></td>
-<td data-label="Main role / question">Parameter adaptation tool</td>
-<td data-label="Data and knowledge">Pretrained models and target data; original tests mainly NLP</td>
-<td data-label="Action representation / output">Low-rank weight updates; does not prescribe actions</td>
-<td data-label="Relationship">Can adapt OpenVLA/OFT; separate from tokenizers and action heads.</td>
+<td data-label="What it does">Fewer updated parameters</td>
+<td data-label="Training or test material">Existing models and new data; original tests mainly language</td>
+<td data-label="How actions or scores are produced">Change trainable parameters, not action output</td>
+<td data-label="Read alongside">Can train OpenVLA further; separate from how actions are calculated.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-15">15 Long-VLA</a></td>
-<td data-label="Main role / question">Phases and training resources</td>
-<td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
-<td data-label="Action representation / output">Phase-aware input masking; L-CALVIN evaluation</td>
-<td data-label="Relationship">Phase-based inputs differ from EGR objective gating and FrameSkip selection.</td>
+<td data-label="What it does">Select information during training</td>
+<td data-label="Training or test material">Demonstrations and sensor records; scope in paper</td>
+<td data-label="How actions or scores are produced">Choose inputs by phase, then predict actions</td>
+<td data-label="Read alongside">Uses task phases for inputs; EGR changes training by sensor usefulness.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-16">16 EGR</a></td>
-<td data-label="Main role / question">Phases and training resources</td>
-<td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
-<td data-label="Action representation / output">Evidence-gated invariance and sufficiency objectives</td>
-<td data-label="Relationship">Sensor-evidence-gated objectives differ from explicit moving/interaction masking.</td>
+<td data-label="What it does">Select information during training</td>
+<td data-label="Training or test material">Demonstrations and sensor records; scope in paper</td>
+<td data-label="How actions or scores are produced">Train according to sensor usefulness</td>
+<td data-label="Read alongside">Asks which sensor helps now, rather than using the same movement-phase labels.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-17">17 FrameSkip</a></td>
-<td data-label="Main role / question">Phases and training resources</td>
-<td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
-<td data-label="Action representation / output">Data-loader frame selection and remapping</td>
-<td data-label="Relationship">Data-loader selection differs from PHASER’s continual-learning replay.</td>
+<td data-label="What it does">Select information during training</td>
+<td data-label="Training or test material">Demonstrations and sensor records; scope in paper</td>
+<td data-label="How actions or scores are produced">Select training image/action records</td>
+<td data-label="Read alongside">Selects current training records; PHASER revisits old ones.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-18">18 PHASER</a></td>
-<td data-label="Main role / question">Phases and training resources</td>
-<td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
-<td data-label="Action representation / output">Phase-balanced replay and forgetting-risk routing</td>
-<td data-label="Relationship">Phase replay addresses continual forgetting rather than one-stage frame selection.</td>
+<td data-label="What it does">Select information during training</td>
+<td data-label="Training or test material">Demonstrations and sensor records; scope in paper</td>
+<td data-label="How actions or scores are produced">Choose old task steps to practise again</td>
+<td data-label="Read alongside">Addresses forgetting during new learning, rather than one-stage frame selection.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-19">19 STRONG-VLA</a></td>
-<td data-label="Main role / question">Robustness and diagnostics</td>
-<td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
-<td data-label="Action representation / output">Perturbation curriculum followed by clean realignment</td>
-<td data-label="Relationship">Training curricula and clean realignment differ from inference-time interventions.</td>
+<td data-label="What it does">When inputs go wrong</td>
+<td data-label="Training or test material">Demonstrations and sensor records; scope in paper</td>
+<td data-label="How actions or scores are produced">Disturbed-data practice, then normal-data practice</td>
+<td data-label="Read alongside">Changes training; CARE mainly changes execution length.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-20">20 MAIL-Bench / MINT</a></td>
-<td data-label="Main role / question">Robustness and diagnostics</td>
-<td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
-<td data-label="Action representation / output">Stage-wise camera-loss evaluation; missing-view training and completion</td>
-<td data-label="Relationship">Combines camera-loss evaluation and missing-view handling; distinct from transient corruption.</td>
+<td data-label="What it does">When inputs go wrong</td>
+<td data-label="Training or test material">Demonstrations and sensor records; scope in paper</td>
+<td data-label="How actions or scores are produced">Test camera loss and try filling missing images</td>
+<td data-label="Read alongside">Persistent camera loss differs from CARE’s one-step corruption.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-21">21 View Collapse</a></td>
-<td data-label="Main role / question">Robustness and diagnostics</td>
-<td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
-<td data-label="Action representation / output">Controlled view interventions and View Swap</td>
-<td data-label="Relationship">Separates robust perception from changed multi-view reliance through controlled interventions.</td>
+<td data-label="What it does">When inputs go wrong</td>
+<td data-label="Training or test material">Demonstrations and sensor records; scope in paper</td>
+<td data-label="How actions or scores are produced">Check which camera the model actually uses</td>
+<td data-label="Read alongside">Explains why higher scores can come from switching camera reliance.</td>
 </tr>
 <tr>
 <td data-label="Paper"><a href="#paper-22">22 CARE</a></td>
-<td data-label="Main role / question">Robustness and diagnostics</td>
-<td data-label="Data and knowledge">Robot demonstrations / task observations; see paper</td>
-<td data-label="Action representation / output">Consistency-based dynamic action execution prefix</td>
-<td data-label="Relationship">Adjusts action execution prefixes; distinct from training augmentation.</td>
+<td data-label="What it does">When inputs go wrong</td>
+<td data-label="Training or test material">Demonstrations and sensor records; scope in paper</td>
+<td data-label="How actions or scores are produced">Compare predictions and choose steps to execute</td>
+<td data-label="Read alongside">Changes when to observe again, rather than the demonstrations.</td>
 </tr>
 </tbody></table></div>
 </section>
-<section class="chapter" id="relationships"><h2>3. Connections between foundational models and related methods</h2><ol>
-<li><strong>Semantics and actions: RT-2 → OpenVLA.</strong> Both use discrete action tokens. This is a methodological link, not direct inheritance of RT-2 weights.</li>
-<li><strong>Continuous generation: Diffusion Policy, Octo and π₀.</strong> The first two use diffusion; π₀ uses flow matching. Their inputs, datasets and objectives differ.</li>
-<li><strong>Open adaptation: OpenVLA → OFT, with LoRA.</strong> OFT changes representation, decoding and objectives; LoRA changes parameter updates.</li>
-<li><strong>Efficiency and generalization: ACT, FAST, SmolVLA and π₀.₅.</strong> Chunking, compression, scale, asynchronous execution and heterogeneous data address different bottlenecks.</li>
-<li><strong>Foundations and evaluation: OXE, LIBERO and LIBERO-Plus.</strong> Separate shared data, task evaluation and robustness diagnosis.</li>
-<li><strong>Phases and relevance: Long-VLA, EGR, FrameSkip and PHASER.</strong> Phase-aware inputs, evidence-gated training and critical-event allocation have precedents.</li>
-<li><strong>Robustness mechanisms: STRONG-VLA, MAIL-Bench / MINT, View Collapse and CARE.</strong> Separate curricula, missing cameras, view reliance and executed prefixes to avoid confounding.</li>
+<section class="chapter" id="relationships"><h2>3. Connections worth remembering</h2><ol>
+<li><strong>RT-2 and OpenVLA:</strong> convert actions into IDs predicted one by one. A methodological link does not imply shared RT-2 weights.</li>
+<li><strong>OpenVLA and OFT:</strong> OFT continues from OpenVLA and directly predicts numerical actions for several future steps.</li>
+<li><strong>Diffusion Policy, Octo and π₀:</strong> start with random numbers and revise them into actions, but learn different update rules. Diffusion and flow matching are explained in the entries.</li>
+<li><strong>ACT, FAST and SmolVLA:</strong> predict ahead, shorten action records, and reduce calculation/waiting respectively. Their time savings occur in different places.</li>
+<li><strong>OXE, LIBERO and LIBERO-Plus:</strong> shared examples, test tasks, and changes to test conditions respectively.</li>
+<li><strong>Long-VLA, EGR, FrameSkip and PHASER:</strong> select inputs, change training by sensor usefulness, select time steps, and revisit old examples.</li>
+<li><strong>STRONG-VLA, MINT, View Collapse and CARE:</strong> change training, handle missing images, check camera reliance, and choose how many actions to execute.</li>
 </ol>
 </section>
 <section class="chapter" id="notes"><div class="chapter-heading"><div><p class="eyebrow">READ / COMPARE / VERIFY</p><h2>4. Five lines per paper</h2></div><p id="progress" aria-live="polite">Read 0 / 22</p></div>
-<div class="reading-controls"><label class="search-label" for="paper-search">Search papers or concepts<input id="paper-search" type="search" placeholder="e.g. OpenVLA, action chunks, flow" autocomplete="off"></label><label for="paper-category">Paper role<select id="paper-category"><option value="all">All papers</option><option value="policy">Generalist policies · 6 papers</option><option value="data">Data foundations · 1 papers</option><option value="method">Actions and adaptation · 5 papers</option><option value="benchmark">Evaluation benchmarks · 2 papers</option><option value="phase">Phases and training resources · 4 papers</option><option value="robust">Robustness and diagnostics · 4 papers</option></select></label></div>
+<div class="reading-controls"><label class="search-label" for="paper-search">Search papers or concepts<input id="paper-search" type="search" placeholder="e.g. OpenVLA, action chunks, flow" autocomplete="off"></label><label for="paper-category">What the paper does<select id="paper-category"><option value="all">All papers</option><option value="policy">Models for many tasks · 6 papers</option><option value="data">Shared training data · 1 papers</option><option value="method">Actions and further training · 5 papers</option><option value="benchmark">Tasks and success rates · 2 papers</option><option value="phase">What training focuses on · 4 papers</option><option value="robust">When inputs go wrong · 4 papers</option></select></label></div>
 <div class="list-tools"><span id="results" aria-live="polite">Showing 22 / 22 papers</span><button id="toggle-all" type="button">Expand all notes</button></div>
-<nav class="group-jumps" aria-label="Jump by theme"><a href="#group-policy">A Generalist policies</a><a href="#group-data">B Data foundations</a><a href="#group-method">C Actions and adaptation</a><a href="#group-benchmark">D Evaluation benchmarks</a><a href="#group-phase">E Phases and training resources</a><a href="#group-robust">F Robustness and diagnostics</a></nav><section class="paper-group" data-group="policy" id="group-policy" aria-labelledby="group-title-policy"><h3 class="group-title" id="group-title-policy"><span>A</span>Generalist policies <small>6 papers</small></h3><div class="paper-list"><article class="paper" id="paper-01" data-category="policy">
-  <div class="paper-top"><span class="paper-number">01</span><span class="paper-role">Generalist policy</span><label class="read-toggle"><input type="checkbox" data-read="01"><span>Read</span></label></div>
-  <details open><summary><h3>RT-2</h3><span class="preview">Robot demonstrations cover limited objects and instructions. How can web knowledge help actual control?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2307.15818v1, 26 pages. <a href="https://arxiv.org/pdf/2307.15818v1">Original PDF</a> · <a href="https://arxiv.org/abs/2307.15818v1">Source</a></p>
+<nav class="group-jumps" aria-label="Jump by theme"><a href="#group-policy">A Models for many tasks</a><a href="#group-data">B Shared training data</a><a href="#group-method">C Actions and further training</a><a href="#group-benchmark">D Tasks and success rates</a><a href="#group-phase">E What training focuses on</a><a href="#group-robust">F When inputs go wrong</a></nav><section class="paper-group" data-group="policy" id="group-policy" aria-labelledby="group-title-policy"><h3 class="group-title" id="group-title-policy"><span>A</span>Models for many tasks <small>6 papers</small></h3><div class="paper-list"><article class="paper" id="paper-01" data-category="policy">
+  <div class="paper-top"><span class="paper-number">01</span><span class="paper-role">Model for many tasks</span><label class="read-toggle"><input type="checkbox" data-read="01"><span>Read</span></label></div>
+  <details open><summary><h3>RT-2</h3><span class="preview">Can knowledge learned from images and text help with objects or requests missing from robot practice?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2307.15818v1, 26 pages. <a href="https://arxiv.org/pdf/2307.15818v1">Original PDF</a> · <a href="https://arxiv.org/abs/2307.15818v1">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> Robot demonstrations cover limited objects and instructions. How can web knowledge help actual control?</li>
-<li><strong>Input → output:</strong> Camera image + instruction → discrete tokens for one action → translation, rotation, gripper and termination values.</li>
-<li><strong>Core change:</strong> Encode actions in an existing VLM vocabulary and co-fine-tune on robot and web tasks. Action discretization itself builds on RT-1.</li>
-<li><strong>Evidence:</strong> Figure 4 (p.8) and Table 4 (p.23): RT-1 averages 32% on unseen settings versus 62% for RT-2-PaLI-X, with similar seen-task results. Figure 6b (p.10) examines scale and recipe.</li>
-<li><strong>Limits:</strong> §5 (p.11) and Figure 9 (p.23): semantic transfer does not automatically create new motor skills; unfamiliar dynamics and model latency remain limiting.</li>
+<li><strong>Problem:</strong> Can knowledge learned from images and text help with objects or requests missing from robot practice?</li>
+<li><strong>Input → output:</strong> Camera image + request → action IDs → movement, rotation, gripper and stop commands.</li>
+<li><strong>Core change:</strong> Divide action values into 256 bins with IDs. Train on both robot actions and image-question tasks.</li>
+<li><strong>Evidence:</strong> Figure 4 (p.8) and Table 4 (p.23): RT-1 averages 32% in the corresponding unseen-setting tests versus 62% for RT-2-PaLI-X, with similar seen-task scores. Figure 6b (p.10) checks model size and training choices.</li>
+<li><strong>Limits:</strong> §5 (p.11) and Figure 9 (p.23): understanding new requests does not create new physical skills. Unfamiliar weight or friction and slow computation can still cause failures.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-02" data-category="policy">
-  <div class="paper-top"><span class="paper-number">02</span><span class="paper-role">Generalist policy</span><label class="read-toggle"><input type="checkbox" data-read="02"><span>Read</span></label></div>
-  <details><summary><h3>OpenVLA</h3><span class="preview">How can a public, adaptable generalist policy lower the barrier to studying large VLA systems?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2406.09246v3, 37 pages. <a href="https://arxiv.org/pdf/2406.09246v3">Original PDF</a> · <a href="https://arxiv.org/abs/2406.09246v3">Source</a></p>
+  <div class="paper-top"><span class="paper-number">02</span><span class="paper-role">Model for many tasks</span><label class="read-toggle"><input type="checkbox" data-read="02"><span>Read</span></label></div>
+  <details><summary><h3>OpenVLA</h3><span class="preview">Can a public robot model let others continue training with their own data?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2406.09246v3, 37 pages. <a href="https://arxiv.org/pdf/2406.09246v3">Original PDF</a> · <a href="https://arxiv.org/abs/2406.09246v3">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can a public, adaptable generalist policy lower the barrier to studying large VLA systems?</li>
-<li><strong>Input → output:</strong> Original version: a single image + instruction → autoregressive action tokens → continuous control values.</li>
-<li><strong>Core change:</strong> Combine DINOv2 and SigLIP visual features in a Prismatic-7B VLM, train on multi-robot demonstrations, and study LoRA adaptation and quantization.</li>
-<li><strong>Evidence:</strong> Figure 5 (p.9) shows adaptation; Table 1 (p.10) compares LoRA and full fine-tuning. Its footnote specifies a smaller data mixture and a SigLIP-only backbone variant. Main architecture: Figure 2 (p.4).</li>
-<li><strong>Limits:</strong> §6 (p.11): the original model supports a single image; throughput constrains high-frequency control and reliability remains limited. Do not attribute OFT’s later multi-camera support to the original version.</li>
+<li><strong>Problem:</strong> Can a public robot model let others continue training with their own data?</li>
+<li><strong>Input → output:</strong> Original version: one image + instruction → action IDs one by one → movement values.</li>
+<li><strong>Core change:</strong> DINOv2 and SigLIP process images; a language model uses those outputs with the instruction. Release weights and code, and test updates to a small set of parameters.</li>
+<li><strong>Evidence:</strong> Figure 5 (p.9) tests further training on another robot. Table 1 (p.10) compares LoRA with updating all weights; it uses a smaller data mixture and SigLIP-only model variant. Main model: Figure 2 (p.4).</li>
+<li><strong>Limits:</strong> §6 (p.11): the original mainly uses one image and calculates IDs in sequence. Later OFT multi-camera support is not an original-version capability.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-03" data-category="policy">
-  <div class="paper-top"><span class="paper-number">03</span><span class="paper-role">Generalist policy</span><label class="read-toggle"><input type="checkbox" data-read="03"><span>Read</span></label></div>
-  <details><summary><h3>π₀</h3><span class="preview">How can visual-language knowledge support continuous, high-frequency and dexterous control across robots?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2410.24164v4, 17 pages. <a href="https://arxiv.org/pdf/2410.24164v4">Original PDF</a> · <a href="https://arxiv.org/abs/2410.24164v4">Source</a></p>
+  <div class="paper-top"><span class="paper-number">03</span><span class="paper-role">Model for many tasks</span><label class="read-toggle"><input type="checkbox" data-read="03"><span>Read</span></label></div>
+  <details><summary><h3>π₀</h3><span class="preview">How can an image-and-language model calculate detailed, connected movements?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2410.24164v4, 17 pages. <a href="https://arxiv.org/pdf/2410.24164v4">Original PDF</a> · <a href="https://arxiv.org/abs/2410.24164v4">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can visual-language knowledge support continuous, high-frequency and dexterous control across robots?</li>
-<li><strong>Input → output:</strong> Camera views + instruction + robot state → conditional flow-matching action chunks → robot control.</li>
-<li><strong>Core change:</strong> Add an action expert to a pretrained VLM, model continuous action distributions with flow matching, and combine multi-robot pretraining with task post-training.</li>
-<li><strong>Evidence:</strong> Figures 7 (p.8), 11 (p.10) and 13 (p.11) examine direct use, adaptation with different demonstration counts, and complex-task post-training. Architecture: Figure 3 (p.4).</li>
-<li><strong>Limits:</strong> §VII (pp.11–12): some tasks remain unreliable; optimal data mixtures and transfer boundaries are not fully understood. Distinguish results with and without task post-training.</li>
+<li><strong>Problem:</strong> How can an image-and-language model calculate detailed, connected movements?</li>
+<li><strong>Input → output:</strong> Camera views + instruction + robot state → a sequence of future actions → execute actions from it.</li>
+<li><strong>Core change:</strong> Add a network for actions. Start with random numbers and repeatedly update them toward demonstrated actions, called flow matching. Learn varied tasks, then practise target tasks.</li>
+<li><strong>Evidence:</strong> Figure 7 (p.8) tests without target-specific training; Figure 11 (p.10) varies new demonstration counts; Figure 13 (p.11) tests further practice on difficult tasks. Network: Figure 3 (p.4).</li>
+<li><strong>Limits:</strong> §VII (pp.11–12): some tasks remain unreliable. Data amounts and transfer to other tasks or robots remain unresolved. State whether target-task training was used.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-05" data-category="policy">
-  <div class="paper-top"><span class="paper-number">05</span><span class="paper-role">Generalist policy</span><label class="read-toggle"><input type="checkbox" data-read="05"><span>Read</span></label></div>
-  <details><summary><h3>Octo</h3><span class="preview">How can one public policy adapt to different cameras, task descriptions and action spaces with limited target data?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2405.12213v2, 17 pages. <a href="https://arxiv.org/pdf/2405.12213v2">Original PDF</a> · <a href="https://arxiv.org/abs/2405.12213v2">Source</a></p>
+  <div class="paper-top"><span class="paper-number">05</span><span class="paper-role">Model for many tasks</span><label class="read-toggle"><input type="checkbox" data-read="05"><span>Read</span></label></div>
+  <details><summary><h3>Octo</h3><span class="preview">Can a model be trained further with a few new examples after cameras, tasks or robot controls change?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2405.12213v2, 17 pages. <a href="https://arxiv.org/pdf/2405.12213v2">Original PDF</a> · <a href="https://arxiv.org/abs/2405.12213v2">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can one public policy adapt to different cameras, task descriptions and action spaces with limited target data?</li>
-<li><strong>Input → output:</strong> Images / optional state + language or goal image → Transformer representations → diffusion action chunks.</li>
-<li><strong>Core change:</strong> Use modular input tokenizers, a Transformer and replaceable readout heads for heterogeneous interfaces; train on about 800k OXE trajectories. It is not a large VLM language decoder.</li>
-<li><strong>Evidence:</strong> Table I (p.7) compares pretrained adaptation with training from scratch; Table II (p.7) examines architecture and data choices. Direct-use results: Figure 5 (p.6); architecture: Figure 2 (p.3).</li>
-<li><strong>Limits:</strong> §V (p.8): use of wrist views and language depends on data coverage. An adaptation mechanism for new interfaces does not guarantee zero-shot control of every interface.</li>
+<li><strong>Problem:</strong> Can a model be trained further with a few new examples after cameras, tasks or robot controls change?</li>
+<li><strong>Input → output:</strong> Images, optional robot state, and an instruction or goal image → a sequence of future actions.</li>
+<li><strong>Core change:</strong> Use replaceable parts for reading inputs and producing actions; first train on about 800,000 demonstrations. Generate actions by repeatedly revising random numbers.</li>
+<li><strong>Evidence:</strong> Table I (p.7) compares shared-data training followed by target practice with starting from scratch. Table II (p.7) changes networks and data. Without-target-training scores: Figure 5 (p.6); network: Figure 2 (p.3).</li>
+<li><strong>Limits:</strong> §V (p.8): replaceable input parts do not guarantee untrained use of any new camera or robot. Wrist-camera and instruction use still depend on the data.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-07" data-category="policy">
-  <div class="paper-top"><span class="paper-number">07</span><span class="paper-role">Generalist policy</span><label class="read-toggle"><input type="checkbox" data-read="07"><span>Read</span></label></div>
-  <details><summary><h3>π₀.₅</h3><span class="preview">How can robots perform multi-stage manipulation in real homes excluded from training?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2504.16054v1, 19 pages. <a href="https://arxiv.org/pdf/2504.16054v1">Original PDF</a> · <a href="https://arxiv.org/abs/2504.16054v1">Source</a></p>
+  <div class="paper-top"><span class="paper-number">07</span><span class="paper-role">Model for many tasks</span><label class="read-toggle"><input type="checkbox" data-read="07"><span>Read</span></label></div>
+  <details><summary><h3>π₀.₅</h3><span class="preview">Can the robot finish multi-step tidying tasks in homes excluded from training?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2504.16054v1, 19 pages. <a href="https://arxiv.org/pdf/2504.16054v1">Original PDF</a> · <a href="https://arxiv.org/abs/2504.16054v1">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can robots perform multi-stage manipulation in real homes excluded from training?</li>
-<li><strong>Input → output:</strong> Images + task instruction + robot state → high-level subtask text → conditional continuous action chunks.</li>
-<li><strong>Core change:</strong> Extend π₀ with heterogeneous co-training: pretrain using FAST actions and semantic tasks, then post-train a flow expert together with high-level subtask inference.</li>
-<li><strong>Evidence:</strong> Figure 7 (p.8) measures progress in new homes. Figures 10–11 (p.10) show losses from removing cross-robot data; web-data effects vary by test and are not significant in every ablation. Recipe: Figure 3 (p.4).</li>
-<li><strong>Limits:</strong> §VI (pp.11–12): unfamiliar handles, occlusion and high-level distraction still cause failures. Memory and complex instruction handling are limited; tested homes do not establish reliability in arbitrary homes.</li>
+<li><strong>Problem:</strong> Can the robot finish multi-step tidying tasks in homes excluded from training?</li>
+<li><strong>Input → output:</strong> Images + request + robot state → choose the current step → calculate its movements.</li>
+<li><strong>Core change:</strong> Learn from robot actions, image-text tasks and step labels. First learn FAST action IDs, then continue training an action network and the choice of current subtask.</li>
+<li><strong>Evidence:</strong> Figure 7 (p.8) measures steps completed in new homes. Figures 10–11 (p.10) remove training sources one at a time. Removing other-robot data reduces scores; web-data effects depend on the test and are not always clear. Training: Figure 3 (p.4).</li>
+<li><strong>Limits:</strong> §VI (pp.11–12): unfamiliar handles, occlusion and wrong subtask choices still cause failures. A new home does not make every physical skill new or establish reliability anywhere.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-08" data-category="policy">
-  <div class="paper-top"><span class="paper-number">08</span><span class="paper-role">Generalist policy</span><label class="read-toggle"><input type="checkbox" data-read="08"><span>Read</span></label></div>
-  <details><summary><h3>SmolVLA</h3><span class="preview">How can VLA training and deployment be made cheaper using community data from low-cost robots?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2506.01844v1, 24 pages. <a href="https://arxiv.org/pdf/2506.01844v1">Original PDF</a> · <a href="https://arxiv.org/abs/2506.01844v1">Source</a></p>
+  <div class="paper-top"><span class="paper-number">08</span><span class="paper-role">Model for many tasks</span><label class="read-toggle"><input type="checkbox" data-read="08"><span>Read</span></label></div>
+  <details><summary><h3>SmolVLA</h3><span class="preview">Can a smaller model and community demonstrations reduce training and running costs?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2506.01844v1, 24 pages. <a href="https://arxiv.org/pdf/2506.01844v1">Original PDF</a> · <a href="https://arxiv.org/abs/2506.01844v1">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can VLA training and deployment be made cheaper using community data from low-cost robots?</li>
-<li><strong>Input → output:</strong> Multiple images + instruction + state → a compact VLM → flow action expert → chunks, optionally executed asynchronously.</li>
-<li><strong>Core change:</strong> Combine an approximately 450M-parameter model, fewer VLM layers, a lightweight expert and community data; decouple prediction from execution.</li>
-<li><strong>Evidence:</strong> Tables 2–4 (p.11) compare simulation and real tasks. Figure 5 (p.12) shows faster asynchronous execution but lower success on sorting. Architecture: Figure 1; ablations: Tables 6–13 (pp.13–14).</li>
-<li><strong>Limits:</strong> §5.1 (pp.14–15): original community pretraining mainly uses SO100, with limited scale and embodiment diversity. Adaptation results do not establish zero-shot use on arbitrary platforms.</li>
+<li><strong>Problem:</strong> Can a smaller model and community demonstrations reduce training and running costs?</li>
+<li><strong>Input → output:</strong> Cameras + instruction + robot state → an action sequence; calculate the next one while executing the current one.</li>
+<li><strong>Core change:</strong> Use about 450 million parameters, fewer network layers and community data. Overlap prediction and execution to reduce waiting.</li>
+<li><strong>Evidence:</strong> Tables 2–4 (p.11) compare simulation and real tasks. Figure 5 (p.12) shows shorter task time with overlapping calculation/execution, but lower sorting success. Network: Figure 1; component-removal tests: Tables 6–13 (pp.13–14).</li>
+<li><strong>Limits:</strong> §5.1 (pp.14–15): original community data mainly uses SO100. Results after training on another platform do not establish untrained use on any robot.</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="data" id="group-data" aria-labelledby="group-title-data"><h3 class="group-title" id="group-title-data"><span>B</span>Data foundations <small>1 papers</small></h3><div class="paper-list"><article class="paper" id="paper-04" data-category="data">
-  <div class="paper-top"><span class="paper-number">04</span><span class="paper-role">Data and cross-robot transfer</span><label class="read-toggle"><input type="checkbox" data-read="04"><span>Read</span></label></div>
-  <details><summary><h3>Open X-Embodiment / RT-X</h3><span class="preview">Can experience transfer positively across datasets separated by institutions, robot bodies and formats?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2310.08864v9, 12 pages. <a href="https://arxiv.org/pdf/2310.08864v9">Original PDF</a> · <a href="https://arxiv.org/abs/2310.08864v9">Source</a></p>
+<section class="paper-group" data-group="data" id="group-data" aria-labelledby="group-title-data"><h3 class="group-title" id="group-title-data"><span>B</span>Shared training data <small>1 papers</small></h3><div class="paper-list"><article class="paper" id="paper-04" data-category="data">
+  <div class="paper-top"><span class="paper-number">04</span><span class="paper-role">Shared demonstrations</span><label class="read-toggle"><input type="checkbox" data-read="04"><span>Read</span></label></div>
+  <details><summary><h3>Open X-Embodiment / RT-X</h3><span class="preview">Can demonstrations from different robots and institutions be combined to help learning?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2310.08864v9, 12 pages. <a href="https://arxiv.org/pdf/2310.08864v9">Original PDF</a> · <a href="https://arxiv.org/abs/2310.08864v9">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> Can experience transfer positively across datasets separated by institutions, robot bodies and formats?</li>
-<li><strong>Input → output:</strong> Robot demonstrations → standardized interfaces; RT-X takes images + instructions → discrete end-effector actions.</li>
-<li><strong>Core change:</strong> Create a shared multi-institution dataset and test cross-robot co-training with RT-1-X and RT-2-X. Separate the dataset from the model family.</li>
-<li><strong>Evidence:</strong> Figures 4–5 (pp.5–6) compare target-robot data with cross-robot co-training. Data and models: Figures 2–3 (pp.3–4).</li>
-<li><strong>Limits:</strong> §VI (pp.6–7): the tests do not span arbitrary differences in sensing and actuation. Standardized formats do not guarantee equivalent action semantics or plug-and-play control of any robot.</li>
+<li><strong>Problem:</strong> Can demonstrations from different robots and institutions be combined to help learning?</li>
+<li><strong>Input → output:</strong> Robot recordings → a shared data format; RT-X then uses images and instructions to predict action IDs.</li>
+<li><strong>Core change:</strong> Organize demonstrations and test with RT-1-X/RT-2-X whether other robots’ data improves a target robot.</li>
+<li><strong>Evidence:</strong> Figures 4–5 (pp.5–6) compare target-robot data alone with added data from other robots. Data: Figure 2 (p.3); models: Figure 3 (p.4).</li>
+<li><strong>Limits:</strong> §VI (pp.6–7): tested robots do not cover every design. Shared files do not guarantee matching units or coordinate directions. New robots can still need further training.</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="method" id="group-method" aria-labelledby="group-title-method"><h3 class="group-title" id="group-title-method"><span>C</span>Actions and adaptation <small>5 papers</small></h3><div class="paper-list"><article class="paper" id="paper-06" data-category="method">
-  <div class="paper-top"><span class="paper-number">06</span><span class="paper-role">Action representation</span><label class="read-toggle"><input type="checkbox" data-read="06"><span>Read</span></label></div>
-  <details><summary><h3>FAST</h3><span class="preview">How can high-frequency actions be learned without long, highly correlated sequences of per-step, per-dimension tokens?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2501.09747v1, 19 pages. <a href="https://arxiv.org/pdf/2501.09747v1">Original PDF</a> · <a href="https://arxiv.org/abs/2501.09747v1">Source</a></p>
+<section class="paper-group" data-group="method" id="group-method" aria-labelledby="group-title-method"><h3 class="group-title" id="group-title-method"><span>C</span>Actions and further training <small>5 papers</small></h3><div class="paper-list"><article class="paper" id="paper-06" data-category="method">
+  <div class="paper-top"><span class="paper-number">06</span><span class="paper-role">Shorter action records</span><label class="read-toggle"><input type="checkbox" data-read="06"><span>Read</span></label></div>
+  <details><summary><h3>FAST</h3><span class="preview">Closely recorded actions are often similar. Can the model predict fewer IDs?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2501.09747v1, 19 pages. <a href="https://arxiv.org/pdf/2501.09747v1">Original PDF</a> · <a href="https://arxiv.org/abs/2501.09747v1">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can high-frequency actions be learned without long, highly correlated sequences of per-step, per-dimension tokens?</li>
-<li><strong>Input → output:</strong> Continuous action chunks → DCT, quantization and BPE compression → tokens; decode back to continuous chunks.</li>
-<li><strong>Core change:</strong> Introduce a temporal-compression action tokenizer. FAST+ is a universal tokenizer; π₀-FAST is a policy trained with the encoding. These names refer to different components.</li>
-<li><strong>Evidence:</strong> Figure 6 (p.8) compares encodings; Figure 11 (p.10), together with Figure 1, supports training-efficiency gains. Tokenization pipeline: Figure 4 (p.5).</li>
-<li><strong>Limits:</strong> §VI-E and §VII (pp.9–11): the gain of up to about 5× concerns training time. Autoregressive inference can remain slower than continuous generation, and compression trades accuracy against token length.</li>
+<li><strong>Problem:</strong> Closely recorded actions are often similar. Can the model predict fewer IDs?</li>
+<li><strong>Input → output:</strong> Action sequence → numbers describing its changes → scale and round → shorter IDs; decode back into actions before execution.</li>
+<li><strong>Core change:</strong> DCT rewrites the sequence as a sum of waves with different rates, recording how much of each wave is used. Round them and use BPE IDs for common number sequences. FAST+ is a general tokenizer; π₀-FAST is a policy using it.</li>
+<li><strong>Evidence:</strong> Figure 4 (p.5) shows actions becoming shorter IDs. Figure 6 (p.8) compares recording methods; Figure 11 (p.10) and Figure 1 check training time.</li>
+<li><strong>Limits:</strong> §VI-E and §VII (pp.9–11): the gain of up to about 5× concerns training time. IDs still need sequential prediction. Shorter records can lose more movement detail.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-09" data-category="method">
-  <div class="paper-top"><span class="paper-number">09</span><span class="paper-role">Action modeling and adaptation</span><label class="read-toggle"><input type="checkbox" data-read="09"><span>Read</span></label></div>
-  <details><summary><h3>OpenVLA-OFT</h3><span class="preview">How can slow action generation and downstream adaptation of original OpenVLA be improved?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2502.19645v2, 24 pages. <a href="https://arxiv.org/pdf/2502.19645v2">Original PDF</a> · <a href="https://arxiv.org/abs/2502.19645v2">Source</a></p>
+  <div class="paper-top"><span class="paper-number">09</span><span class="paper-role">Actions and further training</span><label class="read-toggle"><input type="checkbox" data-read="09"><span>Read</span></label></div>
+  <details><summary><h3>OpenVLA-OFT</h3><span class="preview">Can further training make original OpenVLA faster and more successful?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2502.19645v2, 24 pages. <a href="https://arxiv.org/pdf/2502.19645v2">Original PDF</a> · <a href="https://arxiv.org/abs/2502.19645v2">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can slow action generation and downstream adaptation of original OpenVLA be improved?</li>
-<li><strong>Input → output:</strong> LIBERO configuration: third-person and wrist images + language + state → one forward pass regresses an 8-step continuous chunk.</li>
-<li><strong>Core change:</strong> Combine parallel decoding, chunking, continuous actions and an L1 objective. FiLM language modulation is an optional OFT+ extension.</li>
-<li><strong>Evidence:</strong> Figure 2 (p.3) summarizes design choices. Tables I–II (p.6) compare components and speed; Table IV (p.17) specifies settings. Mean LIBERO success rises from 76.5% to 97.1% under the paper’s protocol.</li>
-<li><strong>Limits:</strong> §VIII (p.10): L1 may struggle with multiple equally valid actions; extension of the recipe to pretraining is unproven, and language reliance may vary. Throughput gains are not equal episode-time gains.</li>
+<li><strong>Problem:</strong> Can further training make original OpenVLA faster and more successful?</li>
+<li><strong>Input → output:</strong> Typical LIBERO setting: main/wrist cameras + instruction + state → directly predict 8 future action steps in one pass.</li>
+<li><strong>Core change:</strong> Replace sequential IDs with simultaneous numerical actions. Penalize absolute prediction errors, called L1. Optional OFT+ also lets instructions adjust image processing.</li>
+<li><strong>Evidence:</strong> Figure 2 (p.3) lists calculation choices. Tables I–II (p.6) compare changes and speed; Table IV (p.17) lists settings. Under the paper’s tests, mean LIBERO success rises from 76.5% to 97.1%.</li>
+<li><strong>Limits:</strong> §VIII (p.10): one numerical prediction may not preserve several valid choices. More predicted actions per second do not imply equally faster whole episodes.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-12" data-category="method">
-  <div class="paper-top"><span class="paper-number">12</span><span class="paper-role">Imitation-learning policy</span><label class="read-toggle"><input type="checkbox" data-read="12"><span>Read</span></label></div>
-  <details><summary><h3>ACT</h3><span class="preview">How can low-cost hardware learn coordinated fine manipulation from few demonstrations while reducing compounding errors?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2304.13705v1, 18 pages. <a href="https://arxiv.org/pdf/2304.13705v1">Original PDF</a> · <a href="https://arxiv.org/abs/2304.13705v1">Source</a></p>
+  <div class="paper-top"><span class="paper-number">12</span><span class="paper-role">Learn from demonstrations</span><label class="read-toggle"><input type="checkbox" data-read="12"><span>Read</span></label></div>
+  <details><summary><h3>ACT</h3><span class="preview">Can low-cost robots learn connected movements from few examples without errors accumulating?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2304.13705v1, 18 pages. <a href="https://arxiv.org/pdf/2304.13705v1">Original PDF</a> · <a href="https://arxiv.org/abs/2304.13705v1">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can low-cost hardware learn coordinated fine manipulation from few demonstrations while reducing compounding errors?</li>
-<li><strong>Input → output:</strong> Camera images + joint state → CVAE/Transformer action chunks → temporal ensembling for execution.</li>
-<li><strong>Core change:</strong> Combine action chunking and temporal ensembling; use a CVAE to capture demonstration variation. Free-form language is not central to the original controller.</li>
-<li><strong>Evidence:</strong> Figure 8 and §VI (pp.9–10) ablate chunking and ensembling. Tables I–II (p.8) compare tasks; Figures 4–5 (p.4) show architecture and execution.</li>
-<li><strong>Limits:</strong> §VII (p.10): performance still depends on demonstrations and perception. Data efficiency on selected tasks does not imply general semantics or arbitrary-task generalization.</li>
+<li><strong>Problem:</strong> Can low-cost robots learn connected movements from few examples without errors accumulating?</li>
+<li><strong>Input → output:</strong> Images + joint state → predict future actions → average overlapping predictions for the same time step.</li>
+<li><strong>Core change:</strong> Predict several steps together and average repeated predictions with weights. A CVAE represents different demonstrated ways of doing the task. The original controller mainly does not use free-form language.</li>
+<li><strong>Evidence:</strong> Figure 8 and §VI (pp.9–10) remove ahead prediction or overlapping-result averaging to test their contribution. Scores: Tables I–II (p.8); network/execution: Figures 4–5 (p.4).</li>
+<li><strong>Limits:</strong> §VII (p.10): results still depend on demonstrations and images. Few-shot success on selected operations does not establish understanding of arbitrary requests.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-13" data-category="method">
-  <div class="paper-top"><span class="paper-number">13</span><span class="paper-role">Imitation-learning policy</span><label class="read-toggle"><input type="checkbox" data-read="13"><span>Read</span></label></div>
-  <details><summary><h3>Diffusion Policy</h3><span class="preview">How can a policy model multiple valid continuous actions and generate coherent sequences?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2303.04137v5, 19 pages. <a href="https://arxiv.org/pdf/2303.04137v5">Original PDF</a> · <a href="https://arxiv.org/abs/2303.04137v5">Source</a></p>
+  <div class="paper-top"><span class="paper-number">13</span><span class="paper-role">Learn from demonstrations</span><label class="read-toggle"><input type="checkbox" data-read="13"><span>Read</span></label></div>
+  <details><summary><h3>Diffusion Policy</h3><span class="preview">If going left or right are both valid, how can a model retain different action choices?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2303.04137v5, 19 pages. <a href="https://arxiv.org/pdf/2303.04137v5">Original PDF</a> · <a href="https://arxiv.org/abs/2303.04137v5">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can a policy model multiple valid continuous actions and generate coherent sequences?</li>
-<li><strong>Input → output:</strong> Image/state observation history → conditional denoising of an action sequence → execute a prefix and replan.</li>
-<li><strong>Core change:</strong> Represent the policy with conditional diffusion and combine visual conditioning with receding-horizon control. Internet-pretrained VLMs and free-form language are not required by the original design.</li>
-<li><strong>Evidence:</strong> §4.1 (pp.4–5) examines multimodality; §5.4 (pp.8–9) ablates generation/control design. Scoring: §5.2 (p.7); prediction and execution intervals: Figure 2 (p.3).</li>
-<li><strong>Limits:</strong> §9 (p.13): the policy remains demonstration-dependent; iterative sampling adds latency. Generation and execution horizons trade off. Expressive actions alone do not establish open-world semantic competence.</li>
+<li><strong>Problem:</strong> If going left or right are both valid, how can a model retain different action choices?</li>
+<li><strong>Input → output:</strong> Recent images/state → repeatedly revise random numbers → an action sequence; execute a few steps and look again.</li>
+<li><strong>Core change:</strong> Train the model to repair actions mixed with random noise, called diffusion. Execute part of the prediction, observe again and calculate a new sequence.</li>
+<li><strong>Evidence:</strong> §4.1 (pp.4–5) tests different valid actions. §5.4 (pp.8–9) changes generation and execution settings. Scoring: §5.2 (p.7); predicted versus executed steps: Figure 2 (p.3).</li>
+<li><strong>Limits:</strong> §9 (p.13): relevant demonstrations are still needed. Repeated calculations take time. Executing more steps delays the next observation; varied actions alone do not imply understanding any instruction.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-14" data-category="method">
-  <div class="paper-top"><span class="paper-number">14</span><span class="paper-role">Parameter adaptation tool</span><label class="read-toggle"><input type="checkbox" data-read="14"><span>Read</span></label></div>
-  <details><summary><h3>LoRA</h3><span class="preview">How can adaptation reduce the number of updated/saved parameters and optimizer costs?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2106.09685v2, 26 pages. <a href="https://arxiv.org/pdf/2106.09685v2">Original PDF</a> · <a href="https://arxiv.org/abs/2106.09685v2">Source</a></p>
+  <div class="paper-top"><span class="paper-number">14</span><span class="paper-role">Fewer updated parameters</span><label class="read-toggle"><input type="checkbox" data-read="14"><span>Read</span></label></div>
+  <details><summary><h3>LoRA</h3><span class="preview">Can further training update and save fewer model parameters?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2106.09685v2, 26 pages. <a href="https://arxiv.org/pdf/2106.09685v2">Original PDF</a> · <a href="https://arxiv.org/abs/2106.09685v2">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can adaptation reduce the number of updated/saved parameters and optimizer costs?</li>
-<li><strong>Input → output:</strong> Pretrained W₀ + target data → learn low-rank BA → save the adapter or merge W₀ + BA.</li>
-<li><strong>Core change:</strong> Freeze adapted base weights and parameterize the update with two smaller matrices. This is an update mechanism, not an action representation or execution policy.</li>
-<li><strong>Evidence:</strong> §5 (pp.5–8) compares low-rank and full adaptation on NLP tasks. §§7.1–7.2 (p.10) study placement and rank; mechanism: Figure 1 and §4 (pp.1,4–5).</li>
-<li><strong>Limits:</strong> Original experiments mainly concern language models. They do not establish VLA performance or memory needs. Base weights and activations still consume memory; VLA heads may need separate training and saving.</li>
+<li><strong>Problem:</strong> Can further training update and save fewer model parameters?</li>
+<li><strong>Input → output:</strong> An existing model + new data → learn two small matrices → use their product to modify the original weights.</li>
+<li><strong>Core change:</strong> Keep large original matrices fixed and train smaller added ones. Their product supplies the change, called LoRA. It does not specify robot action output.</li>
+<li><strong>Evidence:</strong> §5 (pp.5–8) compares updating fewer weights with updating all weights on language tasks. §§7.1–7.2 (p.10) change placement and matrix size. Figure 1 and §4 (pp.1,4–5) explain the matrix update.</li>
+<li><strong>Limits:</strong> Original tests mainly use language models. They do not establish VLA scores or memory needs; base weights, intermediate calculations and action-output parts still use memory.</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="benchmark" id="group-benchmark" aria-labelledby="group-title-benchmark"><h3 class="group-title" id="group-title-benchmark"><span>D</span>Evaluation benchmarks <small>2 papers</small></h3><div class="paper-list"><article class="paper" id="paper-10" data-category="benchmark">
-  <div class="paper-top"><span class="paper-number">10</span><span class="paper-role">Task evaluation benchmark</span><label class="read-toggle"><input type="checkbox" data-read="10"><span>Read</span></label></div>
-  <details><summary><h3>LIBERO</h3><span class="preview">How can transfer of object, spatial and behavioral knowledge be studied in robot lifelong learning?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2306.03310v2, 44 pages. <a href="https://arxiv.org/pdf/2306.03310v2">Original PDF</a> · <a href="https://arxiv.org/abs/2306.03310v2">Source</a></p>
+<section class="paper-group" data-group="benchmark" id="group-benchmark" aria-labelledby="group-title-benchmark"><h3 class="group-title" id="group-title-benchmark"><span>D</span>Tasks and success rates <small>2 papers</small></h3><div class="paper-list"><article class="paper" id="paper-10" data-category="benchmark">
+  <div class="paper-top"><span class="paper-number">10</span><span class="paper-role">Test tasks</span><label class="read-toggle"><input type="checkbox" data-read="10"><span>Read</span></label></div>
+  <details><summary><h3>LIBERO</h3><span class="preview">Does a robot remember old tasks after learning new ones, and can old practice help?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2306.03310v2, 44 pages. <a href="https://arxiv.org/pdf/2306.03310v2">Original PDF</a> · <a href="https://arxiv.org/abs/2306.03310v2">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> How can transfer of object, spatial and behavioral knowledge be studied in robot lifelong learning?</li>
-<li><strong>Input → output:</strong> Task descriptions, scenes, goals and demonstrations → training/evaluation protocols → success and lifelong-learning metrics.</li>
-<li><strong>Core change:</strong> Provide procedural task generation and suites that separate transfer factors, with demonstrations and shared experiment interfaces.</li>
-<li><strong>Evidence:</strong> §5.2 (pp.7–10) shows that architectures and algorithms change transfer and forgetting. Task structure: Figure 1 and §4.2 (pp.2,5); metrics: §5.1 and Figure 3 (pp.6–7).</li>
-<li><strong>Limits:</strong> §7 (p.10): the simulation task scope is limited. Original lifelong-learning metrics and later single-policy VLA success rates use different protocols; high scores do not prove real-world reliability.</li>
+<li><strong>Problem:</strong> Does a robot remember old tasks after learning new ones, and can old practice help?</li>
+<li><strong>Input → output:</strong> Simulation tasks, start states and demonstrations → training and execution tests → completion and forgetting scores.</li>
+<li><strong>Core change:</strong> Provide tasks that separately change objects, spatial relations and behaviors, making the contribution of earlier practice easier to test.</li>
+<li><strong>Evidence:</strong> §5.2 (pp.7–10) compares networks and training methods for forgetting and help on new tasks. Tasks: Figure 1 and §4.2 (pp.2,5); scoring: §5.1 and Figure 3 (pp.6–7).</li>
+<li><strong>Limits:</strong> §7 (p.10): simulation covers limited tasks. Forgetting scores differ from later VLA full-task success rates and do not establish real-robot reliability.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-11" data-category="benchmark">
-  <div class="paper-top"><span class="paper-number">11</span><span class="paper-role">Robustness evaluation benchmark</span><label class="read-toggle"><input type="checkbox" data-read="11"><span>Read</span></label></div>
-  <details><summary><h3>LIBERO-Plus</h3><span class="preview">Do high-scoring VLAs remain reliable when viewpoints, layouts, lighting and image quality change?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2510.13626v3, 32 pages. <a href="https://arxiv.org/pdf/2510.13626v3">Original PDF</a> · <a href="https://arxiv.org/abs/2510.13626v3">Source</a></p>
+  <div class="paper-top"><span class="paper-number">11</span><span class="paper-role">Test tasks</span><label class="read-toggle"><input type="checkbox" data-read="11"><span>Read</span></label></div>
+  <details><summary><h3>LIBERO-Plus</h3><span class="preview">Do high-scoring models still work after camera, lighting, layout or image quality changes?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Fixed version: 2510.13626v3, 32 pages. <a href="https://arxiv.org/pdf/2510.13626v3">Original PDF</a> · <a href="https://arxiv.org/abs/2510.13626v3">Source</a></p>
 <ul>
-<li><strong>Problem:</strong> Do high-scoring VLAs remain reliable when viewpoints, layouts, lighting and image quality change?</li>
-<li><strong>Input → output:</strong> Original tasks + seven controlled perturbation axes → closed-loop execution → conditional success, combined shifts and input-dependence diagnostics.</li>
-<li><strong>Core change:</strong> Systematically perturb LIBERO and combine single-factor, multi-factor and visual/language interventions to diagnose brittleness.</li>
-<li><strong>Evidence:</strong> Table 1 (p.3) shows degradation under viewpoint and initial-state shifts. §§3–5 (pp.3–8) provide interventions and combined tests. Benchmark/noise settings: Tables 2 and 5 (pp.9,15).</li>
-<li><strong>Limits:</strong> Findings depend on tested tasks, models and perturbations. Insensitivity to paraphrases alone does not prove language understanding; use removal or target-change controls. This is not a universal robust-training algorithm.</li>
+<li><strong>Problem:</strong> Do high-scoring models still work after camera, lighting, layout or image quality changes?</li>
+<li><strong>Input → output:</strong> LIBERO tasks with changed conditions → the robot looks and acts repeatedly → count successes for each condition.</li>
+<li><strong>Core change:</strong> Change layout, cameras, start states, wording, lighting, backgrounds and noise. Combine changes and test whether images and instructions actually affect actions.</li>
+<li><strong>Evidence:</strong> Table 1 (p.3) shows losses after camera/start-state changes. §§3–5 (pp.3–8) test single changes, combined changes and removed inputs. Settings: Tables 2 and 5 (pp.9,15).</li>
+<li><strong>Limits:</strong> Findings apply to tested tasks and conditions. Unchanged actions after a paraphrase can mean understanding or ignoring language; target changes help distinguish them. This paper mainly supplies tests and analysis.</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="phase" id="group-phase" aria-labelledby="group-title-phase"><h3 class="group-title" id="group-title-phase"><span>E</span>Phases and training resources <small>4 papers · Added / abstract-level</small></h3><div class="paper-list"><article class="paper" id="paper-15" data-category="phase">
-  <div class="paper-top"><span class="paper-number">15</span><span class="paper-role">Phases and training resources</span><label class="read-toggle"><input type="checkbox" data-read="15"><span>Read</span></label></div>
-  <details><summary><h3>Long-VLA</h3><span class="preview">How can a long-horizon policy attend to suitable sensory cues during moving versus interaction?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2508.19958v2; checked 22 October 2026. <strong>Reading depth: abstract-level positioning; full text and code not yet verified.</strong> <a href="https://arxiv.org/abs/2508.19958v2">Source</a> · <a href="https://arxiv.org/pdf/2508.19958v2">PDF</a></p>
+<section class="paper-group" data-group="phase" id="group-phase" aria-labelledby="group-title-phase"><h3 class="group-title" id="group-title-phase"><span>E</span>What training focuses on <small>4 papers · Added / abstract checked</small></h3><div class="paper-list"><article class="paper" id="paper-15" data-category="phase">
+  <div class="paper-top"><span class="paper-number">15</span><span class="paper-role">Select information during training</span><label class="read-toggle"><input type="checkbox" data-read="15"><span>Read</span></label></div>
+  <details><summary><h3>Long-VLA</h3><span class="preview">How can a robot connect several operations into a longer task?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2508.19958v2; checked 22 October 2026. <strong>Reading depth: only the abstract has been checked; full text and code have not been reviewed.</strong> <a href="https://arxiv.org/abs/2508.19958v2">Source</a> · <a href="https://arxiv.org/pdf/2508.19958v2">PDF</a></p>
 <ul>
-<li><strong>Problem:</strong> How can a long-horizon policy attend to suitable sensory cues during moving versus interaction?</li>
-<li><strong>Input → output:</strong> Multimodal observations and task conditions → phase-masked policy inputs → manipulation actions.</li>
-<li><strong>Core change:</strong> Split subtasks into moving and interaction phases, mask inputs accordingly, and introduce L-CALVIN.</li>
-<li><strong>Evidence:</strong> The abstract reports simulation and robot experiments. Read phase definitions, masking rules and ablations next; figure numbers have not been checked here.</li>
-<li><strong>Limits:</strong> The focus is long-horizon manipulation and skill chaining; measured gains do not establish robustness to every visual fault.</li>
+<li><strong>Problem:</strong> How can a robot connect several operations into a longer task?</li>
+<li><strong>Input → output:</strong> Images and task request → hide selected inputs depending on moving/interaction phase → calculate actions.</li>
+<li><strong>Core change:</strong> Split subtasks into moving and interaction phases, keep relevant inputs, and introduce L-CALVIN for longer-task tests.</li>
+<li><strong>Evidence:</strong> The abstract reports simulation and robot tests. Check phase definitions, hidden inputs and tests removing individual changes in the full paper; unchecked figure numbers are not supplied here.</li>
+<li><strong>Limits:</strong> Tests focus on connecting long-horizon operations. These results do not establish reliability under every camera fault.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-16" data-category="phase">
-  <div class="paper-top"><span class="paper-number">16</span><span class="paper-role">Phases and training resources</span><label class="read-toggle"><input type="checkbox" data-read="16"><span>Read</span></label></div>
-  <details><summary><h3>EGR</h3><span class="preview">How can multi-sensor policies avoid spurious inter-sensor correlations under limited demonstrations?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2609.03142v1; checked 22 October 2026. <strong>Reading depth: abstract-level positioning; full text and code not yet verified.</strong> <a href="https://arxiv.org/abs/2609.03142v1">Source</a> · <a href="https://arxiv.org/pdf/2609.03142v1">PDF</a></p>
+  <div class="paper-top"><span class="paper-number">16</span><span class="paper-role">Select information during training</span><label class="read-toggle"><input type="checkbox" data-read="16"><span>Read</span></label></div>
+  <details><summary><h3>EGR</h3><span class="preview">With few demonstrations, can irrelevant sensor changes mislead a multi-sensor model?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2609.03142v1; checked 22 October 2026. <strong>Reading depth: only the abstract has been checked; full text and code have not been reviewed.</strong> <a href="https://arxiv.org/abs/2609.03142v1">Source</a> · <a href="https://arxiv.org/pdf/2609.03142v1">PDF</a></p>
 <ul>
-<li><strong>Problem:</strong> How can multi-sensor policies avoid spurious inter-sensor correlations under limited demonstrations?</li>
-<li><strong>Input → output:</strong> Per-frame, per-sensor relevance → gated consistency objectives → a robust multimodal policy.</li>
-<li><strong>Core change:</strong> Encourage invariance for low-evidence sensors and single-sensor sufficiency for high-evidence sensors, with no inference-time overhead.</li>
-<li><strong>Evidence:</strong> The abstract describes BEHAVIOR-1K diagnostics, 47 rollout skills and two robot setups. Read evidence estimation and regularization details.</li>
-<li><strong>Limits:</strong> The setting concerns sensor relevance and multimodal robustness, rather than explicit task-phase masking.</li>
+<li><strong>Problem:</strong> With few demonstrations, can irrelevant sensor changes mislead a multi-sensor model?</li>
+<li><strong>Input → output:</strong> Estimated task-relevance scores for each frame/sensor → changed training requirements → learned sensor use.</li>
+<li><strong>Core change:</strong> Train actions to resist changes in unhelpful sensors; also practise when useful sensor information alone remains. The extra training calculation is not needed when running the policy.</li>
+<li><strong>Evidence:</strong> The abstract reports BEHAVIOR-1K, 47 skills evaluated while acting, and two robot systems. Check sensor scoring and how scores change training requirements.</li>
+<li><strong>Limits:</strong> The method asks whether sensors are useful now, rather than using the same moving/interaction labels as Long-VLA. Scores and equations need full-text checking.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-17" data-category="phase">
-  <div class="paper-top"><span class="paper-number">17</span><span class="paper-role">Phases and training resources</span><label class="read-toggle"><input type="checkbox" data-read="17"><span>Read</span></label></div>
-  <details><summary><h3>FrameSkip</h3><span class="preview">How can training avoid low-change segments overwhelming brief alignment, grasp and release events?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2605.13757v1; checked 22 October 2026. <strong>Reading depth: abstract-level positioning; full text and code not yet verified.</strong> <a href="https://arxiv.org/abs/2605.13757v1">Source</a> · <a href="https://arxiv.org/pdf/2605.13757v1">PDF</a></p>
+  <div class="paper-top"><span class="paper-number">17</span><span class="paper-role">Select information during training</span><label class="read-toggle"><input type="checkbox" data-read="17"><span>Read</span></label></div>
+  <details><summary><h3>FrameSkip</h3><span class="preview">Can repeated frames dominate training while brief grasp and release events receive too little practice?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2605.13757v1; checked 22 October 2026. <strong>Reading depth: only the abstract has been checked; full text and code have not been reviewed.</strong> <a href="https://arxiv.org/abs/2605.13757v1">Source</a> · <a href="https://arxiv.org/pdf/2605.13757v1">PDF</a></p>
 <ul>
-<li><strong>Problem:</strong> How can training avoid low-change segments overwhelming brief alignment, grasp and release events?</li>
-<li><strong>Input → output:</strong> Demonstration trajectories → frame-importance scores and selection → otherwise unchanged VLA training.</li>
-<li><strong>Core change:</strong> Combine action variation, visual-action coherence, progress priors and gripper-transition preservation in the data loader.</li>
-<li><strong>Evidence:</strong> The abstract reports RoboCasa-GR1, SimplerEnv and LIBERO. Check retained-frame ratios, total sampled examples and simple selection baselines.</li>
-<li><strong>Limits:</strong> It selects training frames without changing the action head or inference. Retention ratios and sampled-example counts affect interpretation.</li>
+<li><strong>Problem:</strong> Can repeated frames dominate training while brief grasp and release events receive too little practice?</li>
+<li><strong>Input → output:</strong> Demonstration → score and select time steps → train the original model on their images and actions.</li>
+<li><strong>Core change:</strong> Check action changes, matching image/action changes, task progress, and gripper closing/opening events.</li>
+<li><strong>Evidence:</strong> The abstract reports RoboCasa-GR1, SimplerEnv and LIBERO. Check retained frames, total training records and comparisons with simpler frame selection.</li>
+<li><strong>Limits:</strong> The change selects training records, leaving action output and running procedures unchanged. Retained frames and total sampled records matter for interpreting results.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-18" data-category="phase">
-  <div class="paper-top"><span class="paper-number">18</span><span class="paper-role">Phases and training resources</span><label class="read-toggle"><input type="checkbox" data-read="18"><span>Read</span></label></div>
-  <details><summary><h3>PHASER</h3><span class="preview">How can continual skill acquisition avoid forgetting brief critical phases that receive too little replay?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2606.03598v2; checked 22 October 2026. <strong>Reading depth: abstract-level positioning; full text and code not yet verified.</strong> <a href="https://arxiv.org/abs/2606.03598v2">Source</a> · <a href="https://arxiv.org/pdf/2606.03598v2">PDF</a></p>
+  <div class="paper-top"><span class="paper-number">18</span><span class="paper-role">Select information during training</span><label class="read-toggle"><input type="checkbox" data-read="18"><span>Read</span></label></div>
+  <details><summary><h3>PHASER</h3><span class="preview">How can new-task learning avoid forgetting brief but important steps in old tasks?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2606.03598v2; checked 22 October 2026. <strong>Reading depth: only the abstract has been checked; full text and code have not been reviewed.</strong> <a href="https://arxiv.org/abs/2606.03598v2">Source</a> · <a href="https://arxiv.org/pdf/2606.03598v2">PDF</a></p>
 <ul>
-<li><strong>Problem:</strong> How can continual skill acquisition avoid forgetting brief critical phases that receive too little replay?</li>
-<li><strong>Input → output:</strong> Historical demonstrations and phase boundaries → replay allocation and interference routing → a continually adapted policy.</li>
-<li><strong>Core change:</strong> Allocate replay support by phase and prioritize forgetting risk; Auto-PC combines action change points with VLM semantic verification.</li>
-<li><strong>Evidence:</strong> The abstract reports three VLA backbones on LIBERO continual-learning suites. Check matched replay budgets and phase-extraction ablations.</li>
-<li><strong>Limits:</strong> This primarily addresses forgetting in continual learning. It does not directly establish same-task robustness after one fine-tuning stage.</li>
+<li><strong>Problem:</strong> How can new-task learning avoid forgetting brief but important steps in old tasks?</li>
+<li><strong>Input → output:</strong> Old demonstrations and step boundaries → select what to keep and practise again → continue training.</li>
+<li><strong>Core change:</strong> Keep examples for phases and revisit those at risk of forgetting. Find changes in action signals, then use a VLM to check boundaries. Practising old data again is called replay.</li>
+<li><strong>Evidence:</strong> The abstract reports three VLA models and LIBERO tests of learning new tasks without forgetting old ones. Check equal numbers of old examples and automatic step-boundary tests.</li>
+<li><strong>Limits:</strong> This mainly studies forgetting during new-task learning, rather than a single round of corruption training.</li>
 </ul>
 </div></details></article></div></section>
-<section class="paper-group" data-group="robust" id="group-robust" aria-labelledby="group-title-robust"><h3 class="group-title" id="group-title-robust"><span>F</span>Robustness and diagnostics <small>4 papers · Added / abstract-level</small></h3><div class="paper-list"><article class="paper" id="paper-19" data-category="robust">
-  <div class="paper-top"><span class="paper-number">19</span><span class="paper-role">Robustness and diagnostics</span><label class="read-toggle"><input type="checkbox" data-read="19"><span>Read</span></label></div>
-  <details><summary><h3>STRONG-VLA</h3><span class="preview">How can multimodal robustness training avoid conflicting with clean-task execution?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2604.10055v3; checked 22 October 2026. <strong>Reading depth: abstract-level positioning; full text and code not yet verified.</strong> <a href="https://arxiv.org/abs/2604.10055v3">Source</a> · <a href="https://arxiv.org/pdf/2604.10055v3">PDF</a></p>
+<section class="paper-group" data-group="robust" id="group-robust" aria-labelledby="group-title-robust"><h3 class="group-title" id="group-title-robust"><span>F</span>When inputs go wrong <small>4 papers · Added / abstract checked</small></h3><div class="paper-list"><article class="paper" id="paper-19" data-category="robust">
+  <div class="paper-top"><span class="paper-number">19</span><span class="paper-role">When inputs go wrong</span><label class="read-toggle"><input type="checkbox" data-read="19"><span>Read</span></label></div>
+  <details><summary><h3>STRONG-VLA</h3><span class="preview">Can training on damaged images and altered instructions make normal-condition performance worse?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2604.10055v3; checked 22 October 2026. <strong>Reading depth: only the abstract has been checked; full text and code have not been reviewed.</strong> <a href="https://arxiv.org/abs/2604.10055v3">Source</a> · <a href="https://arxiv.org/pdf/2604.10055v3">PDF</a></p>
 <ul>
-<li><strong>Problem:</strong> How can multimodal robustness training avoid conflicting with clean-task execution?</li>
-<li><strong>Input → output:</strong> Perturbed and clean demonstrations → two-stage fine-tuning → a robust policy.</li>
-<li><strong>Core change:</strong> First learn under increasingly difficult multimodal perturbations; then realign with clean task data. Evaluate 28 perturbation types.</li>
-<li><strong>Evidence:</strong> The abstract reports several VLA backbones on LIBERO and AIRBOT robot tests. Read the two-stage recipe and clean-performance recovery.</li>
-<li><strong>Limits:</strong> Interpret total updates, perturbation distributions and clean-realignment cost through the specific two-stage configuration.</li>
+<li><strong>Problem:</strong> Can training on damaged images and altered instructions make normal-condition performance worse?</li>
+<li><strong>Input → output:</strong> Disturbed and normal demonstrations → two rounds of further training → test task completion.</li>
+<li><strong>Core change:</strong> First practise increasingly difficult disturbances; then train on normal data to recover ordinary performance. Test 28 visual/text disturbance types.</li>
+<li><strong>Evidence:</strong> The abstract reports multiple models on LIBERO and AIRBOT tests. Check each training round and whether normal-condition scores recover.</li>
+<li><strong>Limits:</strong> Interpret scores together with total training updates, disturbances used and the amount of extra training on normal data.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-20" data-category="robust">
-  <div class="paper-top"><span class="paper-number">20</span><span class="paper-role">Robustness and diagnostics</span><label class="read-toggle"><input type="checkbox" data-read="20"><span>Read</span></label></div>
-  <details><summary><h3>MAIL-Bench / MINT</h3><span class="preview">Can a policy finish a task after a camera stops providing subsequent frames?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2609.35003v1; checked 22 October 2026. <strong>Reading depth: abstract-level positioning; full text and code not yet verified.</strong> <a href="https://arxiv.org/abs/2609.35003v1">Source</a> · <a href="https://arxiv.org/pdf/2609.35003v1">PDF</a></p>
+  <div class="paper-top"><span class="paper-number">20</span><span class="paper-role">When inputs go wrong</span><label class="read-toggle"><input type="checkbox" data-read="20"><span>Read</span></label></div>
+  <details><summary><h3>MAIL-Bench / MINT</h3><span class="preview">Can a robot finish after one camera stops sending new images?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2609.35003v1; checked 22 October 2026. <strong>Reading depth: only the abstract has been checked; full text and code have not been reviewed.</strong> <a href="https://arxiv.org/abs/2609.35003v1">Source</a> · <a href="https://arxiv.org/pdf/2609.35003v1">PDF</a></p>
 <ul>
-<li><strong>Problem:</strong> Can a policy finish a task after a camera stops providing subsequent frames?</li>
-<li><strong>Input → output:</strong> Camera interruptions at different stages → closed-loop evaluation; MINT trains and selectively supplements missing views.</li>
-<li><strong>Core change:</strong> MAIL-Bench interrupts views along successful reference trajectories. MINT combines missing-view training with optical-flow/world-model completion.</li>
-<li><strong>Evidence:</strong> The abstract reports π₀.₅, GR00T N1.5 and AgiBot G2. Check interruption timing, duration and when predicted views are withdrawn.</li>
-<li><strong>Limits:</strong> Losing subsequent camera frames differs from brief blur. Interruption duration and timing are part of the evaluation definition.</li>
+<li><strong>Problem:</strong> Can a robot finish after one camera stops sending new images?</li>
+<li><strong>Input → output:</strong> Interrupt different cameras at different task steps → test completion; MINT also trains for missing input.</li>
+<li><strong>Core change:</strong> Practise with missing views. Try filling images using observed movement or a prediction model; stop using predicted views when they become unreliable.</li>
+<li><strong>Evidence:</strong> The abstract reports π₀.₅, GR00T N1.5 and AgiBot G2. Check interruption timing/duration and when predicted replacement images are withdrawn.</li>
+<li><strong>Limits:</strong> A stream that stops differs from one blurred frame. Interruption timing and duration are part of the test.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-21" data-category="robust">
-  <div class="paper-top"><span class="paper-number">21</span><span class="paper-role">Robustness and diagnostics</span><label class="read-toggle"><input type="checkbox" data-read="21"><span>Read</span></label></div>
-  <details><summary><h3>View Collapse</h3><span class="preview">Does adversarial training improve perception, or make a multi-view policy abandon a corrupted camera?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2609.33707v1; checked 22 October 2026. <strong>Reading depth: abstract-level positioning; full text and code not yet verified.</strong> <a href="https://arxiv.org/abs/2609.33707v1">Source</a> · <a href="https://arxiv.org/pdf/2609.33707v1">PDF</a></p>
+  <div class="paper-top"><span class="paper-number">21</span><span class="paper-role">When inputs go wrong</span><label class="read-toggle"><input type="checkbox" data-read="21"><span>Read</span></label></div>
+  <details><summary><h3>View Collapse</h3><span class="preview">If one camera becomes unreliable, is the model seeing better or just using another camera?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2609.33707v1; checked 22 October 2026. <strong>Reading depth: only the abstract has been checked; full text and code have not been reviewed.</strong> <a href="https://arxiv.org/abs/2609.33707v1">Source</a> · <a href="https://arxiv.org/pdf/2609.33707v1">PDF</a></p>
 <ul>
-<li><strong>Problem:</strong> Does adversarial training improve perception, or make a multi-view policy abandon a corrupted camera?</li>
-<li><strong>Input → output:</strong> Multi-view policy + controlled view interventions → evaluation across seven LIBERO-Plus shifts and reliance diagnostics.</li>
-<li><strong>Core change:</strong> Identify wrist-view-dominated collapse, distinguish robust perception from robust fusion, and apply View Swap.</li>
-<li><strong>Evidence:</strong> The abstract reports shift-dependent effects. Read single-view interventions and View Swap ablations.</li>
-<li><strong>Limits:</strong> Stability under corruption of one view does not prove improved perception in that view. Adversarial training is not a generic generalization solution.</li>
+<li><strong>Problem:</strong> If one camera becomes unreliable, is the model seeing better or just using another camera?</li>
+<li><strong>Input → output:</strong> Change camera views separately → test seven LIBERO-Plus changes → identify which view matters.</li>
+<li><strong>Core change:</strong> Training with deliberately difficult inputs can make the model rely mainly on its wrist camera. Controlled view changes and View Swap help examine why scores improve.</li>
+<li><strong>Evidence:</strong> The abstract says effects vary by test condition. Check separate camera interventions and whether View Swap changes camera reliance.</li>
+<li><strong>Limits:</strong> Stable scores with one damaged camera do not by themselves show better perception through that camera; it may simply be used less.</li>
 </ul>
 </div></details></article>
 <article class="paper" id="paper-22" data-category="robust">
-  <div class="paper-top"><span class="paper-number">22</span><span class="paper-role">Robustness and diagnostics</span><label class="read-toggle"><input type="checkbox" data-read="22"><span>Read</span></label></div>
-  <details><summary><h3>CARE</h3><span class="preview">Why can a one-step observation corruption cause prolonged failure, and how does executed chunk length matter?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2609.32550v1; checked 22 October 2026. <strong>Reading depth: abstract-level positioning; full text and code not yet verified.</strong> <a href="https://arxiv.org/abs/2609.32550v1">Source</a> · <a href="https://arxiv.org/pdf/2609.32550v1">PDF</a></p>
+  <div class="paper-top"><span class="paper-number">22</span><span class="paper-role">When inputs go wrong</span><label class="read-toggle"><input type="checkbox" data-read="22"><span>Read</span></label></div>
+  <details><summary><h3>CARE</h3><span class="preview">Why can one damaged image cause a long failure, and how do steps executed before looking again matter?</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content"><p>Source: original abstract, arXiv:2609.32550v1; checked 22 October 2026. <strong>Reading depth: only the abstract has been checked; full text and code have not been reviewed.</strong> <a href="https://arxiv.org/abs/2609.32550v1">Source</a> · <a href="https://arxiv.org/pdf/2609.32550v1">PDF</a></p>
 <ul>
-<li><strong>Problem:</strong> Why can a one-step observation corruption cause prolonged failure, and how does executed chunk length matter?</li>
-<li><strong>Input → output:</strong> Current and previous predicted action chunks → consistency check → dynamic execution prefix.</li>
-<li><strong>Core change:</strong> Study single-step corruption and shorten execution under inconsistent chunk predictions.</li>
-<li><strong>Evidence:</strong> The abstract reports low overhead and preserved clean performance. Read corruption insertion, prefix selection and fixed-prefix controls.</li>
-<li><strong>Limits:</strong> Inference-time execution control differs from training augmentation. Execution length must be controlled when comparing robustness gains.</li>
+<li><strong>Problem:</strong> Why can one damaged image cause a long failure, and how do steps executed before looking again matter?</li>
+<li><strong>Input → output:</strong> Compare consecutive action predictions → choose steps to execute → observe again.</li>
+<li><strong>Core change:</strong> Use agreement between consecutive predictions to choose execution length. Fewer steps allow another image and decision sooner.</li>
+<li><strong>Evidence:</strong> The abstract reports little extra computation and preserved normal-condition scores. Check corruption timing, chosen execution steps and fixed-step comparisons.</li>
+<li><strong>Limits:</strong> This changes execution, not training data. Comparisons must state how many actions are executed before another observation.</li>
 </ul>
 </div></details></article></div></section><p class="empty-state" id="empty-state" hidden>No matching papers. Try another keyword or role.</p><p class="storage-note" id="storage-note">Reading progress stays in this browser and is shared between language editions.</p></section>
-<section class="chapter" id="pitfalls"><h2>5. Ten distinctions to keep clear</h2><div class="table-wrap"><table>
+<section class="chapter" id="pitfalls"><h2>5. Distinctions that prevent confusion</h2><div class="table-wrap"><table>
 <thead>
 <tr>
-<th>Potential confusion</th>
-<th>Correct interpretation</th>
+<th>Phrases</th>
+<th>Difference</th>
 </tr>
 </thead>
 <tbody><tr>
-<td data-label="Potential confusion">Action tokens vs language instructions</td>
-<td data-label="Correct interpretation">Tokens encode control; instructions describe the task.</td>
+<td data-label="Phrases">Instruction and action IDs</td>
+<td data-label="Difference">The instruction gives the goal; IDs encode movement.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">Action dimensions vs an action chunk</td>
-<td data-label="Correct interpretation">RT-2’s 8 fields describe one action; OFT’s 8 steps span future times.</td>
+<td data-label="Phrases">Eight fields and eight steps</td>
+<td data-label="Difference">RT-2’s fields describe one action; OFT’s steps span future times.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">Continuous actions vs one-pass generation</td>
-<td data-label="Correct interpretation">π₀ still iterates; OFT can directly regress a chunk.</td>
+<td data-label="Phrases">Predict several steps and calculate in one pass</td>
+<td data-label="Difference">π₀ still updates repeatedly; OFT can directly output values.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">Prediction horizon, execution prefix and sampling iterations</td>
-<td data-label="Correct interpretation">How far to predict, how much to execute, and how often to update during generation.</td>
+<td data-label="Phrases">Steps predicted, steps executed and generation updates</td>
+<td data-label="Difference">Three separate settings.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">FAST training vs inference speed</td>
-<td data-label="Correct interpretation">The headline gain of about 5× concerns training time.</td>
+<td data-label="Phrases">Faster training and faster task completion</td>
+<td data-label="Difference">FAST’s gain of up to about 5× concerns training time.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">Few trainable parameters vs little memory</td>
-<td data-label="Correct interpretation">Backbone weights, activations, images and action heads still consume memory.</td>
+<td data-label="Phrases">Fewer updated parameters and low memory</td>
+<td data-label="Difference">Base weights and intermediate calculations still occupy memory.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">New homes vs new motor skills</td>
-<td data-label="Correct interpretation">Environmental generalization does not automatically imply skill generalization.</td>
+<td data-label="Phrases">New room and new physical skill</td>
+<td data-label="Difference">Familiar operations in a new room do not establish every new skill.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">Success vs progress</td>
-<td data-label="Correct interpretation">Binary completion differs from partial stage scores.</td>
+<td data-label="Phrases">Full completion and partial scores</td>
+<td data-label="Difference">Completing some steps is not a full-task success rate.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">Phase inputs, evidence gating, selection and replay</td>
-<td data-label="Correct interpretation">Intervention points and learning settings differ; these are not interchangeable algorithms.</td>
+<td data-label="Phrases">Select inputs, select examples and revisit old examples</td>
+<td data-label="Difference">Different changes to training.</td>
 </tr>
 <tr>
-<td data-label="Potential confusion">Robustness vs stronger perception</td>
-<td data-label="Correct interpretation">A policy may rely on another camera or shorten its execution prefix.</td>
+<td data-label="Phrases">Work with a bad camera and see better through it</td>
+<td data-label="Difference">The model may simply switch to another camera.</td>
 </tr>
 </tbody></table></div>
 </section>
-<section class="chapter" id="checklist"><h2>6. Report and reading self-check</h2><p>For the original fourteen, explain the problem, inputs/outputs, change, supporting figures and limits. For the eight additions, state the abstract-only reading depth and identify what the full text must resolve. Do not invent figure numbers or reproduction results.</p>
-<p>Source notes: links for the additions are fixed to the checked abstract versions. Long-VLA’s page states CoRL 2025 acceptance; the other additions are listed as preprints without a claim of formal acceptance. π₀ uses v4, Diffusion Policy v5 and LIBERO-Plus v3. Page numbers should not be mixed with a retitled conference version.</p>
+<section class="chapter" id="checklist"><h2>6. Can you explain five things after reading?</h2><p>The problem; what goes in and comes out; the concrete change; which figure or table supports it; and what the result does not establish.</p>
+<p>Only the abstracts of the eight additions have been checked. Unknown details and figure numbers are not filled in.</p>
+<p>Version notes: Long-VLA’s page states CoRL 2025 acceptance; other additions are listed as preprints. π₀ uses v4, Diffusion Policy v5 and LIBERO-Plus v3. Page numbers cannot be assumed to match other versions.</p>
 </section>
 <footer><p>Original papers and results belong to their authors. This English reading guide does not present new experimental results.</p><div class="footer-links"><a href="notes.md" download="VLA22_English_Reading_Notes.md">Download Markdown</a><a href="https://github.com/Babe153/vla-weekend-report/tree/main/en/reading">GitHub source</a><a href="../">Report and speaker notes</a><button id="print-notes" type="button">Print notes</button></div></footer></main></body></html>

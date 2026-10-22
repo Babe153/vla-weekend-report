@@ -31,14 +31,14 @@ for(let i=1;i<parts.length;i+=2){
   assert(info,`Missing comparison row ${id}`);
   assert.equal((body.match(/^- \*\*/gm)||[]).length,5,`Expected five lines for ${id}`);
   const problem=body.match(/^- \*\*问题：\*\* (.+)$/m)?.[1]||'';
-  const category=info.role==='通用策略'?'policy':info.role==='阶段与训练资源'?'phase':info.role==='鲁棒训练与诊断'?'robust':info.role.includes('评测')?'benchmark':info.role.includes('数据')?'data':'method';
+  const category=({'01':'policy','02':'policy','03':'policy','04':'data','05':'policy','06':'method','07':'policy','08':'policy','09':'method','10':'benchmark','11':'benchmark','12':'method','13':'method','14':'method','15':'phase','16':'phase','17':'phase','18':'phase','19':'robust','20':'robust','21':'robust','22':'robust'})[id];
   papers.push({category,html:`<article class="paper" id="paper-${id}" data-category="${category}">
   <div class="paper-top"><span class="paper-number">${id}</span><span class="paper-role">${escape(info.role)}</span><label class="read-toggle"><input type="checkbox" data-read="${id}"><span>已读</span></label></div>
   <details${id==='01'?' open':''}><summary><h3>${escape(info.title)}</h3><span class="preview">${escape(problem)}</span><span class="expand-label" aria-hidden="true"></span></summary><div class="paper-content">${render(body)}</div></details></article>`});
 }
 const count=papers.length;
 assert.equal(count,catalog.groups.reduce((n,g)=>n+g.count,0));
-const grouped=catalog.groups.map((g,i)=>{const entries=papers.filter(p=>p.category===g.id);assert.equal(entries.length,g.count);return `<section class="paper-group" data-group="${g.id}" id="group-${g.id}" aria-labelledby="group-title-${g.id}"><h3 class="group-title" id="group-title-${g.id}"><span>${String.fromCharCode(65+i)}</span>${escape(g.label)} <small>${g.count}篇${i>=4?' · 新增／摘要级定位':''}</small></h3><div class="paper-list">${entries.map(p=>p.html).join('\n')}</div></section>`;}).join('\n');
+const grouped=catalog.groups.map((g,i)=>{const entries=papers.filter(p=>p.category===g.id);assert.equal(entries.length,g.count);return `<section class="paper-group" data-group="${g.id}" id="group-${g.id}" aria-labelledby="group-title-${g.id}"><h3 class="group-title" id="group-title-${g.id}"><span>${String.fromCharCode(65+i)}</span>${escape(g.label)} <small>${g.count}篇${i>=4?' · 新增／仅核对摘要':''}</small></h3><div class="paper-list">${entries.map(p=>p.html).join('\n')}</div></section>`;}).join('\n');
 const options=catalog.groups.map(g=>`<option value="${g.id}">${escape(g.label)} · ${g.count}篇</option>`).join('');
 const jumps=catalog.groups.map((g,i)=>`<a href="#group-${g.id}">${String.fromCharCode(65+i)} ${escape(g.label)}</a>`).join('');
 const sectionIds=['map','comparison','relationships'];
@@ -55,13 +55,13 @@ const html=`<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f4f2ed"><meta name="description" content="22篇VLA论文中文速读：问题、输入输出、核心改动、证据与边界。含论文关系、动作生成对比及原文图表页码，适合手机阅读。"><title>22篇 VLA 论文速读 · 中文阅读手册</title><link rel="icon" href="data:,"><link rel="stylesheet" href="reading.css"><script src="reading.js" defer></script><script src="../language.js" defer></script></head>
 <body><a class="skip-link" href="#main">跳至正文</a>
 <header class="site-header"><a class="wordmark" href="#top">VLA<span>论文阅读手册</span></a><nav aria-label="阅读导航"><a href="#map">关系</a><a href="#comparison">对比</a><a href="#notes">速读</a><a href="#pitfalls">易混点</a><a href="../">导师汇报</a><a class="reading-language" href="../en/reading/" data-language-switch="../en/reading/" lang="en" hreflang="en">English</a></nav></header>
-<main id="main"><section class="hero" id="top"><p class="eyebrow">ROBOT LEARNING / READING NOTES</p><h1>22篇论文，<br>读懂模型与方法。</h1><p class="hero-lead">用五个问题理解 VLA：解决什么、输入输出、改了哪里、证据是什么、边界在哪。</p><div class="hero-links"><a class="primary-link" href="#notes">开始五行速读 <span aria-hidden="true">↗</span></a><a href="#comparison">先看中文对比表</a></div><div class="hero-meta"><span>22 篇原文</span><span>110 条速读笔记</span><span>更新于 2026.10.22</span></div></section>
-<aside class="reading-note"><strong>先定位，再精读。</strong> 六组文献区分模型、工具、评测与相关文献。原14篇保留图表页码；新增8篇为摘要级定位，待全文核对。不同任务和评分协议下的成功率，不放在同一个排行榜里。图表页码对应所列固定版本的 PDF。</aside>
+<main id="main"><section class="hero" id="top"><p class="eyebrow">ROBOT LEARNING / READING NOTES</p><h1>22篇论文，<br>读懂模型与方法。</h1><p class="hero-lead">每篇说清：遇到什么问题、具体怎么做、哪张图支持、还有什么做不到。</p><div class="hero-links"><a class="primary-link" href="#notes">开始五行速读 <span aria-hidden="true">↗</span></a><a href="#comparison">先看中文对比表</a></div><div class="hero-meta"><span>22 篇原文</span><span>110 条速读笔记</span><span>更新于 2026.10.22</span></div></section>
+<aside class="reading-note"><strong>先看做法，再看结果。</strong> 先弄清每篇解决什么、具体改了哪一步，再看图表是否支持。原14篇保留页码；新增8篇只核对了摘要。不同任务和测试条件的成功率，不放在一起排名。</aside>
 ${sections}
 <section class="chapter" id="notes"><div class="chapter-heading"><div><p class="eyebrow">READ / COMPARE / VERIFY</p><h2>四、每篇只记这五行</h2></div><p id="progress" aria-live="polite">已读 0 / 22</p></div>
-<div class="reading-controls"><label class="search-label" for="paper-search">搜索论文或概念<input id="paper-search" type="search" placeholder="例如：OpenVLA、动作块、flow" autocomplete="off"></label><label for="paper-category">论文角色<select id="paper-category"><option value="all">全部论文</option>${options}</select></label></div>
+<div class="reading-controls"><label class="search-label" for="paper-search">搜索论文或概念<input id="paper-search" type="search" placeholder="例如：OpenVLA、动作块、flow" autocomplete="off"></label><label for="paper-category">论文做什么<select id="paper-category"><option value="all">全部论文</option>${options}</select></label></div>
 <div class="list-tools"><span id="results" aria-live="polite">显示 ${count} / ${count} 篇</span><button id="toggle-all" type="button">展开全部笔记</button></div>
-<nav class="group-jumps" aria-label="按主题跳转">${jumps}</nav>${grouped}<p class="empty-state" id="empty-state" hidden>没有匹配的论文，请换个关键词或论文角色。</p><p class="storage-note" id="storage-note">“已读”只保存在当前浏览器，不会上传。</p></section>
+<nav class="group-jumps" aria-label="按主题跳转">${jumps}</nav>${grouped}<p class="empty-state" id="empty-state" hidden>没有匹配的论文。请换个关键词，或选择另一个分组。</p><p class="storage-note" id="storage-note">“已读”只保存在当前浏览器，不会上传。</p></section>
 ${finalSections}
 <footer><p>原论文与相关成果归各作者所有。本页为中文阅读笔记，未包含新的实验结果。</p><div class="footer-links"><a href="notes.md" download="VLA22篇_中文速读笔记.md">下载 Markdown 原文</a><a href="https://github.com/Babe153/vla-weekend-report/tree/main/reading">GitHub 源码</a><a href="../">导师汇报与逐页讲稿</a><button id="print-notes" type="button">打印笔记</button></div></footer></main></body></html>`;
 await writeFile(path.join(root,'reading/index.html'),html,'utf8');
